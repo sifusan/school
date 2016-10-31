@@ -49,14 +49,14 @@ def ex1():
 
     print("Length of the hypotenuse is %.1f" % hypotenuse)
 
-    height_hypotenuse_radians = atan(height/width)
+    heigth_hypotenuse_radians = atan(height/width)
 
-    height_hypotenuse_angle = degrees(height_hypotenuse_radians)
+    height_hypotenuse_angle = degrees(heigth_hypotenuse_radians)
     
-    width_hypotenuse_angle = 90 - height_hypotenuse_angle
+    width_hypotenuse_angle = 90 - heigth_hypotenuse_angle
 
     print("The two remaining angles are at %.1f and %.1f degress" %
-          (height_hypotenuse_angle, width_hypotenuse_angle))
+          (heigth_hypotenuse_angle, width_hypotenuse_angle))
     
 def ex2() :
     """
@@ -67,6 +67,7 @@ def ex2() :
 
     fib = 1 #sequence always starts at 1
     pre_fib = 0 #use this to properly calculate next number in the sequence
+    
     for i in range(n):
         print(str(fib) + ",", end='')
         fib = pre_fib + fib
@@ -76,19 +77,62 @@ def ex3() :
     """
     exercise 3
     """
-    print("Exercise 3 not attempted")
+    x = int(input("Enter a value for x>>> "))
+    y = int(input("Enter a value for y>>> "))
+    
+    greater_than_zero(x, y)
+
+    if y > x:
+        print("No possible combinations when y > x, result is 0")
+        return
+    elif y == 1:
+        print("Since y is 1 the expresion is always \'x\', which now is %d" % x)
+        return
+    elif y == x:
+        print("Since y == x the result is 1")
+        return
+    
+    n = x-y+1
+    
+    for i in range(n+1, x+1):
+        n = n * i
+
+    k = 1
+
+    for i in range(k, y+1):
+        k = k * i
+        
+    binomial_coef = n//k
+
+    print("The binomial coefficient of %d and %d is %d" % (x, y, binomial_coef))
     
 def ex4() :
     """
     exercise 4
     """
-    print("Exercise 4 not attempted")
+    user_string = input("Enter a sequence of words>>> ")
+    sequence = user_string.split()
+
+    shortest = ""
+    longest = ""
+    
+    for c in sequence:
+        if len(shortest) == 0 or len(c) < len(shortest):
+            shortest = c
+        if len(longest) == 0 or len(c) > len(longest):
+            longest = c
+            
+    print("The length of the shortest word \'%s\' is %d" % (shortest, len(shortest)))   
+    print("The length of the longest word \'%s\' is %d" % (longest, len(longest)))
     
 def ex5() :
     """
     exercise 5
     """
-    print("Exercise 5 not attempted")
+
+    user_string = input("Enter a line of text")
+    
+    #print("Exercise 5 not attempted")
     
 def ex6() :
     """
@@ -114,5 +158,3 @@ while running :
     if line == "0" : running = False
     elif len(line)==1 and "1"<=line<="8": exlist[int(line)]()
     else : print("Invalid input - try again")
-
-
