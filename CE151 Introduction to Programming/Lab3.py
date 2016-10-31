@@ -13,22 +13,20 @@ def get_input():
         return
     
     c = char
-    l = length
     
     while(length > 0):
-        i = l - 1
+        i = length - 1
         empty = ""
         while(i > 0):
             empty = empty + ' '
             i = i - 1
             
-        row = empty+char
+        row = empty + char
+        print(row)
+        
         char = char + c
         
-        l = l - 1
         length = length - 1
-        
-        print(row)
         
 while(1):
     get_input()
