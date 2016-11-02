@@ -51,7 +51,7 @@ def ex1():
 
     heigth_hypotenuse_radians = atan(height/width)
 
-    height_hypotenuse_angle = degrees(heigth_hypotenuse_radians)
+    heigth_hypotenuse_angle = degrees(heigth_hypotenuse_radians)
     
     width_hypotenuse_angle = 90 - heigth_hypotenuse_angle
 
