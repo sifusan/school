@@ -31,10 +31,10 @@ def greater_than_zero(*args):
     """
     for c in args:
         if c <= 0:
-            print("Invalid input, cannot be less than zero")
-            print("Aborted")
+            print("Invalid input, cannot be zero or less")
+            print("Aborting...")
             return
-        
+      
 def ex1():
     """
     exercise 1
@@ -130,15 +130,83 @@ def ex5() :
     exercise 5
     """
 
-    user_string = input("Enter a line of text")
+    user_string = input("Enter a line of text>>> ")
+    user_string = user_string.lower()
+
+    vowels = {'a' : 0, 'e' : 0, 'i' : 0, 'o' : 0, 'u' : 0}
+
+    vowel_counter = 0 #use this to end the function if no vowels
+
+    for c in user_string:
+        for k in vowels:
+            if c == k:
+                vowel_counter += 1
+                vowels[k] += 1 
     
-    #print("Exercise 5 not attempted")
+    if vowel_counter == 0:
+        print("Found no vowels in sentence. Aborting...")
+        return
+
+    lowest_count = 1 #must be 1 since 0 vowels should not be reported
+
+    for v in vowels:
+        if vowels[v] <= lowest_count and vowels[v] > 0:
+            lowest_count = vowels[v]
+
+    print("The least occuring vowels are:")
+
+    for k in vowels:
+        if vowels[k] == lowest_count:
+            print(k, end='')
+
+    print() #keeping this for cosmetic reasons
     
 def ex6() :
     """
     exercise 6
     """
-    print("Exercise 6 not attempted")
+    user_string = input("Enter a sequence of numbers>>> ")
+    user_string = user_string.split()
+    numbers = []
+
+    for c in user_string:
+        print(c)
+        if c.isdigit() == False:
+            print("Invalid input, need (positive) numbers only")
+            print("Aborting...")
+            return
+        elif int(c) < 0:
+            print("Invalid input, number cannot be less than zero")
+            print("Aborting...")
+            return
+
+        numbers.append(int(c))
+
+    i = 0
+    while(i < len(numbers) - 1):
+
+        j = 0
+
+        swap_counter = 0 #count number of swaps per iteration
+
+        while(j < len(numbers) - 1):
+            item_1 = numbers[j]
+            item_2 = numbers[j + 1]
+            if item_1 > item_2:
+                swap = item_1
+                numbers[j] = item_2
+                numbers[j+1] = swap
+                swap_counter += 1
+            j = j + 1
+
+        #terminate the program if no swaps were made, indicating that the list is sorted
+        if swap_counter == 0:
+            break;
+            
+        i = i + 1
+
+    print(numbers)
+    #print("Exercise 6 not attempted")
     
 def ex7() :
     """
@@ -148,7 +216,7 @@ def ex7() :
 
 
 # modify the following line so that your name is displayed instead of Lisa's
-print("CE151 assignment 1 - Lisa Simpson")
+print("CE151 assignment 1 - Simen Fuglestad")
 
 # do not modify anything beneath this line
 exlist = [None, ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex0]
