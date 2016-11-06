@@ -183,8 +183,8 @@ def ex6() :
         numbers.append(int(c))
 
     i = 0
+    total_counter = 0
     while(i < len(numbers) - 1):
-
         j = 0
 
         swap_counter = 0 #count number of swaps per iteration
@@ -197,23 +197,67 @@ def ex6() :
                 numbers[j] = item_2
                 numbers[j+1] = swap
                 swap_counter += 1
+                total_counter += 1
             j = j + 1
 
         #terminate the program if no swaps were made, indicating that the list is sorted
-        if swap_counter == 0:
+        if swap_counter == 0:   
+            print("%d swaps were made" % total_counter)
             break;
-            
+        
         i = i + 1
 
     print(numbers)
-    #print("Exercise 6 not attempted")
     
 def ex7() :
     """
     exercise 7
     """
-    print("Exercise 7 not attempted")
+    valid_chars = ['+', '-', '*']
 
+    user_input = input("Enter an expression in reverse polish notation>>> ")
+    user_input = user_input.split()
+
+    expression = []
+
+    for i in user_input:
+        if i.isdigit() == False and i not in valid_chars:
+            print("Invalid character in expression")
+            print("Aborting...")
+            return
+        else:
+            expression.append(i)
+
+    stack = []
+    numbers_in_stack = 0
+
+    for i in expression:
+        if i.isdigit():
+            stack.append(int(i))
+            numbers_in_stack += 1
+        elif i not in valid_chars or numbers_in_stack < 2:
+            print("Input is invalid, no arithemtic calculation can be made")
+            print("Aborting...")
+            return
+        else:
+            item_1 = stack.pop()
+            item_2 = stack.pop()
+            numbers_in_stack -= 1
+            result = 0
+
+            if i == '+':
+                result = item_2 + item_1
+            elif i == '-':
+                result = item_2 - item_1
+            else:
+                result = item_2 * item_1
+            if len(stack) > 0:
+                stack[0] = result + stack[0]
+            else:
+                stack.append(result)
+
+    print("The result of the expression is: ", end="")
+    print(stack[0])
 
 # modify the following line so that your name is displayed instead of Lisa's
 print("CE151 assignment 1 - Simen Fuglestad")
