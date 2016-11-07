@@ -225,6 +225,9 @@ def ex7() :
             print("Invalid character in expression")
             print("Aborting...")
             return
+        elif len(i) > 1:
+            for j in i:
+                expression.append(j) 
         else:
             expression.append(i)
 
@@ -235,14 +238,14 @@ def ex7() :
         if i.isdigit():
             stack.append(int(i))
             numbers_in_stack += 1
-        elif i not in valid_chars or numbers_in_stack < 2:
+        elif numbers_in_stack < 2:
             print("Input is invalid, no arithemtic calculation can be made")
             print("Aborting...")
             return
         else:
             item_1 = stack.pop()
             item_2 = stack.pop()
-            numbers_in_stack -= 1
+            numbers_in_stack -= 2
             result = 0
 
             if i == '+':
@@ -251,13 +254,11 @@ def ex7() :
                 result = item_2 - item_1
             else:
                 result = item_2 * item_1
-            if len(stack) > 0:
-                stack[0] = result + stack[0]
-            else:
-                stack.append(result)
+            
+            stack.append(result)
+            numbers_in_stack += 1
 
-    print("The result of the expression is: ", end="")
-    print(stack[0])
+    print("The result of the expression is: %d" % stack[0])
 
 # modify the following line so that your name is displayed instead of Lisa's
 print("CE151 assignment 1 - Simen Fuglestad")
