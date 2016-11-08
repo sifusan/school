@@ -221,11 +221,7 @@ def ex7() :
     expression = []
 
     for i in user_input:
-        if i.isdigit() == False and i not in valid_chars:
-            print("Invalid character in expression")
-            print("Aborting...")
-            return
-        elif len(i) > 1:
+        if len(i) > 1:
             for j in i:
                 expression.append(j) 
         else:
@@ -238,7 +234,7 @@ def ex7() :
         if i.isdigit():
             stack.append(int(i))
             numbers_in_stack += 1
-        elif numbers_in_stack < 2:
+        elif i not in valid_chars or numbers_in_stack < 2:
             print("Input is invalid, no arithemtic calculation can be made")
             print("Aborting...")
             return
