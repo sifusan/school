@@ -69,14 +69,12 @@ def ex2() :
     pre_fib = 0 #use this to properly calculate next number in the sequence
     
     for i in range(n):
-        if i == n - 1: #if n is last number print no comma 
-            print(str(fib), end='')
+        if i == n - 1: #if n is last number print no comma
+            print(str(fib) + '\n', end='')
         else:
             print(str(fib) + ',', end='')
         fib = pre_fib + fib
         pre_fib = fib - pre_fib
-
-    print()
 
 def ex3() :
     """
