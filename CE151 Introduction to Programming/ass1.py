@@ -124,8 +124,9 @@ def ex4() :
             shortest = c
         if len(longest) == 0 or len(c) > len(longest):
             longest = c
-            
-    print("The length of the shortest word \'%s\' is %d" % (shortest, len(shortest)))   
+        print(c)
+
+    print("\nThe length of the shortest word \'%s\' is %d" % (shortest, len(shortest)))   
     print("The length of the longest word \'%s\' is %d" % (longest, len(longest)))
     
 def ex5() :
@@ -144,21 +145,30 @@ def ex5() :
         for k in vowels:
             if c == k:
                 vowel_counter += 1
-                vowels[k] += 1 
+                vowels[k] += 1
+                #print("added " + c)
     
     if vowel_counter == 0:
         print("Found no vowels in sentence. Aborting...")
         return
 
     lowest_count = 1 #must be 1 since 0 vowels should not be reported
+    i = 0 #use this to include lowest count if greater than 1
 
     for v in vowels:
+        #print(v)
+        #print(vowels[v])
+        if i == 0:
+            lowest_count = vowels[v]
+            i = i + 1
         if vowels[v] <= lowest_count and vowels[v] > 0:
             lowest_count = vowels[v]
-
+    #print(lowest_count)
     print("The least occuring vowels are:")
 
     for k in vowels:
+        #print(k)
+        #print(vowels[k])
         if vowels[k] == lowest_count:
             print(k, end='')
 
@@ -173,7 +183,6 @@ def ex6() :
     numbers = []
 
     for c in user_string:
-        print(c)
         if c.isdigit() == False:
             print("Invalid input, need (positive) numbers only")
             print("Aborting...")
