@@ -137,15 +137,24 @@ def ex5() :
     user_string = input("Enter a line of text>>> ")
     user_string = user_string.lower()
 
-    vowels = {'a' : 0, 'e' : 0, 'i' : 0, 'o' : 0, 'u' : 0}
+    vowels = [['a', 0], ['e', 0], ['i', 0], ['o', 0], ['u', 0]]
 
     vowel_counter = 0 #use this to end the function if no vowels
-
     for c in user_string:
-        for k in vowels:
-            if c == k:
+        for i in vowels:
+            #print(vowels[i][0])
+            #print(c)
+            if c == i[0]:
+                i[1] += 1
+                print(i[0] + " occures " + str(i[1]))
                 vowel_counter += 1
-                vowels[k] += 1
+                break
+    #for c in user_string:
+     #   for k in vowels:
+      #      print(k[0])
+       #     if c == k[0]:
+        #        vowel_counter += 1
+         #       vowels[k[1]] += 1
                 #print("added " + c)
     
     if vowel_counter == 0:
@@ -155,22 +164,28 @@ def ex5() :
     lowest_count = 1 #must be 1 since 0 vowels should not be reported
     i = 0 #use this to include lowest count if greater than 1
 
-    for v in vowels:
+
+    for i in vowels:
+        if i[1] <= lowest_count and i[1] != 0:
+            lowest_count = i[1]
+
+    #for v in vowels:
         #print(v)
         #print(vowels[v])
-        if i == 0:
-            lowest_count = vowels[v]
-            i = i + 1
-        if vowels[v] <= lowest_count and vowels[v] > 0:
-            lowest_count = vowels[v]
+     #   if i == 0:
+      #      lowest_count = vowels[v]
+       #     i = i + 1
+        #    print(vowel_counter)
+        #if vowels[v] <= lowest_count and vowels[v] > 0:
+         #   lowest_count = vowels[v]
     #print(lowest_count)
     print("The least occuring vowels are:")
 
     for k in vowels:
         #print(k)
         #print(vowels[k])
-        if vowels[k] == lowest_count:
-            print(k, end='')
+        if k[1] == lowest_count:
+            print(k[0], end='')
 
     print() #keeping this for cosmetic reasons
     
