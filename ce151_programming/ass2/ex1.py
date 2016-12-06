@@ -90,16 +90,20 @@ def print_sorted_by_name(students):
 
 
 def get_student(reg_number=0, year=0, scheme=0):
+    found = []
     if scheme == 0:
         for s in list_of_students:
             if int(s[0]) == reg_number or int(s[1]) == year:
                 print_student_info(s)
+                found.append(s)
     else:
-        tmp_list = []
         for s in list_of_students:
             if s[2] == scheme:
-                tmp_list.append(s)
-        print_sorted_by_name(tmp_list)
+                found.append(s)
+        print_sorted_by_name(found)
+
+    if len(found) == 0:
+        print("No results given, try to change search parameters")
 
 while True:
     print()
@@ -130,5 +134,8 @@ while True:
         elif user_input == 0:
             print("Good bye")
             sys.exit(0)
+        else:
+            clear_console()
+            print("Invalid number, try one from the listed commands")
     except ValueError:
         print("Invalid input, please try again")
