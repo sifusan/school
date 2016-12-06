@@ -88,7 +88,7 @@ def print_sorted_by_name(students):
     Print a list of student in alphabetical order based on name
     student -- list of students to print from
     """
-    i = 97  # use int value of chars
+    i = 97
     while i < 127:
         for s in students:
             if ord(s[4][0].lower()) == i:
