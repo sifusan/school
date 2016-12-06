@@ -24,8 +24,8 @@ def create_student_tuple(arg):
 
     student_info[0] = student_info_tmp.pop(0)
     student_info[1] = student_info_tmp.pop(0)
-    student_info[2] = student_info_tmp.pop(0)[:-1]  # get rid of trailing space
-    student_info[4] = student_info_tmp.pop()[:-1]  # get rid of newline char
+    student_info[2] = student_info_tmp.pop(0)[:-1]
+    student_info[4] = student_info_tmp.pop()[:-1]
 
     for name in student_info_tmp:
         cache = ""
@@ -33,7 +33,7 @@ def create_student_tuple(arg):
             cache = cache + name[i]
         middle_name = middle_name + cache
 
-    student_info[3] = middle_name[:-1]  # get rid of trailing space
+    student_info[3] = middle_name[:-1]
 
     result = tuple(student_info)
     return result
@@ -74,6 +74,9 @@ for s in list_of_students:
 
 
 def clear_console():
+    """
+    Clear up the console
+    """
     if sys.platform == "linux":
         os.system("clear")
     elif sys.platform == "windows":
@@ -81,6 +84,10 @@ def clear_console():
 
 
 def print_sorted_by_name(students):
+    """
+    Print a list of student in alphabetical order based on name
+    student -- list of students to print from
+    """
     i = 97  # use int value of chars
     while i < 127:
         for s in students:
@@ -90,6 +97,13 @@ def print_sorted_by_name(students):
 
 
 def get_student(reg_number=0, year=0, scheme=0):
+    """
+    Pirint any number of tuples containing information about a student based on
+    search criteria.
+    reg_number -- registration number of student
+    year -- which year student is in
+    scheme -- which scheme student is taking
+    """
     found = []
     if scheme == 0:
         for s in list_of_students:
