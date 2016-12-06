@@ -80,10 +80,26 @@ def clear_console():
         os.system("cls")
 
 
+def print_sorted_by_name(students):
+    i = 97  # use int value of chars
+    while i < 127:
+        for s in students:
+            if ord(s[4][0].lower()) == i:
+                print_student_info(s)
+        i = i + 1
+
+
 def get_student(reg_number=0, year=0, scheme=0):
-    for s in list_of_students:
-        if int(s[0]) == reg_number or int(s[1]) == year or s[2] == scheme:
-            print_student_info(s)
+    if scheme == 0:
+        for s in list_of_students:
+            if int(s[0]) == reg_number or int(s[1]) == year:
+                print_student_info(s)
+    else:
+        tmp_list = []
+        for s in list_of_students:
+            if s[2] == scheme:
+                tmp_list.append(s)
+        print_sorted_by_name(tmp_list)
 
 while True:
     print()
@@ -110,6 +126,7 @@ while True:
             user_input = input("Enter a degree scheme>>> ").upper()
             clear_console()
             get_student(0, 0, user_input)
+
         elif user_input == 0:
             print("Good bye")
             sys.exit(0)
