@@ -55,7 +55,9 @@ def print_student_info(*args):
         args[0][2])
 
 list_of_students = []
-
+"""
+Read string of student info from a file
+"""
 try:
     filename = input("Enter filename>>>")
     f = open(filename)

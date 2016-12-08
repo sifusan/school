@@ -3,12 +3,22 @@ import random
 
 
 def get_game_dict(word, lives):
+    """
+    Create and return a dictionary representing the game state
+    word -- secret word to be guessed_word
+    lives -- number of lives
+    """
     stars = "*"*len(word)
     game_dict = {"secret_word": word, "guessed_word": stars, "lives": lives}
     return game_dict
 
 
 def is_word_guessed(game_dict):
+    """
+    Check the game state to see if the guessed word matches the secret word and
+    return the result
+    game_dict -- dictionary containing game state
+    """
     if game_dict["secret_word"] == game_dict["guessed_word"]:
         return True
     else:
@@ -16,18 +26,34 @@ def is_word_guessed(game_dict):
 
 
 def get_lives(game_dict):
+    """
+    Return number of lives left in a game state
+    game_dict -- dictionary containing game state
+    """
     return game_dict["lives"]
 
 
 def get_info(game_dict):
+    """
+    Return a string describing the game state
+    game_dict -- dictionary containing game state
+    """
     return ("WORD: " + game_dict["guessed_word"] + "; you have " +
             str(get_lives(game_dict)) + " lives left")
 
 
 def update(game_dict, guess):
+    """
+    Update the state of the game to reflect the guess of a user
+    game_dict -- dictionary containing state of the game
+    guess -- character guessed by user
+    """
     occurences = 0
     i = 0
     for c in game_dict["secret_word"]:
+        """
+        Compare guess to every letter in the secret word
+        """
         if guess == c:
             occurences = occurences + 1
             tmp = list(game_dict["guessed_word"])
@@ -40,6 +66,11 @@ def update(game_dict, guess):
 
 
 def play_game(word, lives):
+    """
+    Start playing an instance of the game
+    word -- secret word to be guessed
+    lives -- number of lives
+    """
     game = get_game_dict(word, lives)
     while get_lives(game) > 0 and not is_word_guessed(game):
         print(get_info(game))
@@ -57,6 +88,9 @@ def play_game(word, lives):
         print("The word is " + game["secret_word"])
         print("You did it! Congratulations")
 
+"""
+Try to read words from a file
+"""
 try:
     filename = input("Enter filename>>> ")
     f = open(filename)
@@ -70,6 +104,9 @@ except(FileNotFoundError, IOError) as e:
     print("Aborting...")
     sys.exit(1)
 
+"""
+Prompt user for difficulty and run instance of a game. Repeat if user agrees
+"""
 print("Welcome to hangman!")
 while 1:
     user_diff = input("Which difficulty would you like to play?>>> ").lower()
