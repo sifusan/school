@@ -4,8 +4,8 @@ import random
 
 def get_game_dict(word, lives):
     stars = "*"*len(word)
-    d = {"secret_word": word, "guessed_word": stars, "lives": lives}
-    return d
+    game_dict = {"secret_word": word, "guessed_word": stars, "lives": lives}
+    return game_dict
 
 
 def is_word_guessed(game_dict):
@@ -25,19 +25,15 @@ def get_info(game_dict):
 
 
 def update(game_dict, guess):
-    if len(guess) > 1:
-        print("Too many characters in guess")
-        return
     occurences = 0
-    for g in guess:
-        i = 0
-        for c in game_dict["secret_word"]:
-            if g == c:
-                occurences = occurences + 1
-                tmp = list(game_dict["guessed_word"])
-                tmp[i] = g
-                game_dict["guessed_word"] = ''.join(tmp)
-            i = i + 1
+    i = 0
+    for c in game_dict["secret_word"]:
+        if guess == c:
+            occurences = occurences + 1
+            tmp = list(game_dict["guessed_word"])
+            tmp[i] = guess
+            game_dict["guessed_word"] = ''.join(tmp)
+        i = i + 1
     if occurences == 0:
         game_dict["lives"] = game_dict["lives"] - 1
     return occurences
@@ -92,13 +88,13 @@ while 1:
     play_game(list_of_strings[random.randint(0, len(list_of_strings) - 1)],
               difficulty)
 
-    choice = False
-    while not choice:
+    keep_playing = False
+    while not keep_playing:
         play_again = input("Would you like to play again?>>> ").lower()
         if play_again == "yes":
-            choice = True
+            keep_playing = True
         elif play_again == "no":
             print("Goodbye")
-            choice = True
+            sys.exit(0)
         else:
             print("Invalid option, please try again")
