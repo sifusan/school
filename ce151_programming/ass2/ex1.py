@@ -138,8 +138,11 @@ while True:
             lower_year = int(input("Enter lower year range>>> "))
             higher_year = int(input("Enter higher year range>>> "))
             clear_console()
-            for i in range(lower_year, higher_year+1):
-                get_student(0, i, 0)
+            if lower_year <= higher_year:
+                for i in range(lower_year, higher_year+1):
+                    get_student(0, i, 0)
+            else:
+                print("Invalid year range, please try again")
         elif user_input == 3:
             user_input = input("Enter a degree scheme>>> ").upper()
             clear_console()
