@@ -5,7 +5,7 @@ import random
 def get_game_dict(word, lives):
     """
     Create and return a dictionary representing the game state
-    word -- secret word to be guessed_word
+    word -- secret word to be guessed
     lives -- number of lives
     """
     stars = "*"*len(word)
