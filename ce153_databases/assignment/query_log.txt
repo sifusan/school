@@ -1,0 +1,47 @@
+[1552, 18:36:09] use world_news_corp_cms: Running...
+[1552, 18:36:09] use world_news_corp_cms: 0 row(s) affected
+[1553, 18:36:09] SELECT first_name, last_name, age FROM author
+LIMIT 0, 1000
+: Running...
+[1553, 18:36:09] SELECT first_name, last_name, age FROM author
+LIMIT 0, 1000
+: Fetching...
+[1553, 18:36:09] SELECT first_name, last_name, age FROM author
+LIMIT 0, 1000
+: 12 row(s) returned
+[1554, 18:36:09] SELECT AVG(age) FROM author WHERE author.gender='Male'
+LIMIT 0, 1000
+: Running...
+[1554, 18:36:09] SELECT AVG(age) FROM author WHERE author.gender='Male'
+LIMIT 0, 1000
+: Fetching...
+[1554, 18:36:09] SELECT AVG(age) FROM author WHERE author.gender='Male'
+LIMIT 0, 1000
+: 1 row(s) returned
+[1555, 18:36:09] SELECT first_name, last_name, salary FROM author WHERE salary = (select max(salary) from author)
+LIMIT 0, 1000
+: Running...
+[1555, 18:36:09] SELECT first_name, last_name, salary FROM author WHERE salary = (select max(salary) from author)
+LIMIT 0, 1000
+: Fetching...
+[1555, 18:36:09] SELECT first_name, last_name, salary FROM author WHERE salary = (select max(salary) from author)
+LIMIT 0, 1000
+: 1 row(s) returned
+[1556, 18:36:09] SELECT first_name, last_name FROM author WHERE ni_number IN (select author from writes)
+LIMIT 0, 1000
+: Running...
+[1556, 18:36:09] SELECT first_name, last_name FROM author WHERE ni_number IN (select author from writes)
+LIMIT 0, 1000
+: Fetching...
+[1556, 18:36:09] SELECT first_name, last_name FROM author WHERE ni_number IN (select author from writes)
+LIMIT 0, 1000
+: 7 row(s) returned
+[1557, 18:36:09] SELECT DISTINCT article.title, article.topic, author.first_name, author.last_name FROM article, author, writes WHERE author.ni_number = (SELECT author FROM writes WHERE writes.article=article.articleID) AND (article.content LIKE '%DAVID CAMERON%' OR article.content LIKE '%George Clooney%')
+LIMIT 0, 1000
+: Running...
+[1557, 18:36:09] SELECT DISTINCT article.title, article.topic, author.first_name, author.last_name FROM article, author, writes WHERE author.ni_number = (SELECT author FROM writes WHERE writes.article=article.articleID) AND (article.content LIKE '%DAVID CAMERON%' OR article.content LIKE '%George Clooney%')
+LIMIT 0, 1000
+: Fetching...
+[1557, 18:36:09] SELECT DISTINCT article.title, article.topic, author.first_name, author.last_name FROM article, author, writes WHERE author.ni_number = (SELECT author FROM writes WHERE writes.article=article.articleID) AND (article.content LIKE '%DAVID CAMERON%' OR article.content LIKE '%George Clooney%')
+LIMIT 0, 1000
+: 2 row(s) returned
