@@ -74,13 +74,19 @@ def play_game(word, lives):
     game = get_game_dict(word, lives)
     while get_lives(game) > 0 and not is_word_guessed(game):
         print(get_info(game))
-        guess = input("Guess a letter>>> ").upper()
+        guess = input("Guess a letter>>> ")
+        print()
+        if not guess.isupper():
+            print("Please enter an uppercase character")
+            print()
+            continue
         if len(guess) > 1:
             print("Entered too many characters, try again")
+            print()
             continue
         print("The letter " + guess + " occures " + str(update(game, guess)) +
               " times")
-
+        print()
     if get_lives(game) <= 0:
         print("You've spent all your lives, game over :-(")
         print("The word was " + game["secret_word"])
@@ -109,7 +115,9 @@ Prompt user for difficulty and run instance of a game. Repeat if user agrees
 """
 print("Welcome to hangman!")
 while 1:
-    user_diff = input("Which difficulty would you like to play?>>> ").lower()
+    user_diff = input(
+        "Which difficulty would you like to play?(Easy, medium or hard)>>> "
+        ).lower()
     difficulty = 0
     if user_diff == "hard":
         difficulty = 5
