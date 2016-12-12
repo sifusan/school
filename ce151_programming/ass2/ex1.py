@@ -54,6 +54,7 @@ def print_student_info(*args):
         args[0][1] + ' ' +
         args[0][2])
 
+
 list_of_students = []
 """
 Read string of student info from a file
@@ -75,51 +76,79 @@ for s in list_of_students:
     print_student_info(s)
 
 
-def clear_console():
-    """
-    Clear up the console
-    """
-    if sys.platform == "linux":
-        os.system("clear")
-    elif sys.platform == "windows":
-        os.system("cls")
-
-
 def print_sorted_by_name(students):
     """
     Print a list of student in alphabetical order based on name
     student -- list of students to print from
     """
+
+    students.sort()
+    for s in students:
+        print_student_info(s)
+
+    """
     i = 97
     while i < 127:
         for s in students:
             if ord(s[4][0].lower()) == i:
-                print_student_info(s)
+                sorted_by_last_name.append
         i = i + 1
-
-
-def get_student(reg_number=0, year=0, scheme=0):
     """
-    Pirint any number of tuples containing information about a student based on
-    search criteria.
-    reg_number -- registration number of student
-    year -- which year student is in
-    scheme -- which scheme student is taking
+
+
+def print_student_names(students):
+    """
+    Print last name and first name(s) of students
+    students -- list of students to print from
+    """
+    for s in students:
+            print(s[3] + ' ' + s[4])
+
+
+def get_students_by_regnr(students, regnr):
+    """
+    Return students with matching regnr
+    students -- list of students to search
+    regnr -- registration number
     """
     found = []
-    if scheme == 0:
-        for s in list_of_students:
-            if int(s[0]) == reg_number or int(s[1]) == year:
-                print_student_info(s)
-                found.append(s)
-    else:
-        for s in list_of_students:
-            if s[2] == scheme:
-                found.append(s)
-        print_sorted_by_name(found)
-
+    for s in students:
+        if int(s[0]) == regnr:
+            found.append(s)
     if len(found) == 0:
-        print("No results given, try to change search parameters")
+        print("No results found")
+    return found
+
+
+def get_students_by_year_range(students, upper, lower):
+    """
+    Return a list of students within a given year range
+    students -- students to search
+    upper -- upper year range
+    lower -- lower year range
+    """
+    found = []
+    for s in students:
+        if int(s[1]) in range(lower, upper+1):
+            found.append(s)
+    if len(found) == 0:
+        print("No results found")
+    return found
+
+
+def get_students_by_scheme(students, scheme):
+    """
+    Return a list of students with a given degree scheme
+    students -- students to search
+    scheme -- degree scheme
+    """
+    found = []
+    for s in students:
+        if s[2] == scheme:
+            found.append(s)
+    if len(found) == 0:
+        print("No results found")
+    return found
 
 while True:
     print()
@@ -134,27 +163,28 @@ while True:
 
         if user_input == 1:
             user_input = int(input("Enter a registration number>>> "))
-            clear_console()
-            get_student(user_input, 0, 0)
+            print()
+            print_student_names(
+                get_students_by_regnr(list_of_students, user_input))
         elif user_input == 2:
             lower_year = int(input("Enter lower year range>>> "))
             higher_year = int(input("Enter higher year range>>> "))
-            clear_console()
-            if lower_year <= higher_year:
-                for i in range(lower_year, higher_year+1):
-                    get_student(0, i, 0)
-            else:
-                print("Invalid year range, please try again")
+            print()
+            print_sorted_by_name(
+                get_students_by_year_range(
+                    list_of_students, higher_year, lower_year))
+
         elif user_input == 3:
             user_input = input("Enter a degree scheme>>> ").upper()
-            clear_console()
-            get_student(0, 0, user_input)
+            print()
+            print_sorted_by_name(get_students_by_scheme(
+                list_of_students, user_input))
 
         elif user_input == 0:
             print("Good bye")
             sys.exit(0)
         else:
-            clear_console()
+            print()
             print("Invalid number, try one from the listed commands")
     except ValueError:
         print("Invalid input, please try again")
