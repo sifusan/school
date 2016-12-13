@@ -90,7 +90,7 @@ def play_game(word, lives):
     if get_lives(game) <= 0:
         print("You've spent all your lives, game over :-(")
         print("The word was " + game["secret_word"])
-    elif is_word_guessed:
+    elif is_word_guessed(game):
         print("The word is " + game["secret_word"])
         print("You did it! Congratulations")
 
