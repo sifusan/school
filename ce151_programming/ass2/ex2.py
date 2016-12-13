@@ -112,7 +112,7 @@ except(FileNotFoundError, IOError) as e:
 print("Welcome to hangman!")
 while 1:
     user_diff = input(
-        "Which difficulty would you like to play?(Easy, medium or hard)>>> "
+        "Enter a difficulty?(Easy, intermediate or hard)>>> "
         ).lower()
     difficulty = 0
     if user_diff == "hard":
