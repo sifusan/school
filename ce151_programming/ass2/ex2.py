@@ -94,9 +94,7 @@ def play_game(word, lives):
         print("The word is " + game["secret_word"])
         print("You did it! Congratulations")
 
-"""
-Try to read words from a file
-"""
+
 try:
     filename = input("Enter filename>>> ")
     f = open(filename)
@@ -110,9 +108,7 @@ except(FileNotFoundError, IOError) as e:
     print("Aborting...")
     sys.exit(1)
 
-"""
-Prompt user for difficulty and run instance of a game. Repeat if user agrees
-"""
+
 print("Welcome to hangman!")
 while 1:
     user_diff = input(
