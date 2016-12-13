@@ -1,5 +1,4 @@
 import urllib.request
-import html2text
 from bs4 import BeautifulSoup
 
 def format_web_string(string):
