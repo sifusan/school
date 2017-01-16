@@ -94,7 +94,6 @@ def play_game(word, lives):
         print("The word is " + game["secret_word"])
         print("You did it! Congratulations")
 
-
 try:
     filename = input("Enter filename>>> ")
     f = open(filename)
@@ -112,7 +111,7 @@ except(FileNotFoundError, IOError) as e:
 print("Welcome to hangman!")
 while 1:
     user_diff = input(
-        "Enter a difficulty?(Easy, intermediate or hard)>>> "
+        "Choose a difficulty?(Easy, intermediate or hard)>>> "
         ).lower()
     difficulty = 0
     if user_diff == "hard":
