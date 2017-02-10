@@ -1,0 +1,34 @@
+body {
+  background-color: lightblue;
+}
+h1 {
+    text-align: center;
+}
+.top_buttons {
+  width: 10%;
+  margin: auto;
+  padding-left: 200px;
+  display:inline;
+}
+
+.top_buttons button {
+  width: 10%;
+}
+
+.left_buttons {
+  width: 10%;
+}
+
+.left_buttons button {
+  width: 100%;
+}
+
+.divider {
+  width: 2px;
+  height: 1px;
+  display: inline-block;
+}
+
+.login_btn {
+  float: right;
+}
