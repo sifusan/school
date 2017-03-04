@@ -24,10 +24,10 @@ CREATE TABLE inventory (
   item_name VARCHAR(40),
   item_description VARCHAR(140),
   item_author VARCHAR (60),
-  item_image_loc VARCHAR(140), 
+  item_image_loc VARCHAR(140),
   item_group INT,
   item_price DECIMAL(10,2),
-  item_stock_location VARCHAR (10),  
+  item_stock_location VARCHAR (10),
   item_stock_count INT,
   item_order_count INT,
   PRIMARY KEY(item_code),
@@ -56,12 +56,12 @@ CREATE TABLE customer_order (
   order_number INT NOT NULL AUTO_INCREMENT,
   order_date DATETIME NOT NULL,
   delivered BOOLEAN,
-  shipping_date DATETIME, 
+  shipping_date DATETIME,
   customer_number INT NOT NULL,
   PRIMARY KEY(order_number),
   FOREIGN KEY(customer_number) REFERENCES customer(customer_number) ON DELETE CASCADE
-);  
-  
+);
+
 -- Create order_item Table
 CREATE TABLE order_item (
   item_code CHAR(8) NOT NULL,
@@ -251,7 +251,7 @@ INSERT INTO inventory VALUES (
 "Unsongs",
 "Norwegian folk singer's take on a collection of politically disputed songs",
 "Moddi",
-"aa01-011.jpg",
+"aa01-012.jpg",
 1002,
 9.99 ,
 "Colchester",
@@ -465,7 +465,7 @@ MD5("maik"),
 
 INSERT INTO customer VALUES (
 1005,
-"Villalobos", 
+"Villalobos",
 "",
 "Geraldine",
 "Prof",
