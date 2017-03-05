@@ -1,0 +1,64 @@
+body {
+  background-color: lightblue;
+}
+h1 {
+    text-align: center;
+}
+
+.top_buttons {
+  padding-left: 6%;
+  width: 100%;
+}
+
+.top_buttons a {
+  display: inline-block;
+  width: 10%;
+  padding: 5px 5px 5px 5px;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+  color: initial;
+}
+
+.left_buttons {
+  float: left;
+  border-spacing:0px 20px;
+  padding-top: 2%;
+}
+
+.left_buttons a {
+  width: 100%;
+  display: inline-block;
+  padding: 5px 5px 5px 5px;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+  color: initial;
+}
+
+.items {
+  padding: 2% 0px 0px 3%;
+}
+
+.items td {
+  text-align: center;
+  border: 1px solid black;
+  padding: 10px 20px 10px 10px;
+}
+
+.items a {
+  width: 100%;
+  display: inline-block;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+  color: initial;
+}
+
+.items img {
+  width: 200px;
+  height: auto;
+}
