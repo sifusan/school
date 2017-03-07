@@ -9,19 +9,16 @@
     <title>Books</title>
   </head>
   <body>
-    <%
-      String booksTitle = "Books";
-    %>
-    <h1><%= booksTitle %></h1>
     <%@include file="assignment.jsp"%>
-    <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-       url="jdbc:mysql://localhost/sifu"
-       user="root"  password="root"/>
+    <c:set var="page_header" scope="application" value="Books"/>
+    <c:out value="${page_header}"/>
+
 
     <sql:query dataSource="${snapshot}" var="result">
       SELECT * from inventory WHERE item_group="1001";
     </sql:query>
     <table class="items">
+      <th></th>
       <th>Title</th>
       <th>Description</th>
       <th>Available</th>
@@ -33,7 +30,7 @@
           <td><c:out value="${row.item_description}"/></td>
           <td><c:out value="${row.item_stock_count}"/></td>
           <td><c:out value="${row.item_price}£"/></td>
-          <td><a href="">Add to Cart</a></td>
+          <td><button>Buy</button</td>
         </tr>
       </c:forEach>
     </table>

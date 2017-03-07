@@ -5,14 +5,12 @@
   </head>
   <body>
     <%@include file="assignment.jsp"%>
-    <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-       url="jdbc:mysql://localhost/sifu"
-       user="root"  password="root"/>
 
     <sql:query dataSource="${snapshot}" var="result">
       SELECT * from inventory WHERE item_group="1004";
     </sql:query>
     <table class="items">
+      <th></th>
       <th>Title</th>
       <th>Description</th>
       <th>Available</th>
@@ -24,7 +22,7 @@
           <td><c:out value="${row.item_description}"/></td>
           <td><c:out value="${row.item_stock_count}"/></td>
           <td><c:out value="${row.item_price} £"/></td>
-          <td><a href="">Add to Cart</a></td>
+          <td><button>Buy</button</td>
         </tr>
       </c:forEach>
     </table>
