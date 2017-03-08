@@ -6,10 +6,9 @@
 
 <html>
   <head>
-    <title>Books</title>
+    <title>Already Logged In</title>
   </head>
   <body>
-    <%@include file="assignment.jsp"%>
-    <h1> YOU LOGGED IN </h1>
+    <%@include file="customer.jsp"%>
   </body>
 </html>

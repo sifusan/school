@@ -6,28 +6,20 @@
 
 <html>
   <head>
-    <title>Books</title>
+    <title>Purchase</title>
   </head>
   <body>
     <%@include file="index.jsp"%>
     <%
       if (session.getAttribute("username") != null) {
     %>
-    <jsp:forward page="already_logged_in.jsp"/>
+    <jsp:forward page="purchase.jsp"/>
     <%
+  } else {
+  %>
+  <jsp:forward page="customer_login.jsp"/>
+  <%
   }
   %>
-    <table id="select_login">
-      <tr>
-        <th>
-          <button onClick="location.href='customer_login.jsp'" type="button">Customer</button>
-        </th>
-      </tr>
-      <tr>
-        <th>
-          <button onClick="location.href='manager_login.jsp'" type="button">Manager</button>
-        </th>
-      </tr>
-    </table>
-  </body>
+  </script>
 </html>

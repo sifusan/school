@@ -7,10 +7,7 @@
 <html>
 <head>
   <script type="text/javascript">
-    function logout() {
-      ${session.invalidate()}
-    }
-      </script>
+  </script>
   <title> Assignment Store </title>
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <meta charset="UTF-8">
@@ -24,10 +21,8 @@
 
 <table class="top_buttons">
   <td>
-    <button onClick="location.href='assignment.jsp'"type="button">Home</button>
+    <button onClick="location.href='index.jsp'"type="button">Home</button>
     <button onClick="location.href='select_login.jsp'"type="button">Login</button>
-    <button onClick="location.href=''"type="button">Shopping Cart</button>
-    <button onClick="${session.invalidate()}"type="button">Invalidate</button>
   </td>
 </table>
 

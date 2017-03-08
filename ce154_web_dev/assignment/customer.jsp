@@ -6,10 +6,11 @@
 
 <html>
   <head>
-    <title>Books</title>
+    <title>Customer</title>
   </head>
   <body>
-    <%@include file="assignment.jsp"%>
-    <h1> YOU ARE ALREADY LOGGED IN </h1>
+    <%@include file="index.jsp"%>
+    <button class="logout_btn" onClick="location.href='logout.jsp'" type="button">Log out</button>
+    <h1 var="logged_in_as_customer"> Logged in as Customer </h1>
   </body>
 </html>

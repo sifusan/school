@@ -9,7 +9,7 @@
     <title>Manager Login</title>
   </head>
   <body>
-    <%@include file="assignment.jsp"%>
+    <%@include file="index.jsp"%>
 
     <%
     pageContext.setAttribute(
@@ -31,7 +31,6 @@
     <%
       Integer obj = new Integer(1);
       int i = obj.intValue();
-      out.println(i);
 
       if (pageContext.getAttribute("numResults").equals(obj)) {
         String usernameID = new String("username");
@@ -46,10 +45,13 @@
 
     <table id="manager_login">
       <tr>
+        <tr>
+          <th>Login to purchase items</th>
+        </tr>
         <td>
           <form>
             <label>Login<input type="text" name="username"/></label>
-            <label>Password<input type="text"  name="password"/></label>
+            <label>Password<input type="password"  name="password"/></label>
             <label><input type="submit"/></label>
             <label name="invalid_login"></label>
           </form>

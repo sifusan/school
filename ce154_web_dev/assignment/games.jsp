@@ -4,7 +4,7 @@
   </head>
   <body>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <%@include file="assignment.jsp"%>
+    <%@include file="index.jsp"%>
 
     <sql:query dataSource="${snapshot}" var="result">
       SELECT * from inventory WHERE item_group="1003";

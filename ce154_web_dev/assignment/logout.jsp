@@ -9,10 +9,11 @@
     <title>Books</title>
   </head>
   <body>
-    <%@include file="assignment.jsp"%>
+    <%@include file="index.jsp"%>
     <h1>YOU LOGGED OUT</h1>
     <%
       if(session != null) {
+        session.setAttribute("username", null);
         session.invalidate();
     }
     %>

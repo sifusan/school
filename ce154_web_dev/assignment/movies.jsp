@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
   </head>
   <body>
-    <%@include file="assignment.jsp"%>
+    <%@include file="index.jsp"%>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
     <sql:query dataSource="${snapshot}" var="result">

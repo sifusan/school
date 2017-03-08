@@ -6,28 +6,27 @@
 
 <html>
   <head>
-    <title>Books</title>
+    <script>
+      window.onload = function() {
+        var selected_item = localStorage.getItem("item");
+        document.getElementById("selected_item").innerHTML=selected_item;
+      }
+    </script>
+    <title>Purchase</title>
   </head>
   <body>
+    <c:out value="${selected_item}"/>
     <%@include file="index.jsp"%>
-    <%
-      if (session.getAttribute("username") != null) {
-    %>
-    <jsp:forward page="already_logged_in.jsp"/>
-    <%
-  }
-  %>
-    <table id="select_login">
+
+    <table id="confirm_purchase_table">
       <tr>
-        <th>
-          <button onClick="location.href='customer_login.jsp'" type="button">Customer</button>
-        </th>
-      </tr>
-      <tr>
-        <th>
-          <button onClick="location.href='manager_login.jsp'" type="button">Manager</button>
-        </th>
+        <td>
+          <p>You have selected</p>
+          <h1 id="selected_item"></h1>
+          <button>Confirm</button>
+        </td>
       </tr>
     </table>
   </body>
+
 </html>
