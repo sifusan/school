@@ -3,6 +3,7 @@
     <title>Games</title>
   </head>
   <body>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <%@include file="assignment.jsp"%>
 
     <sql:query dataSource="${snapshot}" var="result">
@@ -20,7 +21,7 @@
           <td><c:out value="${row.item_name}"/></td>
           <td><c:out value="${row.item_description}"/></td>
           <td><c:out value="${row.item_stock_count}"/></td>
-          <td><c:out value="${row.item_price}"/></td>
+          <td><c:out value="${row.item_price}£"/></td>
           <td><button>Buy</button</td>
         </tr>
       </c:forEach>

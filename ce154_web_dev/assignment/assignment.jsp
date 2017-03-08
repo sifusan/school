@@ -6,18 +6,17 @@
 
 <html>
 <head>
+  <script type="text/javascript">
+    function logout() {
+      ${session.invalidate()}
+    }
+      </script>
   <title> Assignment Store </title>
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <meta charset="UTF-8">
 </head>
 <body>
-  <h1 var="page_header">Welcome to Assignment Store</h1>
-
-  <c:set var="customer_logged_in" scope="session" value="false"/>
-  <%
-    String s = (String) session.getAttribute("customer_logged_in");
-    out.println(s);
-  %>
+  <h1>Welcome to Assignment Store</h1>
 
   <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
      url="jdbc:mysql://localhost/sifu"
@@ -26,9 +25,9 @@
 <table class="top_buttons">
   <td>
     <button onClick="location.href='assignment.jsp'"type="button">Home</button>
-    <button onClick="location.href='customer_login.jsp'"type="button">Customer Login</button>
-    <button onClick="location.href=''"type="button">Manager Login</button>
+    <button onClick="location.href='select_login.jsp'"type="button">Login</button>
     <button onClick="location.href=''"type="button">Shopping Cart</button>
+    <button onClick="${session.invalidate()}"type="button">Invalidate</button>
   </td>
 </table>
 

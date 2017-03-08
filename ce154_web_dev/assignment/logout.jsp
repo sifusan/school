@@ -10,6 +10,11 @@
   </head>
   <body>
     <%@include file="assignment.jsp"%>
-    <h1> YOU LOGGED IN </h1>
+    <h1>YOU LOGGED OUT</h1>
+    <%
+      if(session != null) {
+        session.invalidate();
+    }
+    %>
   </body>
 </html>

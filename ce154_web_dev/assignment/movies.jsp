@@ -5,6 +5,7 @@
   </head>
   <body>
     <%@include file="assignment.jsp"%>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
     <sql:query dataSource="${snapshot}" var="result">
       SELECT * from inventory WHERE item_group="1004";
@@ -21,7 +22,7 @@
           <td><c:out value="${row.item_name}"/></td>
           <td><c:out value="${row.item_description}"/></td>
           <td><c:out value="${row.item_stock_count}"/></td>
-          <td><c:out value="${row.item_price} £"/></td>
+          <td><c:out value="${row.item_price}£"/></td>
           <td><button>Buy</button</td>
         </tr>
       </c:forEach>

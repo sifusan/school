@@ -10,6 +10,6 @@
   </head>
   <body>
     <%@include file="assignment.jsp"%>
-    <h1> YOU LOGGED IN </h1>
+    <h1> YOU ARE ALREADY LOGGED IN </h1>
   </body>
 </html>
