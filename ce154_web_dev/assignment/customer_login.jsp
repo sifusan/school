@@ -66,7 +66,6 @@
             <label>Login<input type="text" name="username"/></label>
             <label>Password<input type="password" name="password"/></label>
             <label><input type="submit"/></label>
-            <label name="invalid_login"></label>
           </form>
         </td>
       </tr>

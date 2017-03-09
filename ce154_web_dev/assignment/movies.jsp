@@ -1,5 +1,11 @@
 <html>
   <head>
+    <script>
+      function go_to_purchase(x) {
+        localStorage.setItem("item", x);
+        location.href="purchase_redirect.jsp"
+      }
+    </script>
     <title>Movies</title>
     <meta charset="UTF-8">
   </head>
@@ -23,7 +29,7 @@
           <td><c:out value="${row.item_description}"/></td>
           <td><c:out value="${row.item_stock_count}"/></td>
           <td><c:out value="${row.item_price}£"/></td>
-          <td><button>Buy</button</td>
+          <td><button name="purchase_btn" type="submit" onClick="go_to_purchase('${row.item_name}')">Buy</button></td>
         </tr>
       </c:forEach>
     </table>

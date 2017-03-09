@@ -16,7 +16,7 @@
       SELECT * from customer;
     </sql:query>
     <h1> Customers </h1>
-    <table class="inventory">
+    <table class="manager_view">
       <th>Number</th>
       <th>Surname</th>
       <th>Initials</th>

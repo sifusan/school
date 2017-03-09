@@ -16,8 +16,7 @@
       SELECT * from inventory;
     </sql:query>
     <h1> Inventory </h1>
-    <table class="inventory">
-      <th></th>
+    <table class="manager_view">
       <th>Code</th>
       <th>Name</th>
       <th>Description</th>

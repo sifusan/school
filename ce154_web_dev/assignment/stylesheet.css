@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 body {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cfe7fa+0,6393c1+100;Grey+Blue+3D */
 background: rgb(207,231,250); /* Old browsers */
@@ -6,6 +10,10 @@ background: -webkit-linear-gradient(top,  rgba(207,231,250,1) 0%,rgba(99,147,193
 background: linear-gradient(to bottom,  rgba(207,231,250,1) 0%,rgba(99,147,193,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cfe7fa', endColorstr='#6393c1',GradientType=0 ); /* IE6-9 */
 height: 100%;
+margin: 0;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
 }
 h1 {
     text-align: center;
@@ -39,6 +47,19 @@ h1 {
 }
 
 .items td {
+  text-align: center;
+  border: 1px solid black;
+  padding: 10px 20px 10px 10px;
+}
+
+.manager_view {
+  width: 70%;
+  padding: 2% 0px 0px 3%;
+  table-layout: fixed;
+}
+
+.manager_view td {
+  word-wrap: break-word;
   text-align: center;
   border: 1px solid black;
   padding: 10px 20px 10px 10px;
@@ -111,7 +132,9 @@ h1 {
 }
 
 #selected_item {
+  font-weight: bold;
   font-style: italic;
+  font-size: 25;
 }
 
 #confirm_purchase_table button {

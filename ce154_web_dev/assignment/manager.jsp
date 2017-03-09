@@ -19,7 +19,7 @@
     </sql:query>
     <table id="view_data_buttons">
       <td>
-        <button onClick="location.href='inventory_view.jsp'" type="button">inventory</button>
+        <button onClick="location.href='inventory_view.jsp'" type="button">Inventory</button>
       </td>
       <td>
         <button onClick="location.href='customer_view.jsp'" type="button">Customer</button>

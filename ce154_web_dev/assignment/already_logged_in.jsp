@@ -9,6 +9,8 @@
     <title>Already Logged In</title>
   </head>
   <body>
-    <%@include file="customer.jsp"%>
+    <%@include file="index.jsp"%>
+    <h1>Already Logged in</h1>
+    <button class="logout_btn" onClick="location.href='logout.jsp'" type="button">Log out</button>
   </body>
 </html>

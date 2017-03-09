@@ -6,12 +6,6 @@
 
 <html>
   <head>
-  <script>
-    function go_to_purchase(x) {
-      localStorage.setItem("item", x);
-      location.href="purchase_redirect.jsp"
-    }
-  </script>
     <title>Books</title>
   </head>
   <body>
@@ -25,6 +19,7 @@
     <table class="items">
       <th></th>
       <th>Title</th>
+      <th>Item Code</th>
       <th>Description</th>
       <th>Available</th>
       <th>Price</th>
@@ -32,10 +27,17 @@
         <tr>
           <td><img src="images/${row.item_image_loc}"/></td>
           <td><c:out value="${row.item_name}"/></td>
+          <td><c:out value="${row.item_code}"/></td>
           <td><c:out value="${row.item_description}"/></td>
           <td><c:out value="${row.item_stock_count}"/></td>
           <td><c:out value="${row.item_price}£"/></td>
-          <td><button name="purchase_btn" type="submit" onClick="go_to_purchase('${row.item_name}')">Buy</button></td>
+          <td>
+          <form name="books_form" action="purchase_redirect.jsp" method="GET">
+            <input type="hidden" name="item_code" value="${row.item_code}"/>
+            <input type="hidden" name="item_name" value="${row.item_name}"/>
+            <input type="submit" value="Buy"/>
+          </form>
+          </td>
         </tr>
       </c:forEach>
     </table>
