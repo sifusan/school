@@ -11,6 +11,5 @@
   <body>
     <%@include file="index.jsp"%>
     <h1>Already Logged in</h1>
-    <button class="logout_btn" onClick="location.href='logout.jsp'" type="button">Log out</button>
   </body>
 </html>

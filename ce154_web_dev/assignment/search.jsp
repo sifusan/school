@@ -10,13 +10,13 @@
   </head>
   <body>
     <%@include file="index.jsp"%>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <%
       session.setAttribute("parameter", request.getParameter("search_param"));
     %>
     <sql:query dataSource="${snapshot}" var="result">
       SELECT * from inventory WHERE item_description LIKE "%${parameter}%";
     </sql:query>
-    <c:out value="${parameter}"/>
     <table class="items">
       <th></th>
       <th>Title</th>

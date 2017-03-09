@@ -175,7 +175,7 @@ INSERT INTO inventory VALUES (
 INSERT INTO inventory VALUES (
 "AA01-006",
 "Alice in Wonderland",
-"Bizzare in surreal, this novel details a small girl's adventures in a hidden land",
+"Bizzare and surreal, this novel details a small girl's adventures in a hidden land",
 "Lewis Carol",
 "aa01-006.jpg",
 1001,
