@@ -23,6 +23,7 @@
   <td>
     <button onClick="location.href='index.jsp'"type="button">Home</button>
     <button onClick="location.href='select_login.jsp'"type="button">Login</button>
+    <button class="logout_btn" onClick="location.href='logout.jsp'" type="button">Log out</button>
   </td>
 </table>
 

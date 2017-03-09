@@ -149,3 +149,13 @@ h1 {
 #manager_login th {
   font-size: 20;
 }
+
+#view_data_buttons {
+  padding-left: 2.5%;
+  width: 100%;
+}
+
+#view_data_buttons button {
+  width: 10%;
+  padding: 1.25% 10px;
+}

@@ -10,12 +10,12 @@
   </head>
   <body>
     <%@include file="index.jsp"%>
-    <h1>YOU LOGGED OUT</h1>
     <%
       if(session != null) {
         session.setAttribute("username", null);
         session.invalidate();
-    }
+      }
     %>
+    <h1> You are logged out </h1>
   </body>
 </html>
