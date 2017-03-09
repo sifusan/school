@@ -32,11 +32,11 @@
           <td><c:out value="${row.item_stock_count}"/></td>
           <td><c:out value="${row.item_price}£"/></td>
           <td>
-          <form name="books_form" action="purchase_redirect.jsp" method="GET">
-            <input type="hidden" name="item_code" value="${row.item_code}"/>
-            <input type="hidden" name="item_name" value="${row.item_name}"/>
-            <input type="submit" value="Buy"/>
-          </form>
+            <form name="books_form" action="purchase_redirect.jsp" method="GET">
+              <input type="hidden" name="item_code" value="${row.item_code}"/>
+              <input type="hidden" name="item_name" value="${row.item_name}"/>
+              <input type="submit" value="Buy"/>
+            </form>
           </td>
         </tr>
       </c:forEach>

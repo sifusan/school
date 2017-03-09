@@ -24,6 +24,12 @@
       <td>
         <button onClick="location.href='customer_view.jsp'" type="button">Customer</button>
       </td>
+      <td>
+        <button onClick="location.href='order_view.jsp'" type="button">Orders</button>
+      </td>
+      <td>
+        <button onClick="location.href='order_item_view.jsp'" type="button">Ordered Items</button>
+      </td>
     </table>
     <button class="logout_btn" onClick="location.href='logout.jsp'" type="button">Log out</button>
   </body>

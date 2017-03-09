@@ -12,47 +12,30 @@
   </head>
   <body>
     <%@include file="index.jsp"%>
-    <%
-      pageContext.setAttribute("code", request.getParameter("item_code"));
-      pageContext.setAttribute("name", request.getParameter("item_name"));
-      pageContext.setAttribute("username", session.getAttribute("usernameID"));
-    %>
-    <c:catch var="transactionException">
       <sql:transaction dataSource="${snapshot}">
         <sql:update var="count">
-          update inventory set item_stock_count =
-          item_stock_count - 1 where item_code="${code}"
+          UPDATE inventory SET item_stock_count =
+          item_stock_count - 1 WHERE item_code="${code}"
         </sql:update>
 
-        <sql:query var="greatest_order_number">
-          SELECT MAX(order_number) FROM customer_order);
+        <sql:query var="count">
+          SELECT @new_order_number := (MAX(order_number) + 1) from customer_order;
+        </sql:query>
+
+        <sql:query var="count">
+          select @total := item_price from inventory where item_code="${code}";
         </sql:query>
 
         <sql:update var="count">
-          insert into customer_order values
-          (${greatest_order_number} + 1, NOW(), 0, INTERVAL 3 DAY + NOW());
+          INSERT INTO customer_order VALUES
+          (@new_order_number, NOW(), 0, interval 3 day +  NOW(), "${username}");
         </sql:update>
 
         <sql:update var="count">
-          insert into order_item
-
+          INSERT INTO order_item VALUES
+          ("${code}", @total, @new_order_number, 1);
+        </sql:update>
       </sql:transaction>
-    </c:catch>
-
-    <table id="confirm_purchase_table">
-      <tr>
-        <td>
-          <form>
-            <p>You have selected</p>
-            <%
-              out.println("<span id='selected_item'>" + (String) request.getParameter("item_name") + "</span>");
-            %>
-            <br />
-            <button type="button" onClick="location.href='purchase_success.jsp'">Confirm</button>
-          </form>
-        </td>
-      </tr>
-    </table>
+      <jsp:forward page="purchase_success.jsp"/>
   </body>
-
 </html>

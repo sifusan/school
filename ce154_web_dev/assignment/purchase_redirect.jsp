@@ -12,8 +12,8 @@
     <%@include file="index.jsp"%>
     <%
       if (session.getAttribute("username") != null) {
-        pageContext.setAttribute("code", request.getParameter("item_code"));
-        pageContext.setAttribute("name", request.getParameter("item_name"));
+        session.setAttribute("code", request.getParameter("item_code"));
+        session.setAttribute("name", request.getParameter("item_name"));
     %>
     <sql:query dataSource="${snapshot}" var="result">
       select item_stock_count from inventory where
@@ -29,11 +29,11 @@
 
       if ((Integer)(pageContext.getAttribute("item_stock_result")) > 0) {
     %>
-      <jsp:forward page="purchase.jsp"/>
+      <jsp:forward page="purchase_confirm.jsp"/>
     <%
       } else {
     %>
-        <c:out value="testing testing"/>
+    <jsp:forward page="out_of_stock.jsp"/>
     <%
     }
   } else {

@@ -6,7 +6,7 @@
 
 <html>
   <head>
-    <title>Manager Home</title>
+    <title>Customer View</title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
   </head>
   <body>
