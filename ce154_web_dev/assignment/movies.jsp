@@ -19,6 +19,7 @@
     <table class="items">
       <th></th>
       <th>Title</th>
+      <th>Item Code</th>
       <th>Description</th>
       <th>Available</th>
       <th>Price</th>
@@ -26,6 +27,7 @@
         <tr>
           <td><img src="images/${row.item_image_loc}"/></td>
           <td><c:out value="${row.item_name}"/></td>
+          <td><c:out value="${row.item_code}"/></td>
           <td><c:out value="${row.item_description}"/></td>
           <td><c:out value="${row.item_stock_count}"/></td>
           <td><c:out value="${row.item_price}£"/></td>

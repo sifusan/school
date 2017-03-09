@@ -18,6 +18,7 @@
     <table class="items">
       <th></th>
       <th>Title</th>
+      <th>Item Code</th>
       <th>Description</th>
       <th>Available</th>
       <th>Price</th>

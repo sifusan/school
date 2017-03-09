@@ -15,13 +15,15 @@
     <table id="confirm_purchase_table">
       <tr>
         <td>
-          <form>
-            <p>You have selected</p>
+          <form name=confirm_purchase_form action="purchase.jsp">
+            <label>You have selected</label>
+            <br />
             <%
               out.println("<span id='selected_item'>" + (String) request.getParameter("item_name") + "</span>");
             %>
             <br />
-            <button type="button" onClick="location.href='purchase.jsp'">Confirm</button>
+            <input name="promo_code_param" type="text" placeholder="Enter promo code"/>
+            <input type="submit" value="Confirm"/>
           </form>
         </td>
       </tr>

@@ -16,18 +16,18 @@
   <h1>Welcome to Assignment Store</h1>
 
   <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-     url="jdbc:mysql://localhost/sifu"
-     user="root"  password="root"/>
+     url="jdbc:mysql://localhost/sf16007"
+     user="root" password=""/>
 
 <table class="top_buttons">
   <td>
     <button onClick="location.href='index.jsp'"type="button">Home</button>
     <button onClick="location.href='select_login.jsp'"type="button">Login</button>
     <button class="logout_btn" onClick="location.href='logout.jsp'" type="button">Log out</button>
+	  <button onClick="location.href='reset.jsp'">RESET DB </button>
     <form id="search_form" name="search_form" method="GET" action="search.jsp">
-      <label> Search for items here </label>
-      <input type="text" name="search_param"/>
-      <input type="submit" value="Search"/>
+      <input type="text" placeholder="Enter search" name="search_param"/>
+      <input type="submit" value="Submit"/>
     </form>
 
   </td>

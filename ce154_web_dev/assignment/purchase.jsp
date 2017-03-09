@@ -12,6 +12,7 @@
   </head>
   <body>
     <%@include file="index.jsp"%>
+
       <sql:transaction dataSource="${snapshot}">
         <sql:update var="count">
           UPDATE inventory SET item_stock_count =
@@ -22,9 +23,7 @@
           SELECT @new_order_number := (MAX(order_number) + 1) from customer_order;
         </sql:query>
 
-        <sql:query var="count">
-          select @total := item_price from inventory where item_code="${code}";
-        </sql:query>
+        
 
         <sql:update var="count">
           INSERT INTO customer_order VALUES

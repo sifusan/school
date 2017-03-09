@@ -12,8 +12,8 @@
   <body>
     <h1>Welcome Manager</h1>
     <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-       url="jdbc:mysql://localhost/sifu"
-       user="root"  password="root"/>
+       url="jdbc:mysql://localhost/sf16007"
+       user="root"  password=""/>
     <sql:query dataSource="${snapshot}" var="result">
       SELECT * from inventory;
     </sql:query>
@@ -23,6 +23,7 @@
         <button onClick="location.href='customer_view.jsp'" type="button">Customer</button>
         <button onClick="location.href='order_view.jsp'" type="button">Orders</button>
         <button onClick="location.href='order_item_view.jsp'" type="button">Ordered Items</button>
+        <button onClick="location.href='promo_code_view.jsp'" type="button">Promo Codes</button>
         <button class="logout_btn" onClick="location.href='logout.jsp'" type="button">Log out</button>
       </td>
     </table>
