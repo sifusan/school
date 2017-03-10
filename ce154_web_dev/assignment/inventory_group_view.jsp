@@ -8,29 +8,23 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Order View</title>
+    <title>Inventory Group</title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
   </head>
   <body>
     <%@include file="manager.jsp"%>
 
     <sql:query dataSource="${snapshot}" var="result">
-      SELECT * from customer_order;
+      SELECT * from inventory_group;
     </sql:query>
-    <h1> Orders </h1>
+    <h1> Inventory Groups </h1>
     <table class="manager_view">
-      <th>Order Number</th>
-      <th>Order Date</th>
-      <th>Delivered</th>
-      <th>Shipping Date</th>
-      <th>Customer Number</th>
+      <th>Group Code</th>
+      <th>Group Name</th>
       <c:forEach var="row" items="${result.rows}">
         <tr>
-          <td><c:out value="${row.order_number}"/></td>
-          <td><c:out value="${row.order_date}"/></td>
-          <td><c:out value="${row.delivered}"/></td>
-          <td><c:out value="${row.shipping_date}"/></td>
-          <td><c:out value="${row.customer_number}"/></td>
+          <td><c:out value="${row.group_code}"/></td>
+          <td><c:out value="${row.group_name}"/></td>
         </tr>
       </c:forEach>
     </table>

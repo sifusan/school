@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
@@ -6,6 +7,7 @@
 
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>Manager Home</title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
   </head>
@@ -25,6 +27,8 @@
         <button onClick="location.href='order_item_view.jsp'" type="button">Ordered Items</button>
         <button onClick="location.href='promo_code_view.jsp'" type="button">Promo Codes</button>
         <button onClick="location.href='review_view.jsp'" type="button">Reviews</button>
+        <button onClick="location.href='manager_view.jsp'" type="button">Managers</button>
+        <button onClick="location.href='inventory_group_view.jsp'" type="button">Inventory Groups</button>
         <button class="logout_btn" onClick="location.href='logout.jsp'" type="button">Log out</button>
       </td>
     </table>

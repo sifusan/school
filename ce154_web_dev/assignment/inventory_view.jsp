@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
@@ -8,6 +9,7 @@
   <head>
     <title>Inventory View</title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <meta charset="UTF-8">
   </head>
   <body>
     <%@include file="manager.jsp"%>
