@@ -6,12 +6,14 @@
 
 <html>
   <head>
+    <script>
+    </script>
     <title>Books</title>
   </head>
   <body>
     <%@include file="index.jsp"%>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    
+
     <sql:query dataSource="${snapshot}" var="result">
       SELECT * from inventory WHERE item_group="1001";
     </sql:query>
@@ -36,6 +38,17 @@
               <input type="hidden" name="item_code" value="${row.item_code}"/>
               <input type="hidden" name="item_name" value="${row.item_name}"/>
               <input type="submit" value="Buy"/>
+            </form>
+          </td>
+          <td>
+            <form name="books_review_form" action ="review.jsp" onsubmit="return no_rating()" method="GET">
+              <input name="rating" type="radio" value="1">1<br />
+              <input name="rating" type="radio" value="2"/>2<br />
+              <input name="rating" type="radio" value="3"/>3<br />
+              <input name="rating" type="radio" value="4"/>4<br />
+              <input name="rating" type="radio" value="5"/>5<br />
+              <input type="hidden" name="item_code_re" value="${row.item_code}"/>
+              <input type="submit" value="Submit Review"/>
             </form>
           </td>
         </tr>

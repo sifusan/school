@@ -58,7 +58,7 @@
     <table id="customer_login">
       <tr>
         <tr>
-          <th>Login to purchase items</th>
+          <th>Login to purchase and rate items</th>
         </tr>
         <tr></tr>
         <td>

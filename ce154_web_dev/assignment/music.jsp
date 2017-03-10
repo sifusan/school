@@ -31,10 +31,21 @@
           <td><c:out value="${row.item_stock_count}"/></td>
           <td><c:out value="${row.item_price}£"/></td>
           <td>
-            <form name="books_form" action="purchase_redirect.jsp" method="GET">
+            <form name="music_form" action="purchase_redirect.jsp" method="GET">
               <input type="hidden" name="item_code" value="${row.item_code}"/>
               <input type="hidden" name="item_name" value="${row.item_name}"/>
               <input type="submit" value="Buy"/>
+            </form>
+          </td>
+          <td>
+            <form name="music_review_form" action ="review.jsp" onsubmit="return no_rating()" method="GET">
+              <input name="rating" type="radio" value="1">1<br />
+              <input name="rating" type="radio" value="2"/>2<br />
+              <input name="rating" type="radio" value="3"/>3<br />
+              <input name="rating" type="radio" value="4"/>4<br />
+              <input name="rating" type="radio" value="5"/>5<br />
+              <input type="hidden" name="item_code_re" value="${row.item_code}"/>
+              <input type="submit" value="Submit Review"/>
             </form>
           </td>
         </tr>

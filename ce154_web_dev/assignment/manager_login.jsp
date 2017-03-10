@@ -42,11 +42,10 @@
       }
     %>
 
-
     <table id="manager_login">
       <tr>
         <tr>
-          <th>Login to purchase items</th>
+          <th>Login to view data</th>
         </tr>
         <td>
           <form>
