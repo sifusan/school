@@ -1,0 +1,172 @@
+html {
+  height: 100%;
+}
+
+body {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cfe7fa+0,6393c1+100;Grey+Blue+3D */
+background: rgb(207,231,250); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(207,231,250,1) 0%, rgba(99,147,193,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(207,231,250,1) 0%,rgba(99,147,193,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(207,231,250,1) 0%,rgba(99,147,193,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+height: 100%;
+margin: 0;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
+}
+h1 {
+    text-align: center;
+}
+
+.top_buttons {
+  padding-left: 12%;
+  width: 100%;
+}
+
+.top_buttons button {
+  width: 10%;
+  padding: 1.25% 10px;
+}
+
+.left_buttons {
+  float: left;
+  border-spacing:0px 20px;
+  padding-top: 2%;
+}
+
+.left_buttons button {
+  padding:10% 50px;
+  width: 100%;
+}
+
+.items {
+  width: 70%;
+  padding: 2% 0px 0px 3%;
+  table-layout: fixed;
+}
+
+.items td {
+  text-align: center;
+  border: 1px solid black;
+  padding: 10px 20px 10px 10px;
+}
+
+.manager_view {
+  width: 70%;
+  padding: 2% 0px 0px 3%;
+  table-layout: fixed;
+}
+
+.manager_view td {
+  word-wrap: break-word;
+  text-align: center;
+  border: 1px solid black;
+  padding: 10px 20px 10px 10px;
+}
+
+.items button {
+  display: inline-block;
+  height: 50px;
+  width: 100%;
+}
+
+.items img {
+  width: 100%;
+  height: 180px;
+}
+
+#customer_login {
+  position: fixed;
+  left: 45%;
+  top: 25%;
+}
+#customer_login input {
+  display: block;
+  margin-bottom: 5px;
+  height:25px;
+  width: 100%;
+}
+
+#manager_login {
+  position: fixed;
+  left: 45%;
+  top: 25%;
+}
+#manager_login input {
+  display: block;
+  margin-bottom: 5px;
+  height:25px;
+  width: 100%;
+}
+
+#select_login {
+  width: 10%;
+  position: fixed;
+  left:45%;
+  top:25%;
+}
+
+#select_login button {
+  width: 100%;
+  height: 100%;
+}
+
+.logout_btn {
+  float: right;
+}
+
+#shopping_cart_button {
+  float: right;
+}
+
+#confirm_purchase_table {
+  text-align: center;
+  position: fixed;
+  left: 45%;
+  top: 25%;
+}
+
+#confirm_purchase_table p {
+  font-size: 20px;
+}
+
+#selected_item {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 25px;
+}
+
+#confirm_purchase_table button {
+  width: 80%;
+  height:100%;
+}
+
+#customer_login th {
+  font-size: 20px;
+}
+
+#manager_login th {
+  font-size: 20px;
+}
+
+#view_data_buttons {
+  padding-left: 2.5%;
+  width: 100%;
+}
+
+#view_data_buttons button {
+  width: 10%;
+  padding: 1.25% 10px;
+}
+
+#search_form {
+  float:left;
+  padding-right: 20px;
+  width: 10%;
+  height: 28px;
+}
+
+#search_form input {
+  width: 100%;
+  height: 100%;
+}
