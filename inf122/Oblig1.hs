@@ -35,9 +35,9 @@ data Ast = Nr Int | Sum Ast Ast | Mul Ast Ast | Min Ast | If Ast Ast Ast derivin
 
 cleanString :: [String] -> [String]
 cleanString [] = []
-cleanString xs |  (xs !! 0 == ",") ||
-                  (xs !! 0 == "")       = cleanString (drop 1 (xs))
-               | otherwise              = [head(xs)] ++ cleanString(tail (xs))
+cleanString xs |  (head xs == ",") ||
+                  (head xs == "")       = cleanString (drop 1 xs)
+               | otherwise              = head xs : cleanString(tail xs)
 
 tokenize :: String -> [String]
 tokenize xs = cleanString(splitOn " " xs)
@@ -46,24 +46,35 @@ tokenize xs = cleanString(splitOn " " xs)
 parseExpr :: [String] -> (Ast, [String])
 parseExpr []                     = error "invalid input"
 parseExpr (x:xs) | all isDigit x = (Nr (read x), xs)
-                 | x == "-"      = (Min (fst(parseExpr(xs))), xs)
-                 | x == "+"      = (Sum (fst(parseExpr(xs))) (fst(parseExpr(snd(parseExpr(xs))))), xs)
-                 | x == "*"      = (Mul (fst(parseExpr(xs))) (fst(parseExpr(snd(parseExpr(xs))))), xs)
+                 | x == "-"      = (Min (fst(parseExpr xs)), xs)
+
+                 | x == "+"      = (Sum (fst(parseExpr xs))
+                                        (fst(parseExpr(snd(parseExpr xs)))),
+                                        xs)
+
+                 | x == "*"      = (Mul (fst(parseExpr xs))
+                                        (fst(parseExpr(snd(parseExpr xs)))),
+                                        xs)
 
 parse :: String -> Ast
-parse xs =  fst(parseExpr(tokenize(xs)))
+parse xs =  fst(parseExpr(tokenize xs ))
 
 type RealJobValue a = (Int, Bool)
 
 realJob :: Ast -> (Int, Bool)
-realJob (Nr n)     | n `mod` 2 /= 0 = (n, True)
+realJob (Nr n)      | n `mod` 2 /= 0 = (n, True)
                     | otherwise = (n, False)
-realJob (Sum x y)  = ((fst(realJob(x))) + (fst(realJob(y))), (snd(realJob(x))) || (snd(realJob(y))))
-realJob (Min x)    = (-(fst(realJob(x))), not(snd(realJob(x))))
-realJob (Mul x y)  = ((fst(realJob(x))) * (fst(realJob(y))), (snd(realJob(x))) && (snd(realJob(y))))
+
+realJob (Sum x y)   = (fst(realJob x) + fst(realJob y),
+                        snd(realJob x) || snd(realJob y))
+
+realJob (Min x)     = (- fst(realJob x), not(snd(realJob x)))
+
+realJob (Mul x y)   = (fst(realJob x) * fst(realJob y),
+                        snd(realJob x) && snd(realJob y))
 
 evi :: String -> Int
-evi s = fst(realJob(parse(s)))
+evi s = fst(realJob(parse s))
 
 evb :: String -> Bool
-evb s = snd(realJob(parse(s)))
+evb s = snd(realJob(parse s))
