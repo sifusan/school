@@ -61,17 +61,24 @@ tokenize xs = cleanString(splitOn " " xs)
 parse :: String -> Ast
 parse xs =  fst(parseExpr(tokenize xs))
 
-realJob :: Ast -> [(String, Int)] -> Int
-realJob (Nr n) xs      = n
-realJob (Sum x y) xs   = (realJob x xs) + (realJob y xs)
 
-realJob (Min x) xs     = (realJob x xs)
-realJob (Mul x y) xs   = (realJob x xs) * (realJob y xs)
+realJob :: Ast -> [(String, Int)] -> (Int, Bool)
+realJob (Nr n) xs      | even n = (n, False)
+                       | otherwise = (n, True)
+realJob (Sum x y) xs   = (fst(realJob x xs)   + fst(realJob y xs),
+                            snd(realJob x xs) || snd(realJob y xs))
 
-realJob (If x y z) xs  | (realJob x xs) == 0   = realJob y xs
-                       | otherwise             = realJob z xs
+realJob (Min x) xs     = (- fst(realJob x xs), not(snd(realJob x xs)))
+realJob (Mul x y) xs   = (fst(realJob x xs)   * fst(realJob y xs),
+                            snd(realJob x xs) && snd(realJob y xs))
 
-realJob (Let s x y) xs = realJob y ((s, (realJob x xs)) : xs)
+realJob (If x y z) xs  | ((fst(realJob x xs) == 0) &&
+                         (snd(realJob x xs) == False))   = (fst(realJob y xs), (snd(realJob z xs)))
+                       | ((fst(realJob x xs) /= 0) ||
+                         (snd(realJob x xs) == True))   = (fst(realJob z xs), (snd(realJob y xs)))
+                       | otherwise                      = realJob z xs
+
+realJob (Let s x y) xs = realJob y ((s, (fst(realJob x xs))) : xs)
 realJob (Var s) xs     = realJob (Nr (findBoundValue s xs)) xs
 
 findBoundValue :: String -> [(String, Int)]-> Int
@@ -79,8 +86,7 @@ findBoundValue s (x:xs) | s == fst(x)   = snd(x)
                         | otherwise     = findBoundValue s xs
 
 evi :: String -> Int
-evi s = realJob (parse s) []
+evi s = fst(realJob(parse s) [])
 
 evb :: String -> Bool
-evb s | even (evi(s)) = False
-      | otherwise = True
+evb s = snd(realJob(parse s) [])
