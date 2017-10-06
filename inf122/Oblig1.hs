@@ -54,7 +54,7 @@ liftParser2 :: (a -> b -> c) -> Parser a -> Parser b -> Parser c
 liftParser2 f p1 p2 x = let (a,y) = p1 x
                             (b,z) = p2 y
                             in (f a b, z)
---
+
 liftParser3 :: (a -> b -> c -> d) -> Parser a -> Parser b -> Parser c -> Parser d
 liftParser3 f p1 p2 p3 x = let (a, y) = p1 x
                                (b, z) = p2 y
@@ -75,6 +75,7 @@ tokenize xs = cleanString(splitOn " " xs)
 parse :: String -> Ast
 parse xs =  fst(parseExpr(tokenize xs))
 
+--Memory in here somewhere!
 realJob :: Ast -> (Int, Bool)
 realJob (Nr n)      | n `mod` 2 /= 0 = (n, True)
                     | otherwise = (n, False)
@@ -90,10 +91,33 @@ realJob (Mul x y)   = (fst(realJob x) * fst(realJob y),
 realJob (If x y z)  | fst(realJob x) == 0 = realJob y
                     | otherwise           = realJob z
 
-realJob (Let s x y) = (fst(realJob(x)), (snd(realJob(x))))
+realJob' :: Ast -> [(String, Int)] -> (Int, Bool)
+realJob' (Nr n) xs      | n `mod` 2 /= 0 = (n, True)
+                        | otherwise = (n, False)
+
+realJob' (Sum x y) xs   = (fst(realJob' x xs)   + fst(realJob' y xs),
+                            snd(realJob' x xs) || snd(realJob' y xs))
+
+realJob' (Min x) xs     = (- fst(realJob' x xs), not(snd(realJob' x xs)))
+
+realJob' (Mul x y) xs   = (fst(realJob' x xs)   * fst(realJob' y xs),
+                            snd(realJob' x xs) && snd(realJob' y xs))
+
+realJob' (If x y z) xs  | fst(realJob' x xs) == 0   = realJob' y xs
+                        | otherwise                 = realJob' z xs
+
+
+realJob' (Let s x y) xs = realJob' y ((s, fst(realJob(x))) : xs)
+
+realJob' (Var s) xs     = realJob' (Nr (findBoundValue s xs)) xs
+
+findBoundValue :: String -> [(String, Int)]-> Int
+findBoundValue _ [] = error "variable not bound"
+findBoundValue s (x:xs) | s == fst(x)   = snd(x)
+                        | otherwise     = findBoundValue s xs
 
 evi :: String -> Int
-evi s = fst(realJob(parse s))
+evi s = fst(realJob'(parse s) [])
 
 evb :: String -> Bool
-evb s = snd(realJob(parse s))
+evb s = snd(realJob'(parse s) [])
