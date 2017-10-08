@@ -25,7 +25,7 @@ parseExpr (x:xs) | all isDigit x = (Nr (read x), xs)
                  | x == "+"      = liftParser2 Sum parseExpr parseExpr xs
                  | x == "*"      = liftParser2 Mul parseExpr parseExpr xs
                  | x == "if"     = liftParser3 If parseExpr parseExpr parseExpr xs
-                 | x == "let"    = parseLet Let (head(xs)) parseExpr parseExpr (tail (xs))
+                 | x == "let"    = parseLet Let (head xs) parseExpr parseExpr (tail xs)
                  | isLetter(head x) && isUpper (head x) = (Var x, xs)
 
 type Parser a = [String] -> (a, [String])
@@ -61,7 +61,6 @@ tokenize xs = cleanString(splitOn " " xs)
 parse :: String -> Ast
 parse xs =  fst(parseExpr(tokenize xs))
 
-
 realJob :: Ast -> [(String, Int)] -> (Int, Bool)
 realJob (Nr n) xs      | even n = (n, False)
                        | otherwise = (n, True)
@@ -72,17 +71,17 @@ realJob (Min x) xs     = (- fst(realJob x xs), not(snd(realJob x xs)))
 realJob (Mul x y) xs   = (fst(realJob x xs)   * fst(realJob y xs),
                             snd(realJob x xs) && snd(realJob y xs))
 
-realJob (If x y z) xs  | ((fst(realJob x xs) == 0) &&
-                         (snd(realJob x xs) == False))   = (fst(realJob y xs), (snd(realJob z xs)))
-                       | ((fst(realJob x xs) /= 0) ||
-                         (snd(realJob x xs) == True))   = (fst(realJob z xs), (snd(realJob y xs)))
+realJob (If x y z) xs  | fst(realJob x xs) == 0 &&
+                         snd(realJob x xs)            = (fst(realJob y xs), snd(realJob z xs))
+                       | (fst(realJob x xs) /= 0) ||
+                         (snd(realJob x xs))            = (fst(realJob z xs), snd(realJob y xs))
                        | otherwise                      = realJob z xs
 
-realJob (Let s x y) xs = realJob y ((s, (fst(realJob x xs))) : xs)
+realJob (Let s x y) xs = realJob y ((s, fst(realJob x xs)) : xs)
 realJob (Var s) xs     = realJob (Nr (findBoundValue s xs)) xs
 
 findBoundValue :: String -> [(String, Int)]-> Int
-findBoundValue s (x:xs) | s == fst(x)   = snd(x)
+findBoundValue s (x:xs) | s == fst x   = snd x
                         | otherwise     = findBoundValue s xs
 
 evi :: String -> Int
