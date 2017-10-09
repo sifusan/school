@@ -7,19 +7,8 @@ import Data.List
 data Ast = Nr Int | Var String | Sum Ast Ast | Mul Ast Ast | Min Ast
                   | If Ast Ast Ast | Let String Ast Ast  deriving (Eq, Show)
 
-parseExpr' :: [String] -> (Ast, [String])
-parseExpr' []                     = error "invalid input"
-parseExpr' (x:xs) | all isDigit x = (Nr (read x), xs)
-                 | x == "-"      = (Min (fst(parseExpr' xs)), xs)
-                 | x == "+"      = (Sum (fst(parseExpr' xs))
-                                        (fst(parseExpr'(snd(parseExpr' xs)))),
-                                        xs)
-                 | x == "*"      = (Mul (fst(parseExpr' xs))
-                                        (fst(parseExpr'(snd(parseExpr' xs)))),
-                                        xs)
-
 parseExpr :: [String] -> (Ast,[String])
-parseExpr [] = error "invalid input"
+parseExpr []  = error "invalid input"
 parseExpr (x:xs) | all isDigit x = (Nr (read x), xs)
                  | x == "-"      = liftParser1 Min parseExpr xs
                  | x == "+"      = liftParser2 Sum parseExpr parseExpr xs
@@ -58,8 +47,31 @@ cleanString xs |  (head xs == ",") || (head xs == "")  || (head xs == "=") ||
 tokenize :: String -> [String]
 tokenize xs = cleanString(splitOn " " xs)
 
+{-
+SOLUTION TO UNDECLARED VARIABLES
+postProcess is used together with checkBoundValue to determine if all
+variables are in fact bound. postProcess traverses the AST produced by the
+function parse and returns the exact same AST as long as long as
+checkBoundValue does not
+produce an error
+-}
+
+postProcess :: Ast -> [(String, Ast)] -> Ast
+postProcess (Nr n) xs      = (Nr n)
+postProcess (Sum x y) xs   = (Sum (postProcess x xs) (postProcess y xs))
+postProcess (Mul x y) xs   = (Mul (postProcess x xs) (postProcess y xs))
+postProcess (Min x) xs     = (Min (postProcess x xs))
+postProcess (If x y z) xs  = (If (postProcess x xs) (postProcess y xs) (postProcess z xs))
+postProcess (Let s x y) xs = (Let s (postProcess x xs) (postProcess y ((s, (postProcess x xs)): xs)))
+postProcess (Var s) xs     = (Var (fst(checkBoundValue s xs)))
+
+--checkBoundValue
+checkBoundValue :: String -> [(String, Ast)] -> (String, Ast)
+checkBoundValue s []  = error ("variable " ++ s ++ " not bound")
+checkBoundValue s (x:xs)    | s == fst x   = x
+                            | otherwise    = checkBoundValue s xs
 parse :: String -> Ast
-parse xs =  fst(parseExpr(tokenize xs))
+parse xs =  postProcess(fst(parseExpr(tokenize xs))) []
 
 realJob :: Ast -> [(String, Int)] -> (Int, Bool)
 realJob (Nr n) xs      | even n = (n, False)
@@ -81,7 +93,8 @@ realJob (Let s x y) xs = realJob y ((s, fst(realJob x xs)) : xs)
 realJob (Var s) xs     = realJob (Nr (findBoundValue s xs)) xs
 
 findBoundValue :: String -> [(String, Int)]-> Int
-findBoundValue s (x:xs) | s == fst x   = snd x
+findBoundValue _ []  = error "variable not bound"
+findBoundValue s (x:xs) | s == fst x    = snd x
                         | otherwise     = findBoundValue s xs
 
 evi :: String -> Int
