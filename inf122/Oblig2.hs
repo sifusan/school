@@ -19,59 +19,52 @@ formatArguments :: [String] -> [Int]
 formatArguments []  = []
 formatArguments xs  = map read xs
 
-type Pos = (Int, Int)
-type Board = [Pos]
 
-createRow :: Int -> String
-createRow 0 = []
-createRow n = '.' : ' ' : createRow (n-1)
-
--- Create a row of length n with an X at position m
-createRowWithCell :: Int -> Int -> String
-createRowWithCell 0 _ = []
-createRowWithCell n m | n == m = ' ' : 'X' : createRowWithCell (n-1) m
-                      | otherwise = ' ' : '.' : createRowWithCell (n-1) m
+reverseAll :: [[Int]] -> [[Int]]
+reverseAll = map reverse
 
 
+sortbyYvalue :: [[Int]] -> [[Int]]
+sortbyYvalue nss = reverseAll (sort (reverseAll nss))
 
-isPoint :: [Int] -> [[Int]] -> Bool
-isPoint _ []      = False
-isPoint ns (m:ms) | ns == m = True
-                    | otherwise = isPoint ns ms
-{-
-createBoardWithCells :: Int -> Int -> [[Int]] -> [String]
-createBoardWithCells 0 _ [] = []
-createBoardWithCells _ 0 [] = []
-createBoardWithCells x y ns |
--}
 
---create a board with length x, height y, with a cell at position n m
--- CHANGE to use list of points
+filterEmpty :: [[Int]] -> [[Int]]
+filterEmpty = filter (not .null)
 
-createBoardWithCell :: Int -> Int -> Int -> Int -> [String]
-createBoardWithCell _ 0 _ _ = []
-createBoardWithCell 0 _ _ _ = []
-createBoardWithCell x y n m | y == (x-m) + 1 = reverse (createRowWithCell x n) : createBoardWithCell x (y-1) n m
-                            | otherwise = createRow x : createBoardWithCell x (y-1) n m
 
-createBoard :: Int -> Int -> [String]
-createBoard _ 0 = []
-createBoard 0 _ = []
-createBoard n m = createRow n : createBoard n (m-1)
+rmdups :: Eq a => [a] -> [a]
+rmdups []       = []
+rmdups (x:xs)   = x : rmdups (filter (/= x) xs)
 
-createWithCell :: Int -> Int -> Int -> IO ()
-createWithCell x y z = mapM_ putStrLn (createBoardWithCell x x y z)
+
+-- l is width and height of board, x and y represents current position
+-- call with x and y at zero!!
+-- sort [[Int]] before doing anything!
+funkyShit :: Int -> Int -> Int -> [[Int]] -> String
+funkyShit l x y [[]]     | y == l && x == l = '.' : "\n"
+                         | x == l && y /= l = '.' : '\n' : funkyShit l 1 (y+1) [[]]
+                         | otherwise = '.' : ' ' : funkyShit l (x+1) y [[]]
+
+funkyShit l x y []       | y == l && x == l = '.' : "\n"
+                         | x == l && y /= l = '.' : '\n' : funkyShit l 1 (y+1) []
+                         | otherwise = '.' : ' ' : funkyShit l (x+1) y []
+
+funkyShit l x y (ns:nss) | x == l && y == l               = "X\n"
+                         | (x == x1 && y == y1) && x /= l = 'X' : ' '  : funkyShit l (x+1) y nss
+                         | (x == x1 && y == y1) && x == l = 'X' : '\n' : funkyShit l 1 (y+1) nss
+                         | (x /= x1 || y /= y1) && x == l = '.' : '\n' : funkyShit l 1 (y+1) (ns:nss)
+                         | x /= x1 || y /= y1             = '.' : ' '  : funkyShit l (x+1) y (ns:nss)
+                         | otherwise = error "Something really strange happened"
+                         where
+                             x1 = head ns
+                             y1 = head (tail ns)
+
+
+createWithCells :: Int -> [[Int]] -> IO ()
+createWithCells n cells = putStr (funkyShit n 1 1 (rmdups(filterEmpty(sortbyYvalue cells))))
 
 create :: Int -> IO ()
-create n = mapM_ putStrLn (createBoard n n)
-
-newCell :: Int -> Int -> IO ()
-newCell x y = putChar 'x'
-
-execute :: String -> [Int] -> IO ()
-execute xs n | xs == "c" = create (head n)
-             | xs == "n" = createWithCell (head n) (head n) (head n)
-             | otherwise = putStrLn "something went wrong"
+create n = putStr (funkyShit n 1 1 [])
 
 cls :: IO ()
 cls = putStr "\ESC[2J"
@@ -106,7 +99,8 @@ executionLoop n ns True = do
                 create (head (formatArguments(tail(splitInput input))))
                 executionLoop (head (formatArguments(tail(splitInput input)))) ns True
             'n' -> do
-                createWithCell n (head (formatArguments(tail(splitInput input)))) (formatArguments(tail(splitInput input)) !! 1)
+
+                createWithCells n ([[head (formatArguments(tail(splitInput input))), formatArguments(tail (splitInput input)) !! 1]] ++ ns)
                 executionLoop n (formatArguments(tail(splitInput input)) : ns) True
     else putStrLn "invalid command"
     executionLoop n ns True
