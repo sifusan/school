@@ -5,7 +5,7 @@ import Data.List
 import System.Exit;
 
 commands :: [String]
-commands = ["c", "help", "q", "n"]
+commands = ["c", "help", "q", "n", "d"]
 
 isCommand :: String -> [String] -> Bool
 isCommand xs []   = False
@@ -49,19 +49,24 @@ funkyShit l x y []       | y == l && x == l = '.' : "\n"
                          | x == l && y /= l = '.' : '\n' : funkyShit l 1 (y+1) []
                          | otherwise = '.' : ' ' : funkyShit l (x+1) y []
 
-funkyShit l x y (ns:nss) | x == l && y == l               = "X\n"
-                         | (x == x1 && y == y1) && x /= l = 'X' : ' '  : funkyShit l (x+1) y nss
-                         | (x == x1 && y == y1) && x == l = 'X' : '\n' : funkyShit l 1 (y+1) nss
-                         | (x /= x1 || y /= y1) && x == l = '.' : '\n' : funkyShit l 1 (y+1) (ns:nss)
-                         | x /= x1 || y /= y1             = '.' : ' '  : funkyShit l (x+1) y (ns:nss)
-                         | otherwise = error "Something really strange happened"
-                         where
-                             x1 = head ns
-                             y1 = head (tail ns)
+funkyShit l x y (ns:nss)
+    | (x == l && y == l)   && x/= x1 = ".\n"
+    | x == l && y == l               = "X\n"
+    | (x == x1 && y == y1) && x /= l = 'X' : ' '  : funkyShit l (x+1) y nss
+    | (x == x1 && y == y1) && x == l = 'X' : '\n' : funkyShit l 1 (y+1) nss
+    | (x /= x1 || y /= y1) && x == l = '.' : '\n' : funkyShit l 1 (y+1) (ns:nss)
+    | x /= x1 || y /= y1             = '.' : ' '  : funkyShit l (x+1) y (ns:nss)
+    | otherwise = error "Something really strange happened"
+    where
+        x1 = head ns
+        y1 = head (tail ns)
 
 
 createWithCells :: Int -> [[Int]] -> IO ()
 createWithCells n cells = putStr (funkyShit n 1 1 (rmdups(filterEmpty(sortbyYvalue cells))))
+
+dropAndCreateWithCells :: Int -> [Int] -> [[Int]] -> IO ()
+dropAndCreateWithCells n d cells = putStr (funkyShit n 1 1 (filterEmpty(sortbyYvalue(dropCell d (rmdups cells)))))
 
 create :: Int -> IO ()
 create n = putStr (funkyShit n 1 1 [])
@@ -72,20 +77,29 @@ cls = putStr "\ESC[2J"
 --use first paramater to save height and width of board
 --use second parameter to save list of cells
 --bool is flag to determine if the loop is running for the first time
+
+dropCell :: [Int] -> [[Int]] -> [[Int]]
+dropCell d [] = []
+dropCell d (ns:nss) | d /= ns = dropCell d nss ++ [ns]
+                    | otherwise = nss
+
 executionLoop :: Int -> [[Int]] -> Bool -> IO ()
 --executionLoop _ [] _  = exitFailure
 executionLoop n ns False = do
     putStrLn "enter a command"
     input <- getLine
     if isCommand (head (splitInput input)) commands then
-        if head input == 'q' then
-            exitSuccess
-        else
-            case head input of
-                'c' -> create (head (formatArguments (tail(splitInput input))))
-                'n' -> do
-                    putStrLn "No board created yet"
-                    executionLoop 0 ns False
+        let i1 = head (formatArguments(tail(splitInput input)))
+            i2 = formatArguments(tail (splitInput input)) in
+        case head input of
+            'q' -> exitSuccess
+            'c' -> create i1
+            'n' -> do
+                putStrLn "No board created yet, unable to put new cell"
+                executionLoop 0 ns False
+            'd' -> do
+                putStrLn "No board creaed yet, unable to drop"
+                executionLoop 0 ns False
     else putStrLn "invalid command"
     executionLoop (head(formatArguments(tail(splitInput input)))) ns True
 
@@ -93,15 +107,19 @@ executionLoop n ns True = do
     putStrLn "enter a command"
     input <- getLine
     if isCommand (head(splitInput input)) commands then
+        let i1 = head (formatArguments(tail(splitInput input)))
+            i2 = formatArguments(tail (splitInput input)) in
         case head input of
             'q' -> exitSuccess
             'c' -> do
-                create (head (formatArguments(tail(splitInput input))))
-                executionLoop (head (formatArguments(tail(splitInput input)))) ns True
+                create i1
+                executionLoop i1 ns True
             'n' -> do
-
-                createWithCells n ([[head (formatArguments(tail(splitInput input))), formatArguments(tail (splitInput input)) !! 1]] ++ ns)
-                executionLoop n (formatArguments(tail(splitInput input)) : ns) True
+                createWithCells n ([[i1, i2 !! 1]] ++ ns)
+                executionLoop n (i2 : ns) True
+            'd' -> do
+                dropAndCreateWithCells n [i1, i2 !! 1] ns
+                executionLoop n (dropCell [i1, i2 !! 1] ns) True
     else putStrLn "invalid command"
     executionLoop n ns True
 
