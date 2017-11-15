@@ -37,24 +37,28 @@ rmdups []       = []
 rmdups (x:xs)   = x : rmdups (filter (/= x) xs)
 
 
--- l is width and height of board, x and y represents current position
--- call with x and y at zero!!
--- sort [[Int]] before doing anything!
 funkyShit :: Int -> Int -> Int -> [[Int]] -> String
 funkyShit l x y []
-    | x == 1 && y == 1 = intToDigit y : ' ' : '.' : ' ' : funkyShit l (x+1) y []
-    | x == l && y == l = '.' : "\n"
-    | x == l && y /= l = '.' : '\n' : intToDigit (y+1) : ' ' : funkyShit l 1 (y+1) []
-    | otherwise        = '.' : ' ' : funkyShit l (x+1) y []
+    | x == 1 && y == 1            = show y ++ "  .  " ++ funkyShit l (x+1) y []
+    | x == l && y == l            = ".\n"
+    | (x == l && y /= l) && y > 8 = ".\n" ++ show (y+1) ++ " " ++ funkyShit l 1 (y+1) []
+    | x == l && y /= l            = ".\n" ++ show (y+1) ++ "  " ++ funkyShit l 1 (y+1) []
+    | otherwise                   = ".  " ++ funkyShit l (x+1) y []
 
 funkyShit l x y (ns:nss)
-    | (x == l && y == l)   && x/= x1 = ".\n"
-    | x == l && y == l               = "X\n"
-    | (x == x1 && y == y1) && x /= l = 'X' : ' '  : funkyShit l (x+1) y nss
-    | (x == x1 && y == y1) && x == l = 'X' : '\n' : intToDigit y : ' ' : funkyShit l 1 (y+1) nss
-    | x == 1 && y == 1               = intToDigit y : ' ' : '.' : ' ' : funkyShit l (x+1) y (ns:nss)
-    | (x /= x1 || y /= y1) && x == l = '.' : '\n' : intToDigit (y+1) : ' ' : funkyShit l 1 (y+1) (ns:nss)
-    | x /= x1 || y /= y1             = '.' : ' '  : funkyShit l (x+1) y (ns:nss)
+    | (x == l && y == l)   && x/= x1            = ".\n"
+    | x == l && y == l                          = "X\n"
+    | (x == x1 && y == y1) && x /= l && y > 8   = "X" ++ "  " ++ funkyShit l (x+1) y nss
+    | (x == x1 && y == y1) && (x /= l) &&
+        (x == 1 && y == 1)                      = show y ++ "  X  " ++ funkyShit l (x+1) y nss
+    | (x == x1 && y == y1) && x /= l            = "X  "  ++ funkyShit l (x+1) y nss
+    | (x == x1 && y == y1) && (x == l && y > 8) = "X\n" ++ show y ++ " " ++ funkyShit l 1 (y+1) nss
+    | (x == x1 && y == y1) && x == l            = "X\n" ++ show y ++ "  " ++ funkyShit l 1 (y+1) nss
+    | x == 1 && y == 1                          = show y ++ "  .  "  ++ funkyShit l (x+1) y (ns:nss)
+    | (x /= x1 || y /= y1) && (x == l && y > 8) = ".\n" ++ show (y+1) ++ " " ++ funkyShit l 1 (y+1) (ns:nss)
+    | (x /= x1 || y /= y1) && x == l            = ".\n" ++ show (y+1) ++ "  " ++ funkyShit l 1 (y+1) (ns:nss)
+    | (x /= x1 || y /= y1) && y > 9             = ".  " ++ funkyShit l (x+1) y (ns:nss)
+    | x /= x1 || y /= y1                        = ".  " ++ funkyShit l (x+1) y (ns:nss)
     | otherwise = error "Something really strange happened"
     where
         x1 = head ns
@@ -62,21 +66,32 @@ funkyShit l x y (ns:nss)
 
 numbersToChars :: [Int] -> String
 numbersToChars []       = ""
-numbersToChars (n:ns)   = intToDigit n : ' ' : numbersToChars ns
+numbersToChars (n:ns)
+    | n == 1 = show n ++ "  " ++ numbersToChars ns
+    | n < 9 = show n ++ "  " ++ numbersToChars ns
+    | otherwise = show n ++ " " ++ numbersToChars ns
 
 createWithCells :: Int -> [[Int]] -> IO ()
 createWithCells n cells = do
     putStrLn ("  " ++ numbersToChars [1..n])
     putStr (funkyShit n 1 1 (rmdups(filterEmpty(sortbyYvalue cells))))
 
+cellInRange :: [Int] -> Int -> Bool
+cellInRange [] _ = False
+cellInRange cell l | ((0 < x) && (x <= l)) && ((0 < y) && (y <= l)) = True
+                   | otherwise = False
+                   where
+                       x = head cell
+                       y = head (tail cell)
+
 dropAndCreateWithCells :: Int -> [Int] -> [[Int]] -> IO ()
 dropAndCreateWithCells n d cells = do
-    putStrLn ("  " ++ numbersToChars [1..n])
+    putStrLn ("   " ++ numbersToChars [1..n])
     putStr (funkyShit n 1 1 (filterEmpty(sortbyYvalue(dropCell d (rmdups cells)))))
 
 create :: Int -> IO ()
 create n = do
-    putStrLn ("  " ++ numbersToChars [1..n])
+    putStrLn ("   " ++ numbersToChars [1..n])
     putStr (funkyShit n 1 1 [])
 
 cls :: IO ()
@@ -123,8 +138,16 @@ executionLoop n ns True = do
                 create i1
                 executionLoop i1 ns True
             'n' -> do
-                createWithCells n ([[i1, i2 !! 1]] ++ ns)
-                executionLoop n (i2 : ns) True
+                if cellInRange [i1, i2 !! 1] n then
+                    do
+                        createWithCells n ([[i1, i2 !! 1]] ++ ns)
+                        executionLoop n (i2:ns) True
+                else
+                    do
+                        putStrLn "Invalid cell"
+                        createWithCells n ns
+                executionLoop n ns True
+
             'd' -> do
                 dropAndCreateWithCells n [i1, i2 !! 1] ns
                 executionLoop n (dropCell [i1, i2 !! 1] ns) True
