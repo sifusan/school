@@ -41,35 +41,43 @@ rmdups (x:xs)   = x : rmdups (filter (/= x) xs)
 -- call with x and y at zero!!
 -- sort [[Int]] before doing anything!
 funkyShit :: Int -> Int -> Int -> [[Int]] -> String
-funkyShit l x y [[]]     | y == l && x == l = '.' : "\n"
-                         | x == l && y /= l = '.' : '\n' : funkyShit l 1 (y+1) [[]]
-                         | otherwise = '.' : ' ' : funkyShit l (x+1) y [[]]
-
-funkyShit l x y []       | y == l && x == l = '.' : "\n"
-                         | x == l && y /= l = '.' : '\n' : funkyShit l 1 (y+1) []
-                         | otherwise = '.' : ' ' : funkyShit l (x+1) y []
+funkyShit l x y []
+    | x == 1 && y == 1 = intToDigit y : ' ' : '.' : ' ' : funkyShit l (x+1) y []
+    | x == l && y == l = '.' : "\n"
+    | x == l && y /= l = '.' : '\n' : intToDigit (y+1) : ' ' : funkyShit l 1 (y+1) []
+    | otherwise        = '.' : ' ' : funkyShit l (x+1) y []
 
 funkyShit l x y (ns:nss)
     | (x == l && y == l)   && x/= x1 = ".\n"
     | x == l && y == l               = "X\n"
     | (x == x1 && y == y1) && x /= l = 'X' : ' '  : funkyShit l (x+1) y nss
-    | (x == x1 && y == y1) && x == l = 'X' : '\n' : funkyShit l 1 (y+1) nss
-    | (x /= x1 || y /= y1) && x == l = '.' : '\n' : funkyShit l 1 (y+1) (ns:nss)
+    | (x == x1 && y == y1) && x == l = 'X' : '\n' : intToDigit y : ' ' : funkyShit l 1 (y+1) nss
+    | x == 1 && y == 1               = intToDigit y : ' ' : '.' : ' ' : funkyShit l (x+1) y (ns:nss)
+    | (x /= x1 || y /= y1) && x == l = '.' : '\n' : intToDigit (y+1) : ' ' : funkyShit l 1 (y+1) (ns:nss)
     | x /= x1 || y /= y1             = '.' : ' '  : funkyShit l (x+1) y (ns:nss)
     | otherwise = error "Something really strange happened"
     where
         x1 = head ns
         y1 = head (tail ns)
 
+numbersToChars :: [Int] -> String
+numbersToChars []       = ""
+numbersToChars (n:ns)   = intToDigit n : ' ' : numbersToChars ns
 
 createWithCells :: Int -> [[Int]] -> IO ()
-createWithCells n cells = putStr (funkyShit n 1 1 (rmdups(filterEmpty(sortbyYvalue cells))))
+createWithCells n cells = do
+    putStrLn ("  " ++ numbersToChars [1..n])
+    putStr (funkyShit n 1 1 (rmdups(filterEmpty(sortbyYvalue cells))))
 
 dropAndCreateWithCells :: Int -> [Int] -> [[Int]] -> IO ()
-dropAndCreateWithCells n d cells = putStr (funkyShit n 1 1 (filterEmpty(sortbyYvalue(dropCell d (rmdups cells)))))
+dropAndCreateWithCells n d cells = do
+    putStrLn ("  " ++ numbersToChars [1..n])
+    putStr (funkyShit n 1 1 (filterEmpty(sortbyYvalue(dropCell d (rmdups cells)))))
 
 create :: Int -> IO ()
-create n = putStr (funkyShit n 1 1 [])
+create n = do
+    putStrLn ("  " ++ numbersToChars [1..n])
+    putStr (funkyShit n 1 1 [])
 
 cls :: IO ()
 cls = putStr "\ESC[2J"
