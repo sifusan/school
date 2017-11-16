@@ -5,7 +5,7 @@ import Data.List
 import System.Exit;
 
 commands :: [String]
-commands = ["c", "help", "q", "n", "d", "s", "b", "?"]
+commands = ["c", "help", "q", "n", "d", "s", "b", "?", "l"]
 
 isCommand :: String -> [String] -> Bool
 isCommand xs []   = False
@@ -144,8 +144,19 @@ newBornCells x y n cells b
         l = length (adjacentCells [x,y] cells)
 
 
+enterLive :: Int -> Int -> (Int, Int) -> (Int, Int) -> [[Int]] -> IO ()
+enterLive n l ss bs cells =
+    if n >= 0 then do
+        createWithCells l cells
+        wait 500000
+        enterLive (n-1) l ss bs (rmdups (survivors cells ss ++ newBornCells l l l cells bs))
+    else
+        putStrLn "Automation has finished"
+
+wait :: Int -> IO ()
+wait n = sequence_ [return () | _ <- [1..n]]
+
 executionLoop :: Int -> [[Int]] -> (Int, Int) -> (Int, Int) -> Bool -> IO ()
---executionLoop _ [] _  = exitFailure
 executionLoop n ns ss bs False = do
     putStrLn "enter a command"
     input <- getLine
@@ -184,6 +195,9 @@ executionLoop n ns ss bs False = do
                     print ss
                     putStr "\nB: "
                     print bs
+                'l' -> do
+                    putStrLn "No board created yet, unable to enter live"
+                    executionLoop n ns bs ss False
         else putStrLn "Invalid command"
     executionLoop (head(formatArguments(tail(splitInput input)))) ns ss bs True
 
@@ -241,6 +255,10 @@ executionLoop n ns ss bs True = do
                         print ss
                         putStr "\nB: "
                         print bs
+                    'l' -> do
+                        print ns
+                        enterLive i1 n ss bs ns
+                        executionLoop n ns ss bs True
         else putStrLn "invalid command"
     executionLoop n ns ss bs True
 
