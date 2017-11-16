@@ -146,10 +146,17 @@ newBornCells x y n cells b
 
 enterLive :: Int -> Int -> (Int, Int) -> (Int, Int) -> [[Int]] -> IO ()
 enterLive n l ss bs cells =
-    if n >= 0 then do
-        createWithCells l cells
-        wait 500000
-        enterLive (n-1) l ss bs (rmdups (survivors cells ss ++ newBornCells l l l cells bs))
+    if n >= 0 then
+        if cells == rmdups (survivors cells ss ++ newBornCells l l l cells bs) then
+            do
+                createWithCells l cells
+                createWithCells l cells
+                putStrLn "Stable configuration reached"
+        else
+            do
+                createWithCells l cells
+                wait 500000
+                enterLive (n-1) l ss bs (rmdups (survivors cells ss ++ newBornCells l l l cells bs))
     else
         putStrLn "Automation has finished"
 
@@ -207,8 +214,12 @@ executionLoop n ns ss bs True = do
     if input == "" then
         if (fst ss > 0 && snd ss > 0) && (fst bs > 0 && snd bs > 0) then
             let newCells = rmdups (survivors ns ss ++ newBornCells n n n ns bs) in
-            do
-                print ns
+            if ns == newCells then
+                do
+                    createWithCells n newCells
+                    putStrLn "Stable configuration reached"
+                    executionLoop n newCells ss bs True
+            else do
                 createWithCells n newCells
                 executionLoop n newCells ss bs True
         else
