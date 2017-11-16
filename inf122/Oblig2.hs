@@ -5,7 +5,7 @@ import Data.List
 import System.Exit;
 
 commands :: [String]
-commands = ["c", "help", "q", "n", "d", "s", "b"]
+commands = ["c", "help", "q", "n", "d", "s", "b", "?"]
 
 isCommand :: String -> [String] -> Bool
 isCommand xs []   = False
@@ -37,28 +37,28 @@ rmdups []       = []
 rmdups (x:xs)   = x : rmdups (filter (/= x) xs)
 
 
-funkyShit :: Int -> Int -> Int -> [[Int]] -> String
-funkyShit l x y []
-    | x == 1 && y == 1            = show y ++ "  .  " ++ funkyShit l (x+1) y []
+createBoard :: Int -> Int -> Int -> [[Int]] -> String
+createBoard l x y []
+    | x == 1 && y == 1            = show y ++ "  .  " ++ createBoard l (x+1) y []
     | x == l && y == l            = ".\n"
-    | (x == l && y /= l) && y > 8 = ".\n" ++ show (y+1) ++ " " ++ funkyShit l 1 (y+1) []
-    | x == l && y /= l            = ".\n" ++ show (y+1) ++ "  " ++ funkyShit l 1 (y+1) []
-    | otherwise                   = ".  " ++ funkyShit l (x+1) y []
+    | (x == l && y /= l) && y > 8 = ".\n" ++ show (y+1) ++ " " ++ createBoard l 1 (y+1) []
+    | x == l && y /= l            = ".\n" ++ show (y+1) ++ "  " ++ createBoard l 1 (y+1) []
+    | otherwise                   = ".  " ++ createBoard l (x+1) y []
 
-funkyShit l x y (ns:nss)
+createBoard l x y (ns:nss)
     | (x == l && y == l)   && x/= x1            = ".\n"
     | x == l && y == l                          = "X\n"
-    | (x == x1 && y == y1) && x /= l && y > 8   = "X" ++ "  " ++ funkyShit l (x+1) y nss
+    | (x == x1 && y == y1) && x /= l && y > 8   = "X" ++ "  " ++ createBoard l (x+1) y nss
     | (x == x1 && y == y1) && (x /= l) &&
-      (x == 1 && y == 1)                        = show y ++ "  X  " ++ funkyShit l (x+1) y nss
-    | (x == x1 && y == y1) && x /= l            = "X  "  ++ funkyShit l (x+1) y nss
-    | (x == x1 && y == y1) && (x == l && y > 8) = "X\n" ++ show y ++ " " ++ funkyShit l 1 (y+1) nss
-    | (x == x1 && y == y1) && x == l            = "X\n" ++ show y ++ "  " ++ funkyShit l 1 (y+1) nss
-    | x == 1 && y == 1                          = show y ++ "  .  "  ++ funkyShit l (x+1) y (ns:nss)
-    | (x /= x1 || y /= y1) && (x == l && y > 8) = ".\n" ++ show (y+1) ++ " " ++ funkyShit l 1 (y+1) (ns:nss)
-    | (x /= x1 || y /= y1) && x == l            = ".\n" ++ show (y+1) ++ "  " ++ funkyShit l 1 (y+1) (ns:nss)
-    | (x /= x1 || y /= y1) && y > 9             = ".  " ++ funkyShit l (x+1) y (ns:nss)
-    | x /= x1 || y /= y1                        = ".  " ++ funkyShit l (x+1) y (ns:nss)
+      (x == 1 && y == 1)                        = show y ++ "  X  " ++ createBoard l (x+1) y nss
+    | (x == x1 && y == y1) && x /= l            = "X  "  ++ createBoard l (x+1) y nss
+    | (x == x1 && y == y1) && (x == l && y > 8) = "X\n" ++ show y ++ " " ++ createBoard l 1 (y+1) nss
+    | (x == x1 && y == y1) && x == l            = "X\n" ++ show y ++ "  " ++ createBoard l 1 (y+1) nss
+    | x == 1 && y == 1                          = show y ++ "  .  "  ++ createBoard l (x+1) y (ns:nss)
+    | (x /= x1 || y /= y1) && (x == l && y > 8) = ".\n" ++ show (y+1) ++ " " ++ createBoard l 1 (y+1) (ns:nss)
+    | (x /= x1 || y /= y1) && x == l            = ".\n" ++ show (y+1) ++ "  " ++ createBoard l 1 (y+1) (ns:nss)
+    | (x /= x1 || y /= y1) && y > 9             = ".  " ++ createBoard l (x+1) y (ns:nss)
+    | x /= x1 || y /= y1                        = ".  " ++ createBoard l (x+1) y (ns:nss)
     | otherwise = error "Something really strange happened"
     where
         x1 = head ns
@@ -76,7 +76,7 @@ createWithCells :: Int -> [[Int]] -> IO ()
 createWithCells n [] = create n
 createWithCells n cells = do
     putStrLn ("   " ++ numbersToChars [1..n])
-    putStr (funkyShit n 1 1 (rmdups(filterEmpty(sortbyYvalue cells))))
+    putStr (createBoard n 1 1 (rmdups(filterEmpty(sortbyYvalue cells))))
 
 cellInRange :: [Int] -> Int -> Bool
 cellInRange [] _ = False
@@ -89,15 +89,12 @@ cellInRange cell l | ((0 < x) && (x <= l)) && ((0 < y) && (y <= l)) = True
 dropAndCreateWithCells :: Int -> [Int] -> [[Int]] -> IO ()
 dropAndCreateWithCells n d cells = do
     putStrLn ("   " ++ numbersToChars [1..n])
-    putStr (funkyShit n 1 1 (filterEmpty(sortbyYvalue(dropCell d (rmdups cells)))))
+    putStr (createBoard n 1 1 (filterEmpty(sortbyYvalue(dropCell d (rmdups cells)))))
 
 create :: Int -> IO ()
 create n = do
     putStrLn ("   " ++ numbersToChars [1..n])
-    putStr (funkyShit n 1 1 [])
-
-cls :: IO ()
-cls = putStr "\ESC[2J"
+    putStr (createBoard n 1 1 [])
 
 
 dropCell :: [Int] -> [[Int]] -> [[Int]]
@@ -133,23 +130,19 @@ survivors cells s =
     rmdups [x | x <- cells, survives x cells s]
 
 
-isBorn :: [Int] -> [[Int]] -> (Int, Int) -> Bool
-isBorn cell cells b | l >= fst b && l <= snd b = True
-                    |otherwise = False
-                    where
-                        l = length (adjacentCells cell cells)
-
 newBornCells :: Int -> Int -> Int -> [[Int]] -> (Int, Int) -> [[Int]]
 newBornCells _ 0 _ _ _    = []
 newBornCells _ _ _ [] _   = []
 newBornCells x y n cells b
+    | x > n || y > n                        = newBornCells (x-1) y n cells b
     | x == 0 && (l >= fst b && l <= snd b ) = new : newBornCells (x+n) (y-1) n cells b
-    | x == 0                                = newBornCells (x+n) (y-1) n cells b
     | l >= fst b && l <= snd b              = new : newBornCells (x-1) y n cells b
+    | x == 0                                = newBornCells (x+n) (y-1) n cells b
     | otherwise                             = newBornCells (x-1) y n cells b
     where
         new = [x,y]
         l = length (adjacentCells [x,y] cells)
+
 
 executionLoop :: Int -> [[Int]] -> (Int, Int) -> (Int, Int) -> Bool -> IO ()
 --executionLoop _ [] _  = exitFailure
@@ -163,24 +156,34 @@ executionLoop n ns ss bs False = do
         if isCommand (head (splitInput input)) commands then
             let i1 = head (formatArguments(tail(splitInput input)))
                 i2 = formatArguments(tail (splitInput input)) in
-            case [head input] of
-                "q" -> exitSuccess
-                "c" -> create i1
-                "n" -> do
+            case head input of
+                'q' -> exitSuccess
+                'c' -> do
+                    create i1
+                    executionLoop i1 ns ss bs True
+                'n' -> do
                     putStrLn "No board created yet, unable to put new cell"
                     executionLoop 0 ns ss bs False
-                "d" -> do
+                'd' -> do
                     putStrLn "No board created yet, unable to drop"
                     executionLoop 0 ns ss bs False
-                "s" -> if i1 > 0 && i2 !! 1 > 0 then
+                's' -> if i1 > 0 && i2 !! 1 > 0 then
                             executionLoop n ns (i1, i2 !! 1) bs False
                         else
                             do
                                 putStrLn "Invalid rules for s, must be greater than 0"
                                 executionLoop 0 ns ss bs False
-                "b" -> do
-                    putStrLn (show i1 ++ " " ++ show (i2 !! 1))
-                    executionLoop n ns ss (i1, i2 !! 1) False
+                'b' -> if i1 > 0 && i2 !! 1 > 0 then
+                            executionLoop n ns ss (i1, i2 !! 1) False
+                        else
+                            do
+                                putStrLn "Invalid rules for s, must be greater than 0"
+                                executionLoop n ns ss (i1, i2 !! 1) False
+                '?' -> do
+                    putStr "S: "
+                    print ss
+                    putStr "\nB: "
+                    print bs
         else putStrLn "Invalid command"
     executionLoop (head(formatArguments(tail(splitInput input)))) ns ss bs True
 
@@ -188,10 +191,12 @@ executionLoop n ns ss bs True = do
     putStrLn "enter a command"
     input <- getLine
     if input == "" then
-        if fst ss > 0 && snd ss > 0 then
+        if (fst ss > 0 && snd ss > 0) && (fst bs > 0 && snd bs > 0) then
+            let newCells = rmdups (survivors ns ss ++ newBornCells n n n ns bs) in
             do
-                createWithCells n ((survivors ns ss) ++ (newBornCells n n n ns bs))
-                executionLoop n ((survivors ns ss) ++ (newBornCells n n n ns bs)) ss bs True
+                print ns
+                createWithCells n newCells
+                executionLoop n newCells ss bs True
         else
             do
                 putStrLn "Invalid rules, set rules with \'s\' and \'b\'"
@@ -219,9 +224,23 @@ executionLoop n ns ss bs True = do
                         dropAndCreateWithCells n [i1, i2 !! 1] ns
                         executionLoop n (dropCell [i1, i2 !! 1] ns) ss bs True
 
-                    's' -> executionLoop n ns (i1, i2 !! 1) bs True
-
-                    'b' -> executionLoop n ns ss (i1, i2 !! 1) True
+                    's' -> if i1 > 0 && i2 !! 1 > 0 then
+                                executionLoop n ns (i1, i2 !! 1) bs True
+                            else
+                                do
+                                    putStrLn "Invalid rules for s, must be greater than 0"
+                                    executionLoop 0 ns ss bs True
+                    'b' -> if i1 > 0 && i2 !! 1 > 0 then
+                                executionLoop n ns ss (i1, i2 !! 1) True
+                            else
+                                do
+                                    putStrLn "Invalid rules for b, must be greater than 0"
+                                    executionLoop n ns ss (i1, i2 !! 1) True
+                    '?' -> do
+                        putStr "S: "
+                        print ss
+                        putStr "\nB: "
+                        print bs
         else putStrLn "invalid command"
     executionLoop n ns ss bs True
 
