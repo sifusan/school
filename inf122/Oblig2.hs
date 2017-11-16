@@ -5,7 +5,7 @@ import Data.List
 import System.Exit;
 
 commands :: [String]
-commands = ["c", "help", "q", "n", "d", "s", "b", "?", "l"]
+commands = ["c", "help", "q", "n", "d", "s", "b", "?", "l", "r", "w"]
 
 isCommand :: String -> [String] -> Bool
 isCommand xs []   = False
@@ -72,11 +72,13 @@ numbersToChars (n:ns)
     | n < 9 = show n ++ "  " ++ numbersToChars ns
     | otherwise = show n ++ " " ++ numbersToChars ns
 
+
 createWithCells :: Int -> [[Int]] -> IO ()
 createWithCells n [] = create n
 createWithCells n cells = do
     putStrLn ("   " ++ numbersToChars [1..n])
     putStr (createBoard n 1 1 (rmdups(filterEmpty(sortbyYvalue cells))))
+
 
 cellInRange :: [Int] -> Int -> Bool
 cellInRange [] _ = False
@@ -86,10 +88,12 @@ cellInRange cell l | ((0 < x) && (x <= l)) && ((0 < y) && (y <= l)) = True
                        x = head cell
                        y = cell !! 1
 
+
 dropAndCreateWithCells :: Int -> [Int] -> [[Int]] -> IO ()
 dropAndCreateWithCells n d cells = do
     putStrLn ("   " ++ numbersToChars [1..n])
     putStr (createBoard n 1 1 (filterEmpty(sortbyYvalue(dropCell d (rmdups cells)))))
+
 
 create :: Int -> IO ()
 create n = do
@@ -123,6 +127,7 @@ survives cell cells s | l >= fst s && l <= snd s = True
                       | otherwise = False
                       where
                           l = length (adjacentCells cell cells)
+
 
 survivors :: [[Int]] -> (Int, Int) -> [[Int]]
 survivors [] _  = []
@@ -160,8 +165,19 @@ enterLive n l ss bs cells =
     else
         putStrLn "Automation has finished"
 
+
 wait :: Int -> IO ()
 wait n = sequence_ [return () | _ <- [1..n]]
+
+
+cellsToString :: [[Int]] -> String
+cellsToString []        = ""
+cellsToString (c:cells) = show (head c) ++ " " ++ show (head (tail c)) ++ " " ++  cellsToString cells
+
+
+formatInfo :: (Int,Int) -> (Int,Int) -> Int -> [[Int]] -> String
+formatInfo s b n cells = "s " ++ show (fst s) ++ " " ++ show (snd s) ++ " b " ++ show (fst b) ++ " " ++  show(snd b) ++ " n " ++ show n ++ " " ++ cellsToString cells
+
 
 executionLoop :: Int -> [[Int]] -> (Int, Int) -> (Int, Int) -> Bool -> IO ()
 executionLoop n ns ss bs False = do
@@ -205,8 +221,27 @@ executionLoop n ns ss bs False = do
                 'l' -> do
                     putStrLn "No board created yet, unable to enter live"
                     executionLoop n ns bs ss False
-        else putStrLn "Invalid command"
-    executionLoop (head(formatArguments(tail(splitInput input)))) ns ss bs True
+                'r' -> if (fst ss > 0 && snd ss > 0) && (fst bs > 0 && snd bs > 0) then
+                        do
+                            handle <- openFile (tail(tail input)) ReadMode
+                            contents <- hGetContents handle
+                            putStrLn ("The rules are: " ++ contents)
+                            hClose handle
+                            executionLoop n ns bs ss False
+                       else
+                           do
+                               putStrLn "Rules are not defined yet"
+                               executionLoop n ns bs ss False
+                'w' -> if (fst ss > 0 && snd ss > 0) && (fst bs > 0 && snd bs > 0) then
+                        writeFile (tail(tail input)) (formatInfo ss bs n ns)
+                        else
+                            do
+                                putStrLn "Rules are not defined yet"
+                                executionLoop n ns bs ss False
+        else do
+            putStrLn "Invalid command"
+            executionLoop (head (formatArguments(tail(splitInput input)))) ns ss bs False
+    executionLoop (head (formatArguments(tail(splitInput input)))) ns ss bs False
 
 executionLoop n ns ss bs True = do
     putStrLn "enter a command"
@@ -254,7 +289,7 @@ executionLoop n ns ss bs True = do
                             else
                                 do
                                     putStrLn "Invalid rules for s, must be greater than 0"
-                                    executionLoop 0 ns ss bs True
+                                    executionLoop n ns ss bs True
                     'b' -> if i1 > 0 && i2 !! 1 > 0 then
                                 executionLoop n ns ss (i1, i2 !! 1) True
                             else
@@ -270,7 +305,27 @@ executionLoop n ns ss bs True = do
                         print ns
                         enterLive i1 n ss bs ns
                         executionLoop n ns ss bs True
-        else putStrLn "invalid command"
+                    'r' -> if (fst ss > 0 && snd ss > 0) && (fst bs > 0 && snd bs > 0) then
+                            do
+                                handle <- openFile (tail(tail input)) ReadMode
+                                contents <- hGetContents handle
+                                putStrLn ("The rules are: " ++ contents)
+                                hClose handle
+                                executionLoop n ns bs ss True
+                           else
+                               do
+                                   putStrLn "Rules are not defined yet"
+                                   executionLoop n ns bs ss True
+                    'w' -> if (fst ss > 0 && snd ss > 0) && (fst bs > 0 && snd bs > 0) then
+                            writeFile (tail(tail input)) (formatInfo ss bs n ns)
+                            else
+                                do
+                                    putStrLn "Rules are not defined yet"
+                                    executionLoop n ns bs ss True
+        else do
+            putStrLn "invalid command"
+            executionLoop n ns ss bs True
+
     executionLoop n ns ss bs True
 
 main = executionLoop 0 [] (-1,-1) (-1,-1) False
