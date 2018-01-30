@@ -1,5 +1,5 @@
 --Name: Simen Fuglestad
---module Oblig1 where
+module Oblig1 where
 import Data.Char
 import Data.List.Split
 import Data.List
@@ -52,8 +52,7 @@ SOLUTION TO UNDECLARED VARIABLES
 postProcess is used together with checkBoundValue to determine if all
 variables are in fact bound. postProcess traverses the AST produced by the
 function parse and returns the exact same AST as long as long as
-checkBoundValue does not
-produce an error
+checkBoundValue does not produce an error
 -}
 
 postProcess :: Ast -> [(String, Ast)] -> Ast
@@ -65,7 +64,6 @@ postProcess (If x y z) xs  = (If (postProcess x xs) (postProcess y xs) (postProc
 postProcess (Let s x y) xs = (Let s (postProcess x xs) (postProcess y ((s, (postProcess x xs)): xs)))
 postProcess (Var s) xs     = (Var (fst(checkBoundValue s xs)))
 
---checkBoundValue
 checkBoundValue :: String -> [(String, Ast)] -> (String, Ast)
 checkBoundValue s []  = error ("variable " ++ s ++ " not bound")
 checkBoundValue s (x:xs)    | s == fst x   = x
@@ -93,7 +91,7 @@ realJob (Let s x y) xs = realJob y ((s, fst(realJob x xs)) : xs)
 realJob (Var s) xs     = realJob (Nr (findBoundValue s xs)) xs
 
 findBoundValue :: String -> [(String, Int)]-> Int
-findBoundValue _ []  = error "variable not bound"
+findBoundValue s []  = error ("variable " ++ s ++ " not bound")
 findBoundValue s (x:xs) | s == fst x    = snd x
                         | otherwise     = findBoundValue s xs
 

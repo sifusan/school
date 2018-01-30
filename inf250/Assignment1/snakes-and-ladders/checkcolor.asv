@@ -1,0 +1,51 @@
+function [color,colorOK] = checkcolor(colorint)
+
+switch colorint
+case 1  %red
+    color       =  
+    colorOK     = 1;
+    
+case 2  %yellow
+    tile(:,:,1) = 255*ones(60,60);
+    tile(:,:,2) = 255*ones(60,60);
+    tile(:,:,3) = zeros(60,60);
+    colorOK     = 1;
+    
+case 3  %blue
+    tile(:,:,1) = zeros(60,60);
+    tile(:,:,2) = zeros(60,60);
+    tile(:,:,3) = 255*ones(60,60);
+    colorOK     = 1;
+    
+case 4  %green
+    tile(:,:,1) = zeros(60,60);
+    tile(:,:,2) = 255*ones(60,60);
+    tile(:,:,3) = zeros(60,60);
+    colorOK     = 1;
+    
+case 5  %cyan
+    tile(:,:,1) = zeros(60,60);
+    tile(:,:,2) = 255*ones(60,60);
+    tile(:,:,3) = 255*ones(60,60);
+    colorOK     = 1;
+    
+case 6  %magenta
+    tile(:,:,1) = 255*ones(60,60);
+    tile(:,:,2) = zeros(60,60);
+    tile(:,:,3) = 255*ones(60,60);
+    colorOK     = 1;
+    
+case 7  %while
+    tile(:,:,1) = 255*ones(60,60);
+    tile(:,:,2) = 255*ones(60,60);
+    tile(:,:,3) = 255*ones(60,60);
+    colorOK     = 1;
+    
+otherwise
+    fprintf('\n Sorry! Wrong Choice')
+    tile(:,:,1) = zeros(60,60);
+    tile(:,:,2) = zeros(60,60);
+    tile(:,:,3) = zeros(60,60);
+    colorOK     = 0;
+    
+end    
