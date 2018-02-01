@@ -1,0 +1,33 @@
+married_best = zeros(1,10);
+married_second_best = zeros(1,10);
+not_married = zeros(1,10);
+
+
+for k=1:10
+    %rand_k = round(rand()*9)+1;
+
+    for i=1:1000
+        princes = randi([intmin intmax],10);
+        result = best_k(k,princes);
+        if result == 1
+            married_best(k) = married_best(k)+1;
+        elseif result == 2
+            married_second_best(k) = married_second_best(k)+1;
+        elseif result == -1
+            not_married(k) = not_married(k)+1;
+        end
+    end  
+end
+
+figure
+hold on;
+title("Princess dilemma: Graphical representation of marrying results");
+xlabel("How many princes to turn down before inviting the rest")
+ylabe
+plot(married_best);
+plot(married_second_best);
+plot(not_married);
+fprintf("k == %d", k);
+fprintf("Married_best: %d\n", married_best);
+fprintf("Married_second_best: %d\n", married_second_best);
+fprintf("NotMarried: %d\n", not_married);

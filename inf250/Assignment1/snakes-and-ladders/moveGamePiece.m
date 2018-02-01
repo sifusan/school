@@ -11,7 +11,7 @@ function  moveGamePiece(dice,activeposition,passiveposition,playercoloractive,pl
 %% Display the active player
 cla
 temp = 30:60:570;
-r_temp = fliplr((temp));
+r_temp = fliplr(temp);
 board_positions = [temp r_temp temp r_temp temp r_temp temp r_temp temp r_temp];
 
 if dice==0
