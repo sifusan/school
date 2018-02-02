@@ -27,19 +27,14 @@ function rank = best_k(k, array)
 %   Running the algorithm with k=9 and the same array will return -1.
     
     if k > 10 || k <= 0
-        %fprintf("Invalid value '%d' for k ", k);
-        %fprintf("\nPlease try again with 0 < k <= 10");
+        fprintf("Invalid value '%d' for k ", k);
+        fprintf("\nPlease try again with 0 < k <= 10");
         rank = -1;
     elseif isempty(array)
             rank = -1;
     else
         turn_down = array(1:k);
         invite = array(k+1:end);
-
-        %fprintf("You turn down");
-        disp(turn_down);
-        %fprintf("\nYou are left with");
-        disp(invite);
 
         the_one = -1;
         found = 0;
@@ -52,15 +47,12 @@ function rank = best_k(k, array)
                  if found == 1
                      break;
                  end
-                 %fprintf("Comparing %d to %d\n", invite(j), turn_down(i));   
                  if invite(j) > turn_down(i)
-                     %fprintf("Found candidate: %d\n", invite(j)); 
                      for h=1:length(turn_down)
                          if invite(j) < turn_down(h)
                              break;
                          elseif h == length(turn_down) && invite(j) > turn_down(h)
                              the_one = invite(j);
-                             %fprintf("Found the one with a value of %d\n", the_one); 
                              found = 1;
                              break;
                          end

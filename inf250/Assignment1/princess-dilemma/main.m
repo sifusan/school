@@ -1,4 +1,3 @@
-
 for o=1:10
     married_best = zeros(1,10);
     married_second_best = zeros(1,10);
