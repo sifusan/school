@@ -13,7 +13,17 @@ cla
 temp = 30:60:570;
 r_temp = fliplr(temp);
 board_positions = [temp r_temp temp r_temp temp r_temp temp r_temp temp r_temp];
-give_way = 0;
+cheat_codes = ["refrigerator" "outside" "world" "boat", "syllables"];
+haikus = ["\n\nHaikus are easy\nBut Sometimes they don\'t make sense\nRefrigerator\n\n"
+          "\n\nWanna go outside\n oh NO! Help! I got outside!\nLet me back inside\n\n"
+          "\n\nWorld is vast and wide\nSo much out there to explore\nRight now, let's eat lunch\n\n"
+          "\n\nRow row row your boat\nRowing gently down the stream\nLife is so extreme\n\n"
+          "\n\nFive syllables here\nSeven more syllables here\nAre you happy now?\n\n"];
+cheat_squares = [20
+                 round(rand()*99,0)+1
+                 round(rand()*99,0)+1
+                 round(rand()*99,0)+1
+                 round(rand()*99,0)+1];
 if dice==0
 
     %TODO:
@@ -32,9 +42,6 @@ if dice==0
     at_row = ceil(activeposition/10); 
     pos_y = 630 - (at_row * 60);
     
-    if passiveposition == activeposition
-        give_way = 30;
-    end
     figure(1)
     hold on
     imshow(board)
@@ -61,7 +68,23 @@ if dice==0
 
         case 7  %while
             plot(pos_x, pos_y, '.w', 'MarkerSize',69)
-
+    end
+    if ismember(activeposition, cheat_squares)
+        a = inputdlg("You landed on a haiku square, enter a supersecret password to unlock a haiku");
+        if a == cheat_codes(1)
+            fprintf(haikus(1));
+        elseif a == cheat_codes(2)
+            fprintf(haikus(2));
+        elseif a == cheat_codes(3)
+            fprintf(haikus(3));
+        elseif a == cheat_codes(4)
+            fprintf(haikus(4));
+        elseif a == cheat_codes(5)
+            fprintf(haikus(5));
+        else
+            disp("Sorry that's not a valid password");
+        end       
+            
     end
 
     %% Display the passive player
@@ -76,7 +99,7 @@ if dice==0
         pos_y = 630 - (at_row * 60);
     
         if passiveposition == activeposition
-            pos_y = pos_y + give_way;
+            pos_y = pos_y + 30;
         end
         switch playercolorpassive
             case 1  %red
@@ -112,10 +135,6 @@ else
         pos_x = board_positions((activeposition - dice) + m);
         at_row = ceil(((activeposition-dice)+m)/10); 
         pos_y = 630 - (at_row * 60);
-        
-        if (activeposition - dice + m) == passiveposition
-            give_way = pos_y +30;
-        end
         
         figure(1)
         hold on
@@ -157,7 +176,11 @@ else
             pos_x = board_positions(passiveposition);
             at_row = ceil(passiveposition/10); 
             pos_y = 630 - (at_row * 60);
-    
+            
+            if (activeposition - dice + m) == passiveposition
+                pos_y = pos_y + 30;
+            end
+            
             switch playercolorpassive
                 case 1  %red
                     plot(pos_x, pos_y, '.r', 'MarkerSize',69)
