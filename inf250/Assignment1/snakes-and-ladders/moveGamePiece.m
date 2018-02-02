@@ -13,7 +13,7 @@ cla
 temp = 30:60:570;
 r_temp = fliplr(temp);
 board_positions = [temp r_temp temp r_temp temp r_temp temp r_temp temp r_temp];
-
+give_way = 0;
 if dice==0
 
     %TODO:
@@ -32,6 +32,9 @@ if dice==0
     at_row = ceil(activeposition/10); 
     pos_y = 630 - (at_row * 60);
     
+    if passiveposition == activeposition
+        give_way = 30;
+    end
     figure(1)
     hold on
     imshow(board)
@@ -72,7 +75,9 @@ if dice==0
         at_row = ceil(passiveposition/10); 
         pos_y = 630 - (at_row * 60);
     
-    
+        if passiveposition == activeposition
+            pos_y = pos_y + give_way;
+        end
         switch playercolorpassive
             case 1  %red
                 plot(pos_x, pos_y, '.r', 'MarkerSize',69)
@@ -107,6 +112,10 @@ else
         pos_x = board_positions((activeposition - dice) + m);
         at_row = ceil(((activeposition-dice)+m)/10); 
         pos_y = 630 - (at_row * 60);
+        
+        if (activeposition - dice + m) == passiveposition
+            give_way = pos_y +30;
+        end
         
         figure(1)
         hold on
@@ -145,10 +154,9 @@ else
         
         
         if passiveposition ~= 0
-        pos_x = board_positions(passiveposition);
-        at_row = ceil(passiveposition/10); 
-        pos_y = 630 - (at_row * 60);
-    
+            pos_x = board_positions(passiveposition);
+            at_row = ceil(passiveposition/10); 
+            pos_y = 630 - (at_row * 60);
     
             switch playercolorpassive
                 case 1  %red
