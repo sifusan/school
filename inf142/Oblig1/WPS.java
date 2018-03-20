@@ -26,41 +26,37 @@ public class WPS {
                 }
                 sendToClient(result, serverSocket, gotPacket.getAddress(), gotPacket.getPort());
             }
-        } catch(IOException e) {
+        } catch(IOException | NullPointerException e) {
             e.printStackTrace();
         }
     }
 
-    private static void sendToClient(String message, DatagramSocket socket, InetAddress ip, int port) {
-        try {
-            byte[] sendData;
-            sendData = message.getBytes();
-            DatagramPacket packet = new DatagramPacket(sendData, sendData.length, ip, port);
-            socket.send(packet);
-
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-        }
+    private static void sendToClient(String message, DatagramSocket socket, InetAddress ip, int port) throws IOException, NullPointerException {
+        byte[] sendData;
+        sendData = message.getBytes();
+        DatagramPacket packet = new DatagramPacket(sendData, sendData.length, ip, port);
+        socket.send(packet);
     }
 
     private static String queryWeb(String host, String path) throws IOException {
         InetAddress requestedWebIP = InetAddress.getByName(host);
         System.out.println(requestedWebIP.toString());
+        System.out.println("HOST IS: " + host);
+        System.out.println("PATH IS: " + path);
         try (
                 Socket toWebSocket = new Socket(requestedWebIP, 80);
                 BufferedOutputStream outPutStream = new BufferedOutputStream(toWebSocket.getOutputStream());
                 BufferedReader inputStream = new BufferedReader(new InputStreamReader(toWebSocket.getInputStream()))
         ) {
 
-            System.out.println("HOST IS: " + host);
-            System.out.println("PATH IS: " + path);
             String request = "HEAD " + path + " HTTP/1.1\r\n" + "Host: " + host + "\r\n\r\n";
             outPutStream.write(request.getBytes());
             outPutStream.flush();
             String input;
             String result = "";
 
-            while ((input = inputStream.readLine()) != null) {
+            while (!(input = inputStream.readLine()).equals("")) {
+                System.out.println(input);
                 result = result + input + "\n";
             }
 
