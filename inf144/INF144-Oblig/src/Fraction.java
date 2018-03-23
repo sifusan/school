@@ -9,10 +9,15 @@ public class Fraction {
 
     Fraction(int numerator, int denominator) {
         if (denominator == 0) {
-            throw new IllegalArgumentException("Tried to make fraction with 0 as denominator");
+            throw new IllegalArgumentException("Tried to make Double with 0 as denominator");
         }
         this.numerator = numerator;
         this.denominator = denominator;
+    }
+
+    Fraction() {
+        this.numerator = 0;
+        this.denominator = 0;
     }
 
     public static Fraction add(Fraction f1, Fraction f2) {
@@ -23,7 +28,7 @@ public class Fraction {
         return new Fraction(n, d);
     }
 
-    public static Fraction reduceFraction(Fraction f){
+    public static Fraction reduceDouble(Fraction f){
         int n = f.getNumerator();
         int d = f.getDenominator();
         while (d != 0) {
@@ -32,6 +37,14 @@ public class Fraction {
             d = r;
         }
         return new Fraction(f.getNumerator()/n, n);
+    }
+
+    public static Fraction divide(Fraction f1, Fraction f2) {
+        int n1 = f1.getNumerator();
+        int n2 = f2.getNumerator();
+        int d1 = f1.getDenominator();
+        int d2 = f2.getDenominator();
+        return new Fraction(n1*d2, n2*d1);
     }
 
     public int getNumerator() {
