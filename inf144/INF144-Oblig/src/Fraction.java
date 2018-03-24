@@ -13,7 +13,7 @@ public class Fraction {
         }
         this.numerator = numerator;
         this.denominator = denominator;
-        //reduceFraction();
+        reduceFraction();
     }
 
     public static Fraction add(Fraction f1, Fraction f2) {

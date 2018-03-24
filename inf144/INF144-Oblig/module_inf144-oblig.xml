@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_inf144-oblig" default="compile.module.inf144-oblig">
+  <dirname property="module.inf144-oblig.basedir" file="${ant.file.module_inf144-oblig}"/>
+  
+  <property name="module.jdk.home.inf144-oblig" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.inf144-oblig" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.inf144-oblig" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.inf144-oblig" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="inf144-oblig.output.dir" value="${module.inf144-oblig.basedir}/out/production/INF144-Oblig"/>
+  <property name="inf144-oblig.testoutput.dir" value="${module.inf144-oblig.basedir}/out/test/INF144-Oblig"/>
+  
+  <path id="inf144-oblig.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="inf144-oblig.module.production.classpath">
+    <path refid="${module.jdk.classpath.inf144-oblig}"/>
+  </path>
+  
+  <path id="inf144-oblig.runtime.production.module.classpath">
+    <pathelement location="${inf144-oblig.output.dir}"/>
+  </path>
+  
+  <path id="inf144-oblig.module.classpath">
+    <path refid="${module.jdk.classpath.inf144-oblig}"/>
+    <pathelement location="${inf144-oblig.output.dir}"/>
+  </path>
+  
+  <path id="inf144-oblig.runtime.module.classpath">
+    <pathelement location="${inf144-oblig.testoutput.dir}"/>
+    <pathelement location="${inf144-oblig.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.inf144-oblig">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.inf144-oblig">
+    <patternset refid="excluded.from.module.inf144-oblig"/>
+  </patternset>
+  
+  <path id="inf144-oblig.module.sourcepath">
+    <dirset dir="${module.inf144-oblig.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.inf144-oblig" depends="compile.module.inf144-oblig.production,compile.module.inf144-oblig.tests" description="Compile module INF144-Oblig"/>
+  
+  <target name="compile.module.inf144-oblig.production" depends="register.custom.compilers" description="Compile module INF144-Oblig; production classes">
+    <mkdir dir="${inf144-oblig.output.dir}"/>
+    <javac2 destdir="${inf144-oblig.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.inf144-oblig}/javac">
+      <compilerarg line="${compiler.args.inf144-oblig}"/>
+      <bootclasspath refid="inf144-oblig.module.bootclasspath"/>
+      <classpath refid="inf144-oblig.module.production.classpath"/>
+      <src refid="inf144-oblig.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.inf144-oblig"/>
+    </javac2>
+    
+    <copy todir="${inf144-oblig.output.dir}">
+      <fileset dir="${module.inf144-oblig.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.inf144-oblig.tests" depends="register.custom.compilers,compile.module.inf144-oblig.production" description="compile module INF144-Oblig; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.inf144-oblig" description="cleanup module">
+    <delete dir="${inf144-oblig.output.dir}"/>
+    <delete dir="${inf144-oblig.testoutput.dir}"/>
+  </target>
+</project>

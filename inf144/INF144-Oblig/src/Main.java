@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by sifu on 22/03/18.
  */
@@ -11,12 +13,14 @@ public class Main {
         //System.out.println(source.length());
         //System.out.println(markov.getZeroOrderRandomText());
         //System.out.println(markov.getZeroOrderRandomText().length());
-        //System.out.println(markov.getProbabilitiesByOrder(2));
-        System.out.println(markov.getFirstOrderRandomText());
+        //System.out.println(markov.getProbabilitiesByOrder(3));
+        //System.out.println(markov.getFirstOrderRandomText());
         //System.out.println(markov.getFirstOrderRandomText().length());
         //System.out.println(source.length());
-        //Markov.printMap(markov.getProbabilitiesByOrder(1));
+        //Markov.printMap(markov.getProbabilitiesByOrder(2));
         //Markov.printMap();
-        System.out.println(markov.getSecondOrderRandomText());
+        //markov.printMap(markov.getProbabilitiesByOrder(2));
+        System.out.println(markov.getThirdOrderRandomText());
+        //System.out.println(markov.getSecondOrderRandomText());
     }
 }
