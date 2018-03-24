@@ -13,11 +13,7 @@ public class Fraction {
         }
         this.numerator = numerator;
         this.denominator = denominator;
-    }
-
-    Fraction() {
-        this.numerator = 0;
-        this.denominator = 0;
+        //reduceFraction();
     }
 
     public static Fraction add(Fraction f1, Fraction f2) {
@@ -28,15 +24,20 @@ public class Fraction {
         return new Fraction(n, d);
     }
 
-    public static Fraction reduceDouble(Fraction f){
-        int n = f.getNumerator();
-        int d = f.getDenominator();
-        while (d != 0) {
-            int r = n % d;
-            n = d;
-            d = r;
+    public void reduceFraction(){
+        int n = this.getNumerator();
+        int d = this.getDenominator();
+        int g = Fraction.gcd(n, d);
+        this.numerator = n/g;
+        this.denominator = d/g;
+    }
+    private static int gcd(int a, int b) {
+        while (b !=0) {
+            int r = b;
+            b = a % b;
+            a = r;
         }
-        return new Fraction(f.getNumerator()/n, n);
+        return a;
     }
 
     public static Fraction divide(Fraction f1, Fraction f2) {

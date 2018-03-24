@@ -1,4 +1,3 @@
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +12,10 @@ public class Markov {
     private HashMap<String, Integer> sourceOccurrences;
     private HashMap<String, Fraction> zeroOrderProbabilities;
     private HashMap<String, Fraction> firstOrderProbabilities;
+    private HashMap<String, Fraction> secondOrderProbabilities;
     private String zeroOrderRandomText;
     private String firstOrderRandomText;
+    private String secondOrderRandomText;
 
     Markov(String source) {
         this.source = source.toLowerCase();
@@ -26,9 +27,14 @@ public class Markov {
         //HashMap<Character, ArrayList<Integer, Integer>> zeroOrderIntervals = computeIntervals(zeroOrderProbabilities);
         zeroOrderRandomText = generateRandomTextZeroOrder(zeroOrderProbabilities);
         firstOrderProbabilities = computeFirstOrderProbabilities(alphabet, sourceLength);
-        System.out.println(firstOrderProbabilities.size());
+        //System.out.println(firstOrderProbabilities.size());
         firstOrderRandomText = generateRandomTextFirstOrder(firstOrderProbabilities);
+        secondOrderProbabilities = computeSecondOrderProbabilities(alphabet, sourceLength);
+        secondOrderRandomText = generateRandomTextSecondOrder(secondOrderProbabilities);
     }
+
+
+
 
     public HashMap<String, Fraction> filterProbabilities(HashMap<String, Fraction> probabilities) {
         HashMap<String, Fraction> result = new HashMap<>();
@@ -43,17 +49,70 @@ public class Markov {
         return result;
     }
 
-    private ArrayList<String> computePossibleJumps(String currentState) {
+    private ArrayList<String> computePossibleJumps(String currentState, int order) {
         ArrayList<String> result = new ArrayList<>();
-        for (Map.Entry<String, Fraction> entry : firstOrderProbabilities.entrySet()) {
-            String s = entry.getKey();
-            if (Character.toString(s.charAt(0)).equals(currentState)) {
-                result.add(s);
+        if (order == 1) {
+            for (Map.Entry<String, Fraction> entry : firstOrderProbabilities.entrySet()) {
+                String s = entry.getKey();
+                if (Character.toString(s.charAt(0)).equals(currentState)) {
+                    result.add(s);
+                }
+            }
+        } else if (order == 2){
+            for (Map.Entry<String, Fraction> entry : secondOrderProbabilities.entrySet()) {
+                String s = entry.getKey();
+                if (s.substring(0,2).equals(currentState)) {
+                    result.add(s);
+                }
             }
         }
         return result;
     }
 
+    private String generateRandomTextSecondOrder(HashMap<String, Fraction> secondOrderProbabilities) {
+        double r = Math.random()*computeTotalWeight(zeroOrderProbabilities);
+        String currentState = "";
+        int w = 0;
+        for (Map.Entry<String, Fraction> entry : zeroOrderProbabilities.entrySet()) {
+            w += entry.getValue().getNumerator();
+            if (w>=r) {
+                currentState = entry.getKey();
+                System.out.println("Initial state is '" + currentState + "'");
+                break;
+            }
+        }
+        ArrayList<String > jumps = computePossibleJumps(currentState, 1);
+        HashMap<String, Fraction> subSet = createSubSet(firstOrderProbabilities, jumps);
+        r = Math.random()*computeTotalWeight(subSet);
+        w=0;
+        for (Map.Entry<String, Fraction> entry : subSet.entrySet()) {
+            w += entry.getValue().getNumerator();
+            if (w>=r) {
+                currentState = entry.getKey();
+                System.out.println("Second state is '" + currentState + "'");
+                break;
+            }
+        }
+        String text = "";
+        for (int i = 0; i < sourceLength; i++) {
+            w = 0;
+            jumps = computePossibleJumps(currentState, 2);
+            printList(jumps);
+            subSet = createSubSet(secondOrderProbabilities, jumps);
+            int totalWeight = computeTotalWeight(subSet);
+            r = Math.random()*totalWeight;
+            for (Map.Entry<String, Fraction> entry : subSet.entrySet()) {
+                w += entry.getValue().getNumerator();
+                if (w>=r) {
+                    text = text + entry.getKey().substring(2);
+                    currentState = entry.getKey().substring(1);
+                    break;
+                }
+            }
+        }
+
+        return text;
+    }
 
     private String generateRandomTextFirstOrder(HashMap<String, Fraction> firstOrderProbabilities) {
         double r = Math.random()*computeTotalWeight(zeroOrderProbabilities);
@@ -68,16 +127,12 @@ public class Markov {
         }
 
         String text = "";
-        int totalWeight = computeTotalWeight(firstOrderProbabilities);
-        System.out.println(totalWeight);
-
-
 
         for (int i = 0; i < sourceLength; i++) {
             w = 0;
-            ArrayList<String> jumps = computePossibleJumps(currentState);
+            ArrayList<String> jumps = computePossibleJumps(currentState, 1);
             HashMap<String, Fraction> subSet = createSubSet(firstOrderProbabilities, jumps);
-            totalWeight = computeTotalWeight(subSet);
+            int totalWeight = computeTotalWeight(subSet);
             r = Math.random()*totalWeight;
 
             for (Map.Entry<String, Fraction> entry : subSet.entrySet()) {
@@ -110,6 +165,7 @@ public class Markov {
         for (String s : list) {
             System.out.print(s + " ");
         }
+        System.out.println();
     }
 
     private String generateRandomTextZeroOrder(HashMap<String, Fraction> orderOfProbability) {
@@ -129,9 +185,58 @@ public class Markov {
         return text;
     }
 
-    private HashMap<String, Fraction> computeFirstOrderProbabilities1(HashMap<String, Integer> alphabet, int sourceLength) {
-        return null;
+
+    private HashMap<String,Fraction> computeSecondOrderProbabilities(HashMap<String, Integer> alphabet, int sourceLength) {
+        HashMap<String, Fraction> result = new HashMap<>();
+        ArrayList<String> permutations = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : alphabet.entrySet()) {
+            for (Map.Entry<String, Integer> entry1 : alphabet.entrySet()) {
+                for (Map.Entry<String, Integer> entry2 : alphabet.entrySet()) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(entry.getKey());
+                    sb.append(entry1.getKey());
+                    sb.append(entry2.getKey());
+                    String s = sb.toString();
+                    permutations.add(s);
+                    result.put(s, new Fraction(0, sourceLength));
+                }
+            }
+        }
+//        printList(permutations);
+//        System.out.println(permutations.size());r
+        //result = filterProbabilities(result);
+        //permutations = filterPermutations(permutations, result);
+        for (String perm : permutations) {
+            for (int i = 0; i < sourceLength - 2; i++) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(source.charAt(i));
+                sb.append(source.charAt(i + 1));
+                sb.append(source.charAt(i + 2));
+                String s = sb.toString();
+                //System.out.println("Checking if " + s + " is equal to " + perm);
+                if (perm.equals(s)) {
+                    Fraction f = new Fraction(result.get(s).getNumerator()+1, sourceLength);
+                    result.put(s, f);
+                }
+            }
+        }
+        result = filterProbabilities(result);
+
+        for (Map.Entry<String, Fraction> entry : result.entrySet()) {
+            String s = entry.getKey();
+            String s1 = entry.getKey().substring(0,2);
+            Fraction f = firstOrderProbabilities.get(s1);
+            Fraction p = Fraction.divide(entry.getValue(), f);
+            result.put(s, p);
+        }
+        return result;
     }
+
+    private ArrayList<String> filterPermutations(ArrayList<String> permutations, HashMap<String, Fraction> map) {
+        ArrayList<String> result = new ArrayList<>();
+        return  result;
+    }
+
     /**
         First character in string represents current state
      **/
@@ -145,16 +250,16 @@ public class Markov {
                 sb.append(entry1.getKey());
                 String s = sb.toString();
                 permutations.add(s);
+                result.put(s, new Fraction(0, sourceLength));
             }
         }
 
-        for (String s : permutations) {
-            result.put(s, new Fraction(0, sourceLength));
-        }
+//        for (String s : permutations) {
+//            result.put(s, new Fraction(0, sourceLength));
+//        }
 
 
         for (String perms : permutations) {
-            //System.out.println(perms);
             for (int i = 0; i < sourceLength - 1; i++) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(source.charAt(i));
@@ -252,11 +357,24 @@ public class Markov {
         return zeroOrderRandomText;
     }
 
+    public HashMap<String, Fraction> getFirstOrderProbabilities() {
+        return firstOrderProbabilities;
+    }
+
+    public String getSecondOrderRandomText() {
+        return secondOrderRandomText;
+    }
+
+    public HashMap<String, Fraction> getSecondOrderProbabilities() {
+        return secondOrderProbabilities;
+    }
     public HashMap<String, Fraction> getProbabilitiesByOrder(int n) {
         if (n == 0) {
             return zeroOrderProbabilities;
         } else if (n == 1) {
             return firstOrderProbabilities;
+        } else if (n == 2) {
+            return secondOrderProbabilities;
         } else {
             return null;
         }
