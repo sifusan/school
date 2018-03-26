@@ -15,7 +15,7 @@ public class Fraction {
         this.denominator = denominator;
         reduceFraction();
     }
-
+    @Deprecated
     public static Fraction add(Fraction f1, Fraction f2) {
         int d = f1.getDenominator() * f2.getDenominator();
         int nTemp1 = f1.getNumerator()*f2.getDenominator();

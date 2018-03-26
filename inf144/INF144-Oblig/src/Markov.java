@@ -20,7 +20,7 @@ public class Markov {
     private String thirdOrderRandomText;
 
     Markov(String source) {
-        this.source = source.toLowerCase();
+        this.source = source;
         this.sourceLength = source.length();
         alphabet = initAlphabet();
         sourceOccurrences = computeSourceStats(source, alphabet);
@@ -109,20 +109,12 @@ public class Markov {
                                         permutations.add(s);
                                         result.put(s, new Fraction(0, sourceLength));
 
-                                    } else {
-                                        continue;
                                     }
                                 }
-                            } else {
-                                continue;
                             }
                         }
-                    } else {
-                        continue;
                     }
                 }
-            } else {
-                continue;
             }
         }
 
@@ -134,7 +126,6 @@ public class Markov {
                 sb.append(source.charAt(i + 2));
                 sb.append(source.charAt(i + 3));
                 String s = sb.toString();
-//                System.out.println("Checking if " + perm + " is equal to " + s);
                 if (perm.equals(s)) {
                     Fraction f = new Fraction(result.get(s).getNumerator() + 1, sourceLength);
                     result.put(s, f);
@@ -170,10 +161,7 @@ public class Markov {
                 }
             }
         }
-//        printList(permutations);
-//        System.out.println(permutations.size());r
-        //result = filterProbabilities(result);
-        //permutations = filterPermutations(permutations, result);
+
         for (String perm : permutations) {
             for (int i = 0; i < sourceLength - 2; i++) {
                 StringBuilder sb = new StringBuilder();
@@ -181,7 +169,6 @@ public class Markov {
                 sb.append(source.charAt(i + 1));
                 sb.append(source.charAt(i + 2));
                 String s = sb.toString();
-                //System.out.println("Checking if " + s + " is equal to " + perm);
                 if (perm.equals(s)) {
                     Fraction f = new Fraction(result.get(s).getNumerator() + 1, sourceLength);
                     result.put(s, f);
@@ -417,24 +404,27 @@ public class Markov {
     private HashMap<String, Integer> initAlphabet() {
         HashMap<String, Integer> map = new HashMap<>();
         for (int i = 97; i < 123; i++) {
-            StringBuilder sb = new StringBuilder();
-            sb.append((char) i);
-            String s = sb.toString();
+            String s = Character.toString((char)i);
+            map.put(s, 0);
+        }
+
+        for (int i = 65; i < 91; i++) {
+            String s = Character.toString((char)i);
+            System.out.println(s);
             map.put(s, 0);
         }
         map.put("æ", 0);
         map.put("ø", 0);
         map.put("å", 0);
         map.put(" ", 0);
+        map.put("Æ", 0);
+        map.put("Ø", 0);
+        map.put("Å", 0);
+
 
         return map;
     }
 
-    public void printMap(HashMap<String, Fraction> map) {
-        for (Map.Entry<String, Fraction> entry : map.entrySet()) {
-            System.out.println("'" + entry.getKey() + "' : " + entry.getValue());
-        }
-    }
 
     private HashMap<String, Integer> computeSourceStats(String source, HashMap<String, Integer> alphabet) {
         for (Map.Entry<String, Integer> entry : alphabet.entrySet()) {
@@ -455,53 +445,37 @@ public class Markov {
         return result;
     }
 
-    public HashMap<String, Integer> getSourceOccurrences() {
-        return sourceOccurrences;
-    }
-
     public HashMap<String, Integer> getAlphabet() {
         return alphabet;
     }
 
-    public HashMap<String, Fraction> getZeroOrderProbabilities() {
-        return zeroOrderProbabilities;
-    }
-
-    public String getZeroOrderRandomText() {
-        return zeroOrderRandomText;
-    }
-
-    public HashMap<String, Fraction> getFirstOrderProbabilities() {
-        return firstOrderProbabilities;
-    }
-
-    public String getSecondOrderRandomText() {
-        return secondOrderRandomText;
-    }
-
-    public HashMap<String, Fraction> getSecondOrderProbabilities() {
-        return secondOrderProbabilities;
-    }
-
-    public String getThirdOrderRandomText() {
-        return thirdOrderRandomText;
-    }
-
     public HashMap<String, Fraction> getProbabilitiesByOrder(int n) {
-        if (n == 0) {
-            return zeroOrderProbabilities;
-        } else if (n == 1) {
-            return firstOrderProbabilities;
-        } else if (n == 2) {
-            return secondOrderProbabilities;
-        } else if (n == 3) {
-            return thirdOrderProbabiltiies;
-        } else {
-            return null;
+        switch (n) {
+            case 0:
+                return zeroOrderProbabilities;
+            case 1:
+                return firstOrderProbabilities;
+            case 2:
+                return secondOrderProbabilities;
+            case 3:
+                return thirdOrderProbabiltiies;
+            default:
+                return null;
         }
     }
 
-    public String getFirstOrderRandomText() {
-        return firstOrderRandomText;
+    public String getRandomTextByOrder(int n) {
+        switch (n) {
+            case 0:
+                return zeroOrderRandomText;
+            case 1:
+                return firstOrderRandomText;
+            case 2:
+                return secondOrderRandomText;
+            case 3:
+                return thirdOrderRandomText;
+            default:
+                return "";
+        }
     }
 }
