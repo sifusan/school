@@ -13,7 +13,7 @@ public class Markov {
     private HashMap<String, Fraction> zeroOrderProbabilities;
     private HashMap<String, Fraction> firstOrderProbabilities;
     private HashMap<String, Fraction> secondOrderProbabilities;
-    private HashMap<String, Fraction> thirdOrderProbabiltiies;
+    private HashMap<String, Fraction> thirdOrderProbabilities;
     private String zeroOrderRandomText;
     private String firstOrderRandomText;
     private String secondOrderRandomText;
@@ -30,7 +30,7 @@ public class Markov {
         firstOrderRandomText = generateRandomTextFirstOrder(firstOrderProbabilities);
         secondOrderProbabilities = computeSecondOrderProbabilities(alphabet, sourceLength);
         secondOrderRandomText = generateRandomTextSecondOrder(secondOrderProbabilities);
-        thirdOrderProbabiltiies = computeThirdOrderProbabilities(alphabet, sourceLength);
+        thirdOrderProbabilities = computeThirdOrderProbabilities(alphabet, sourceLength);
         thirdOrderRandomText = generateRandomTextThirdOrder(alphabet, sourceLength);
     }
 
@@ -62,7 +62,7 @@ public class Markov {
         r = Math.random() * computeTotalWeight(subSet);
         w = 0;
         for (Map.Entry<String, Fraction> entry : subSet.entrySet()) {
-            w+= entry.getValue().getNumerator();
+            w += entry.getValue().getNumerator();
             if (w >= r) {
                 currentState = entry.getKey();
                 break;
@@ -72,7 +72,7 @@ public class Markov {
         for (int i = 0; i < sourceLength; i++) {
             w = 0;
             jumps = computePossibleJumps(currentState, 3);
-            subSet = createSubSet(thirdOrderProbabiltiies, jumps);
+            subSet = createSubSet(thirdOrderProbabilities, jumps);
             int totalWeight = computeTotalWeight(subSet);
             r = Math.random() * totalWeight;
             for (Map.Entry<String, Fraction> entry : subSet.entrySet()) {
@@ -149,15 +149,19 @@ public class Markov {
         HashMap<String, Fraction> result = new HashMap<>();
         ArrayList<String> permutations = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : alphabet.entrySet()) {
-            for (Map.Entry<String, Integer> entry1 : alphabet.entrySet()) {
-                for (Map.Entry<String, Integer> entry2 : alphabet.entrySet()) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(entry.getKey());
-                    sb.append(entry1.getKey());
-                    sb.append(entry2.getKey());
-                    String s = sb.toString();
-                    permutations.add(s);
-                    result.put(s, new Fraction(0, sourceLength));
+            if (source.contains(entry.getKey())) {
+                for (Map.Entry<String, Integer> entry1 : alphabet.entrySet()) {
+                    if (source.contains(entry.getKey() + entry1.getKey())) {
+                        for (Map.Entry<String, Integer> entry2 : alphabet.entrySet()) {
+                            StringBuilder sb = new StringBuilder();
+                            sb.append(entry.getKey());
+                            sb.append(entry1.getKey());
+                            sb.append(entry2.getKey());
+                            String s = sb.toString();
+                            permutations.add(s);
+                            result.put(s, new Fraction(0, sourceLength));
+                        }
+                    }
                 }
             }
         }
@@ -218,7 +222,7 @@ public class Markov {
                 }
             }
         } else if (order == 3) {
-            for (Map.Entry<String, Fraction> entry : thirdOrderProbabiltiies.entrySet()) {
+            for (Map.Entry<String, Fraction> entry : thirdOrderProbabilities.entrySet()) {
                 String s = entry.getKey();
                 if (s.substring(0, 3).equals(currentState)) {
                     result.add(s);
@@ -318,13 +322,6 @@ public class Markov {
         return result;
     }
 
-    private void printList(ArrayList<String> list) {
-        for (String s : list) {
-            System.out.print(s + " ");
-        }
-        System.out.println();
-    }
-
     private String generateRandomTextZeroOrder(HashMap<String, Fraction> orderOfProbability) {
         String text = "";
         int totalWeight = computeTotalWeight(orderOfProbability);
@@ -342,22 +339,20 @@ public class Markov {
         return text;
     }
 
-
-    /**
-     * First character in string represents current state
-     **/
     private HashMap<String, Fraction> computeFirstOrderProbabilities(HashMap<String, Integer> alphabet,
                                                                      int sourceLength) {
         HashMap<String, Fraction> result = new HashMap<>();
         ArrayList<String> permutations = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : alphabet.entrySet()) {
-            for (Map.Entry<String, Integer> entry1 : alphabet.entrySet()) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(entry.getKey());
-                sb.append(entry1.getKey());
-                String s = sb.toString();
-                permutations.add(s);
-                result.put(s, new Fraction(0, sourceLength));
+            if (source.contains(entry.getKey())) {
+                for (Map.Entry<String, Integer> entry1 : alphabet.entrySet()) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(entry.getKey());
+                    sb.append(entry1.getKey());
+                    String s = sb.toString();
+                    permutations.add(s);
+                    result.put(s, new Fraction(0, sourceLength));
+                }
             }
         }
 
@@ -404,13 +399,12 @@ public class Markov {
     private HashMap<String, Integer> initAlphabet() {
         HashMap<String, Integer> map = new HashMap<>();
         for (int i = 97; i < 123; i++) {
-            String s = Character.toString((char)i);
+            String s = Character.toString((char) i);
             map.put(s, 0);
         }
 
         for (int i = 65; i < 91; i++) {
-            String s = Character.toString((char)i);
-            System.out.println(s);
+            String s = Character.toString((char) i);
             map.put(s, 0);
         }
         map.put("æ", 0);
@@ -445,10 +439,6 @@ public class Markov {
         return result;
     }
 
-    public HashMap<String, Integer> getAlphabet() {
-        return alphabet;
-    }
-
     public HashMap<String, Fraction> getProbabilitiesByOrder(int n) {
         switch (n) {
             case 0:
@@ -458,7 +448,7 @@ public class Markov {
             case 2:
                 return secondOrderProbabilities;
             case 3:
-                return thirdOrderProbabiltiies;
+                return thirdOrderProbabilities;
             default:
                 return null;
         }

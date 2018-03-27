@@ -3,42 +3,41 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by sifu on 24/03/18.
  */
 public class LZW {
-    private HashMap<String, Integer> dictionary;
+    private HashMap<String, Integer> compressionDict;
+    private HashMap<Integer, String> decompressionDict;
     private String source;
-    private String encodedText;
-    private File inputFile;
-    private File outputFile;
+    private String encodedBinaryText;
+    private String encodedString;
+    private String decodedText;
+    private ArrayList<String> binaries = new ArrayList<>();
 
     LZW(String source) {
-        this.source = (source + "#").toUpperCase();
-        this.inputFile = stringToFile(source);
-        inputFile = new File(source);
-        dictionary = initDictionary();
-        int width = 5; //latin-1 binary begins with 11, 5 is too short
-        encodedText = encode(this.source, width, dictionary);
-        System.out.println(this.source.length()*5);
-        System.out.println(encodedText);
-        System.out.println(encodedText.length());
+        this.source = source + "#";
+        initDictionaries();
+        int width = 7; //latin-1 binary begins with 110....., 5 is too short
+        encodedBinaryText = encodeLZW(this.source, width, compressionDict);
+        encodedString = binaryToString(binaries);
+        decodedText = decodeLZW(decompressionDict, binaries, width);
     }
 
-    private int getNumberOfBits(String s) {
-        int result = 0;
-        for (char c : s.toCharArray()) {
-            result = result + Integer.toBinaryString(c).length();
+    private String binaryToString(ArrayList<String> binaries) {
+        String result ="";
+        for (String s : binaries) {
+            result = result + Character.toString((char)Integer.parseInt(s, 2));
         }
         return result;
     }
 
-    private String encode(String source, int width, HashMap<String, Integer> dictionary) {
-        String result ="";
-        int possibleCombinations = (int)Math.pow(2, width);
+    private String encodeLZW(String source, int width, HashMap<String, Integer> dictionary) {
+        String result = "";
+        int possibleCombinations = (int) Math.pow(2, width);
         int nextAvailableIndex = dictionary.size() + 1;
 
         int tracker = 1;
@@ -48,6 +47,7 @@ public class LZW {
         while (true) {
             if (flag) {
                 result = result + padBinary("0", width);
+                binaries.add(padBinary("0", width));
                 break;
             }
             nextChar = Character.toString(source.charAt(tracker));
@@ -58,49 +58,119 @@ public class LZW {
             buffer = buffer + nextChar;
 
             if (!(dictionary.keySet().contains(buffer))) {
-                dictionary.put(buffer, nextAvailableIndex);
-                nextAvailableIndex += 1;
-                System.out.println("THE BUFFER IS: " + buffer);
-                String temp_string = buffer.substring(0, buffer.length()-1);
-                System.out.println("THE STRING IS " + temp_string);
+                if (!flag) {
+                    dictionary.put(buffer, nextAvailableIndex);
+                }
+                nextAvailableIndex++;
+                String temp_string = buffer.substring(0, buffer.length() - 1);
 
                 String temp = padBinary(Integer.toBinaryString(dictionary.get(temp_string)), width);
-                System.out.println("ADDING " + temp + " TO RESULT");
-                System.out.println("LENGTH OF TEMP IS: " + temp.length() + "\n");
+                binaries.add(temp);
                 result = result + temp;
-                buffer = buffer.substring(buffer.length()-1);
+                buffer = buffer.substring(buffer.length() - 1);
                 if (dictionary.size() == possibleCombinations) {
-                    width+=1;
+                    width++;
+                    possibleCombinations = (int) Math.pow(2, width);
                 }
             }
 
             tracker++;
-
         }
-        System.out.println(dictionary);
         return result;
     }
 
-    private HashMap<String, Integer> initDictionary() {
-        HashMap<String, Integer> result = new HashMap<>();
-        int index= 0;
+    private String decodeLZW(HashMap<Integer, String> dictionary, ArrayList<String> binaries, int width) {
+        String result = "";
+        int nextAvailableIndex = dictionary.size() + 1;
+        int tracker = 0;
+        String currentString;
+        String nextString;
 
-        //result.put(Integer.toBinaryString(' '), index);
+        boolean flag = false;
+        while (true) {
+            if (flag) {
+                result = result + "#";
+                break;
+            }
+
+            int code = Integer.parseInt(binaries.get(tracker), 2);
+            try {
+                int nextCode = Integer.parseInt(binaries.get(tracker + 1), 2);
+
+                currentString = dictionary.get(code);
+                nextString = dictionary.get(nextCode);
+
+                result = result + currentString;
+
+                if (!(dictionary.values().contains(currentString + nextString.charAt(0)))) {
+                    dictionary.put(nextAvailableIndex, currentString + nextString.charAt(0));
+                    nextAvailableIndex++;
+                }
+                tracker++;
+            } catch (IndexOutOfBoundsException | NullPointerException e) {
+                e.printStackTrace();
+                result = result + "#";
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    private void initDictionaries() {
+        this.decompressionDict = initDecompressionDict();
+        this.compressionDict = initCompressionDict();
+    }
+
+    private HashMap<String, Integer> initCompressionDict() {
+        HashMap<String, Integer> result = new HashMap<>();
+        int index = 0;
+        result.put(" ", index);
         for (int i = 65; i < 91; i++) {
             index++;
-            String s = Character.toString((char)i);
-            //String s = Integer.toBinaryString(i);
+            String s = Character.toString((char) i);
             result.put(s, index);
         }
-//        result.put(Integer.toBinaryString('Æ'), index+1);
-//        result.put(Integer.toBinaryString('Ø'), index+2);
-//        result.put(Integer.toBinaryString('Å'), index+3);
+        for (int i = 97; i < 123; i++) {
+            index++;
+            String s = Character.toString((char)i);
+            result.put(s, index);
+        }
+        result.put("Æ", index + 1);
+        result.put("Ø", index + 2);
+        result.put("Å", index + 3);
+        result.put("æ", index + 4);
+        result.put("ø", index + 5);
+        result.put("å", index + 6);
+        return result;
+    }
+
+    private HashMap<Integer, String> initDecompressionDict() {
+        HashMap<Integer, String> result = new HashMap<>();
+        int index = 0;
+        result.put(index, " ");
+        for (int i = 65; i < 91; i++) {
+            index++;
+            String s = Character.toString((char) i);
+            result.put(index, s);
+        }
+        for (int i = 97; i < 123; i++) {
+            index++;
+            String s = Character.toString((char)i);
+            result.put(index, s);
+        }
+        result.put(index + 1, "Æ");
+        result.put(index + 2, "Ø");
+        result.put(index + 3, "Å");
+        result.put(index + 4, "æ");
+        result.put(index + 5, "ø");
+        result.put(index + 6, "å");
 
         return result;
     }
 
-    private File stringToFile(String string) {
-        File f = new File("original");
+    private File stringToFile(String string, String name) {
+        File f = new File(name);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
 
             bw.write(string);
@@ -121,9 +191,17 @@ public class LZW {
     }
 
     private String padBinary(String binary, int bitsToPad) {
-        while(binary.length() < bitsToPad) {
+        while (binary.length() < bitsToPad) {
             binary = "0" + binary;
         }
         return binary;
+    }
+
+    public String getEncodedString() {
+        return encodedString;
+    }
+
+    public String getEncodedBinaryText() {
+        return encodedBinaryText;
     }
 }
