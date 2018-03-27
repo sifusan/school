@@ -1,3 +1,4 @@
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 
 /**
@@ -9,37 +10,41 @@ public class Main {
     private static String source2 = "This is dubious";
 
     public static void main(String[] args) {
-//        System.out.println("Working. Please wait...");
-//        Markov markov = new Markov(source);
-//        String zeroOrderText = markov.getRandomTextByOrder(0);
-//        String firstOrderText = markov.getRandomTextByOrder(1);
-//        String secondOrderText = markov.getRandomTextByOrder(2);
-//        String thirdOrderText = markov.getRandomTextByOrder(3);
+        System.out.println("Working. Please wait...");
+        if (checkParam(args, "m")) {
+            Markov markov = new Markov(source);
+            String zeroOrderText = markov.getRandomTextByOrder(0);
+            String firstOrderText = markov.getRandomTextByOrder(1);
+            String secondOrderText = markov.getRandomTextByOrder(2);
+            String thirdOrderText = markov.getRandomTextByOrder(3);
 
-        //System.out.println(zeroOrderText);
-        //System.out.println(firstOrderText);
-        //System.out.println(secondOrderText);
-//        System.out.println(thirdOrderText);
+            System.out.println("ZEROTH ORDER RANDOM TEXT: \n" + zeroOrderText +"\n");
+            System.out.println("FIRST ORDER RANDOM TEXT: \n" + firstOrderText + "\n");
+            System.out.println("SECOND ORDER RANDOM TEXT: \n" + secondOrderText + "\n");
+            System.out.println("THIRD ORDER RANDOM TEXT: \n" + thirdOrderText+"\n");
 
-//        LZW lzwSource = new LZW(source);
-//        String lzwEncodedSource = lzwSource.getEncodedString();
-//        String lzwEncodedSourceBinary = lzwSource.getEncodedBinaryText();
-//        System.out.println("COMPARING ORIGINAL TO LZW COMPRESSION");
-//        System.out.println("The length of the source is " + source.length()*7 + " bits");
-//        System.out.println("The length of LZW-compressed text is " + lzwEncodedSourceBinary.length());
-//        System.out.println("COMPRESSION RATE=" + getCompressionRate(source, lzwEncodedSource) + "%\n");
-//            LZW lzwZero = new LZW(zeroOrderText);
-//            LZW lzwOne = new LZW(firstOrderText);
-//            LZW lzwTwo = new LZW(secondOrderText);
-//            LZW lzwThree = new LZW(thirdOrderText);
+        }
 
-//        Huffman huffman = new Huffman(lzwEncodedSource);
-//        String huffmanText = huffman.getBinaryEncoded();
-//        System.out.println("COMPARING LZW TO LZW /W HUFFMAN");
-//        System.out.println("The length of LZW-compressed text is " + lzwEncodedSourceBinary.length());
-//        System.out.println("The length of huffman-augmented LZW is " + huffmanText.length());
-//        System.out.println("COMPRESSION RATE=" + getCompressionRate(lzwEncodedSourceBinary, huffmanText) + "%\n");
-        computeAverageCompression(100);
+
+        LZW lzwSource = new LZW(source);
+        String lzwEncodedSource = lzwSource.getEncodedString();
+        String lzwEncodedSourceBinary = lzwSource.getEncodedBinaryText();
+        System.out.println("COMPARING ORIGINAL TO LZW COMPRESSION");
+        System.out.println("The length of the source is " + source.length() * 7 + " bits");
+        System.out.println("The length of LZW-compressed text is " + lzwEncodedSourceBinary.length());
+        System.out.println("COMPRESSION RATE=" + getCompressionRate(source, lzwEncodedSource) + "%\n");
+
+
+        Huffman huffman = new Huffman(lzwEncodedSource);
+        String huffmanText = huffman.getBinaryEncoded();
+        System.out.println("COMPARING LZW TO LZW /W HUFFMAN");
+        System.out.println("The length of LZW-compressed text is " + lzwEncodedSourceBinary.length());
+        System.out.println("The length of huffman-augmented LZW is " + huffmanText.length());
+        System.out.println("COMPRESSION RATE=" + getCompressionRate(lzwEncodedSourceBinary, huffmanText) + "%\n");
+        if (checkParam(args, "c")) {
+            System.out.println("Computing average compression rates. This could take a while...");
+            computeAverageCompression(100);
+        }
     }
 
     public static double getCompressionRate(String uncompressed, String compressed) {
@@ -53,8 +58,7 @@ public class Main {
         double lzwAvg = 0.0;
         double huffmanAvg = 0.0;
 
-        for (int i=0; i < loops; i++) {
-            System.out.println(i);
+        for (int i = 0; i < loops; i++) {
             Markov m = new Markov(source);
             LZW l0 = new LZW(m.getRandomTextByOrder(0));
             LZW l1 = new LZW(m.getRandomTextByOrder(1));
@@ -71,28 +75,39 @@ public class Main {
             double comp2 = getCompressionRate(source, l2.getEncodedString());
             double comp3 = getCompressionRate(source, l3.getEncodedString());
 
-            lzwAverages.add((comp0 + comp1 + comp2 + comp3)/4);
+            lzwAverages.add((comp0 + comp1 + comp2 + comp3) / 4);
 
             double hComp0 = getCompressionRate(l0.getEncodedBinaryText(), h0.getBinaryEncoded());
             double hComp1 = getCompressionRate(l1.getEncodedBinaryText(), h1.getBinaryEncoded());
             double hComp2 = getCompressionRate(l2.getEncodedBinaryText(), h2.getBinaryEncoded());
             double hComp3 = getCompressionRate(l3.getEncodedBinaryText(), h3.getBinaryEncoded());
 
-            huffmanAverages.add((hComp0 + hComp1 + hComp2 + hComp3)/4);
+            huffmanAverages.add((hComp0 + hComp1 + hComp2 + hComp3) / 4);
         }
 
         for (double d : lzwAverages) {
             lzwAvg = lzwAvg + d;
         }
-        lzwAvg = lzwAvg/lzwAverages.size();
+        lzwAvg = lzwAvg / lzwAverages.size();
 
         for (double d : huffmanAverages) {
             huffmanAvg = huffmanAvg + d;
         }
 
-        huffmanAvg = huffmanAvg/huffmanAverages.size();
-        System.out.println("THE AVERAGE COMPRESSION RATE WITH ONLY LZW IS " +lzwAvg);
-        System.out.println("THE AVERAGE COMPRESSION RATE WITH HUFFMAN IS " +huffmanAvg);
+        huffmanAvg = huffmanAvg / huffmanAverages.size();
+        System.out.println("THE AVERAGE COMPRESSION RATE WITH ONLY LZW IS " + lzwAvg);
+        System.out.println("THE AVERAGE COMPRESSION RATE WITH HUFFMAN IS " + huffmanAvg);
+    }
+
+    private static boolean checkParam(String[] args, String s) {
+
+        for (int i = 0; i < args.length; i++) {
+            String temp = args[i].toLowerCase();
+            if (temp.equals(s)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

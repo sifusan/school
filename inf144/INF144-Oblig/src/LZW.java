@@ -1,8 +1,3 @@
-import javax.print.DocFlavor;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -108,7 +103,6 @@ public class LZW {
                 }
                 tracker++;
             } catch (IndexOutOfBoundsException | NullPointerException e) {
-                e.printStackTrace();
                 result = result + "#";
                 break;
             }
@@ -169,26 +163,6 @@ public class LZW {
         return result;
     }
 
-    private File stringToFile(String string, String name) {
-        File f = new File(name);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
-
-            bw.write(string);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return f;
-    }
-
-    private void compareFiles(File f1, File f2) {
-        if (f1.length() > f2.length()) {
-            System.out.println(f1.getPath() + " is longer than " + f2.getPath());
-        } else if (f2.length() > f1.length()) {
-            System.out.println(f2.getPath() + " is longer than " + f1.getPath());
-        } else {
-            System.out.println("Files are equally large");
-        }
-    }
 
     private String padBinary(String binary, int bitsToPad) {
         while (binary.length() < bitsToPad) {
