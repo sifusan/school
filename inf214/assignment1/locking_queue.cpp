@@ -32,7 +32,7 @@ class queue {
   node<E>* head;
   node<E>* rear;
   int _size;
-  semaphore sem = 1;
+  
 public:
   queue() : head(nullptr), rear(nullptr), _size(0) {}
 

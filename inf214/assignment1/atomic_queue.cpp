@@ -32,12 +32,13 @@ class queue {
   A<node<E>*> head;
   A<node<E>*> rear;
   A<int> _size;
+  A<bool> lock = true;
 public:
   queue() : head(nullptr), rear(nullptr), _size(0) {}
-
   bool empty() const { return _size == 0; }
 
   void enqueue(E d) {
+    ATOMIC([&]{AWAIT(lock == true); lock = false;});
     node<E>* newNode = new node<E>(d, nullptr);
     if (rear == nullptr) {
       head = newNode;
@@ -45,18 +46,20 @@ public:
       rear.read()->next = newNode;
     }
     rear = newNode;
-    ATOMIC([&]{_size = _size + 1;});
+    _size = _size + 1;
+    ATOMIC([&] { lock = true;});
   }
 
   E dequeue() {
+    ATOMIC([&]{AWAIT((lock == true) && (head !=nullptr)); lock = false;});
     if (empty()) throw "empty queue";
-    ATOMIC([&]{ AWAIT(head != nullptr)});
     node<E>* oldHead = head;
     head = head.read()->next;
     if (head == nullptr) rear = nullptr; // removed the last element
     E e = oldHead->data;
     delete oldHead;
-    ATOMIC([&]{_size = _size - 1;});
+    _size = _size - 1;
+    ATOMIC([&] { lock = true;});
     return e;
   }
 
@@ -69,6 +72,7 @@ public:
   }
 };
 const int N = 1000;
+
 int main() {
   queue<int> q;
 
@@ -107,7 +111,7 @@ int main() {
     ps += [&]{
       int c = 0;
       for (int i=0; i<N; ++i) {
-        try { q.dequeue(); ++c; } catch (...) {}
+        try {q.dequeue(); ++c; } catch (...) {}
       }
       successful_dequeues = c;
     };
