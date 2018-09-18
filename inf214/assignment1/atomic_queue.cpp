@@ -32,34 +32,39 @@ class queue {
   A<node<E>*> head;
   A<node<E>*> rear;
   A<int> _size;
-  A<bool> lock = true;
+  A<bool> eqLock;
+  A<bool> dqLock;
 public:
-  queue() : head(nullptr), rear(nullptr), _size(0) {}
+  queue() : head(nullptr), rear(nullptr), _size(0), eqLock(true), dqLock(true) {}
   bool empty() const { return _size == 0; }
 
   void enqueue(E d) {
-    ATOMIC([&]{AWAIT(lock == true); lock = false;});
+    ATOMIC([&]{AWAIT(eqLock == true); eqLock = false; });
     node<E>* newNode = new node<E>(d, nullptr);
+
     if (rear == nullptr) {
       head = newNode;
     } else {
       rear.read()->next = newNode;
     }
     rear = newNode;
-    _size = _size + 1;
-    ATOMIC([&] { lock = true;});
+
+    ATOMIC([&] { _size = _size + 1; eqLock = true; });
   }
 
+
   E dequeue() {
-    ATOMIC([&]{AWAIT((lock == true) && (head !=nullptr)); lock = false;});
-    if (empty()) throw "empty queue";
+    ATOMIC([&]{ AWAIT(!(rear == nullptr) && (_size >= 1));});
+
     node<E>* oldHead = head;
     head = head.read()->next;
-    if (head == nullptr) rear = nullptr; // removed the last element
+    if (head == nullptr) {
+      rear == nullptr;
+    }
     E e = oldHead->data;
     delete oldHead;
-    _size = _size - 1;
-    ATOMIC([&] { lock = true;});
+    ATOMIC([&] { _size = _size - 1;});
+    cout << _size << "\n";
     return e;
   }
 
