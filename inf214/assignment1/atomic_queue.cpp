@@ -54,7 +54,7 @@ public:
 
 
   E dequeue() {
-    ATOMIC([&]{ AWAIT(!(rear == nullptr) && (_size >= 1));});
+    ATOMIC([&]{ AWAIT(!(rear == nullptr) && (_size >= 1) && (dqLock == true)); dqLock=false;});
 
     node<E>* oldHead = head;
     head = head.read()->next;
@@ -63,8 +63,8 @@ public:
     }
     E e = oldHead->data;
     delete oldHead;
-    ATOMIC([&] { _size = _size - 1;});
-    cout << _size << "\n";
+    ATOMIC([&] { _size = _size - 1; dqLock=true;});
+    //cout << _size << "\n";
     return e;
   }
 
@@ -77,6 +77,10 @@ public:
   }
 };
 const int N = 1000;
+
+void test() {
+  
+}
 
 int main() {
   queue<int> q;
