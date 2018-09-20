@@ -78,61 +78,90 @@ public:
 };
 const int N = 1000;
 
-void test() {
-  
-}
-
-int main() {
+int test() {
+  alang::logl("Preparing tests...");
+  int result = 0;
   queue<int> q;
 
+  alang::logl("Test multithreaded enqueuing:");
+  int expected_enq = 2*N;
   {
     processes ps;
-    ps += [&]{
-      for (int i=0; i<N; ++i) {
+    ps += [&] {
+      for (int i = 0; i<N; ++i) {
         q.enqueue(1);
       }
     };
-    ps += [&]{
-      for (int i=0; i<N; ++i) {
+    ps +=[&] {
+      for (int i = 0; i<N; ++i) {
         q.enqueue(2);
       }
     };
   }
-  alang::logl("Elements enqueued: ", 2*N);
-  alang::logl("Queue size: ", q.size());
 
-  auto it = q.iterator();
-  int ctr = 0;
-  while (!it.done()) { ++ctr; ++it; }
-  alang::logl("Elements in queue: ", ctr);
+  alang::logl("Expected elements in queue: ", expected_enq);
+  alang::logl("Number of elements in queue ", q.size());
+  if (q.size() != expected_enq) {
+    result = -1;
+    alang::logl("ERROR: queue size differs from exptected size!");
+  }
+  cout << "\n";
+  alang::logl("Testing multithreaded dequeuing:");
+  q=queue<int>();
+  int expected_deq = 0;
+  for (int i = 0; i < N; ++i) {
+    q.enqueue(1);
+  }
 
-  alang::logl("---------------");
-
-  int successful_dequeues = 0;
-  q = queue<int>(); // a new empty queue
   {
     processes ps;
-    ps += [&]{
-      for (int i=0; i<N; ++i) {
+    ps += [&] {
+      for (int i = 0; i < N/2; ++i) {
+        q.dequeue();
+      }
+    };
+    ps += [&] {
+      for (int i = 0; i < N/2; ++i) {
+        q.dequeue();
+      }
+    };
+  }
+  alang::logl("Expected elements in queue: ", expected_deq);
+  alang::logl("Number of elements in queue ", q.size());
+  if (expected_deq != q.size()) {
+    result = -1;
+    alang::logl("ERROR: queue size differs from exptected size!");
+  }
+  cout << "\n";
+
+  alang::logl("Testing concurrent enqueueing and dequeuing:");
+  q=queue<int>();
+  int expected = 0;
+
+  {
+    processes ps;
+    ps += [&] {
+      for (int i = 0; i < N; ++i) {
         q.enqueue(1);
       }
     };
-    ps += [&]{
-      int c = 0;
-      for (int i=0; i<N; ++i) {
-        try {q.dequeue(); ++c; } catch (...) {}
+    ps += [&] {
+      for (int i = 0; i < N; ++i) {
+        q.dequeue();
       }
-      successful_dequeues = c;
     };
   }
-  alang::logl("Elements enqueued: ", N);
-  alang::logl("Elements dequeued: ", N);
-  alang::logl("Successful dequeue count: ", successful_dequeues);
+  alang::logl("Expected elements in queue: ", expected);
+  alang::logl("Number of elements in queue ", q.size());
+  if (expected != q.size()) {
+    result = -1;
+    alang::logl("ERROR: queue size differs from exptected size!");
+  }
+  cout << "\n";
 
-  alang::logl("Queue size: ", q.size());
+  return result;
+}
 
-  it = q.iterator();
-  ctr = 0;
-  while (!it.done()) { ++ctr; ++it; }
-  alang::logl("Elements in queue: ", ctr);
+int main() {
+  int t = test();
 }
