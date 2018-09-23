@@ -59,12 +59,11 @@ public:
     node<E>* oldHead = head;
     head = head.read()->next;
     if (head == nullptr) {
-      rear == nullptr;
+      rear = nullptr;
     }
     E e = oldHead->data;
     delete oldHead;
     ATOMIC([&] { _size = _size - 1; dqLock=true;});
-    //cout << _size << "\n";
     return e;
   }
 
@@ -76,6 +75,7 @@ public:
     return head.read();
   }
 };
+
 const int N = 1000;
 
 int test() {
@@ -83,7 +83,7 @@ int test() {
   int result = 0;
   queue<int> q;
 
-  alang::logl("Test multithreaded enqueuing:");
+  alang::logl("Testing multithreaded enqueuing:");
   int expected_enq = 2*N;
   {
     processes ps;
@@ -98,17 +98,21 @@ int test() {
       }
     };
   }
+  auto it = q.iterator();
+  int it_size = 0;
+  while(!(it.done())) { ++it_size; ++it;};
 
   alang::logl("Expected elements in queue: ", expected_enq);
   alang::logl("Number of elements in queue ", q.size());
-  if (q.size() != expected_enq) {
+  alang::logl("Number of elements according to iterator: ", it_size);
+  if ((q.size() != expected_enq) || (it_size != expected_enq))  {
     result = -1;
     alang::logl("ERROR: queue size differs from exptected size!");
   }
   cout << "\n";
   alang::logl("Testing multithreaded dequeuing:");
   q=queue<int>();
-  int expected_deq = 0;
+
   for (int i = 0; i < N; ++i) {
     q.enqueue(1);
   }
@@ -126,9 +130,15 @@ int test() {
       }
     };
   }
+
+  int expected_deq = 0;
+  it = q.iterator();
+  it_size = 0;
+  while(!(it.done())) { ++it_size; ++it;};
   alang::logl("Expected elements in queue: ", expected_deq);
   alang::logl("Number of elements in queue ", q.size());
-  if (expected_deq != q.size()) {
+  alang::logl("Number of elements according to iterator: ", it_size);
+  if ((expected_deq != q.size()) || (it_size != expected_deq)) {
     result = -1;
     alang::logl("ERROR: queue size differs from exptected size!");
   }
@@ -136,7 +146,7 @@ int test() {
 
   alang::logl("Testing concurrent enqueueing and dequeuing:");
   q=queue<int>();
-  int expected = 0;
+
 
   {
     processes ps;
@@ -151,9 +161,15 @@ int test() {
       }
     };
   }
+
+  int expected = 0;
+  it = q.iterator();
+  it_size = 0;
+  while(!(it.done())) { ++it_size; ++it;};
   alang::logl("Expected elements in queue: ", expected);
   alang::logl("Number of elements in queue ", q.size());
-  if (expected != q.size()) {
+  alang::logl("Number of elements according to iterator: ", it_size);
+  if (expected != q.size() || (it_size != expected)) {
     result = -1;
     alang::logl("ERROR: queue size differs from exptected size!");
   }
@@ -164,4 +180,19 @@ int test() {
 
 int main() {
   int t = test();
+  if (t == 0) {
+    cout << "Tests passed\n";
+  }else {
+    cout << "Tests failed\n";
+  }
+  // bool b = true;
+  // while(b) {
+  //   int t = test();
+  //   if (t == 0) {
+  //     alang::logl("Passed tests\n");
+  //   } else {
+  //     alang::logl("Failed tests\n");
+  //     b = false;
+  //   }
+  // }
 }
