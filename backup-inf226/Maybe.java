@@ -83,7 +83,6 @@ public class Maybe<T> {
    */
   public T force() throws NothingException {
 	  if (this.isNothing()) {
-          System.out.println("FORCE SAYS IS NOTHING");
           throw new NothingException();
       }
 	  return value;

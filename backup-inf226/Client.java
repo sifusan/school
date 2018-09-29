@@ -139,7 +139,11 @@ public class Client {
 					readMessages(serverOut,serverIn);
 				}
 				if(option == 2) { // SEND
-					// TODO: Implement message sending
+                    System.out.print("Enter recipient >");
+                    final String recipient = Util.getLine(stdin);
+                    System.out.print("Enter message >");
+                    final String message = Util.getLine(stdin);
+                    sendMessage(serverOut, serverIn, recipient, message);
 				}
 				if(option == 3) // QUIT
 					//mainMenu(serverIn, serverOut);
@@ -148,6 +152,27 @@ public class Client {
 				System.err.println("Bye-bye!");
 			}
 		}
+	}
+
+	private static void sendMessage
+			(final BufferedWriter serverOut,
+			 final BufferedReader serverIn,
+			 final String user,
+             final String message
+			 ) throws IOException{
+	    serverOut.write("SEND MESSAGE");
+	    serverOut.newLine();
+	    serverOut.write("USER " + user);
+	    serverOut.newLine();
+	    serverOut.write("MESSAGE " + message);
+	    serverOut.newLine();
+	    serverOut.flush();
+	    final String response = Util.getLine(serverIn);
+	    if (response.equals("MESSAGE SENT")) {
+            System.out.println("Message sent");
+        } else {
+            System.out.println("Failed to send message");
+        }
 	}
 
 	/**

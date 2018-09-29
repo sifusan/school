@@ -2,16 +2,16 @@ package inf226;
 
 import java.io.*;
 import java.net.*;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.function.Function;
 
+import com.lambdaworks.crypto.SCrypt;
 import inf226.Storage.KeyedStorage;
+import inf226.Storage.Storage;
 import inf226.Storage.Storage.ObjectDeletedException;
 import inf226.Storage.Stored;
 import inf226.Storage.TransientStorage;
+import com.lambdaworks.crypto.SCryptUtil;
 
 /**
  * The Server main class. This implements all critical server functions.
@@ -32,13 +32,10 @@ public class Server {
     private static final char[] allowedPasswdChars = "abcdefghijklmnopqrstuvwxyz123456789.,:;()[]<>~'#\"!$%&/+*?=-_|".toCharArray();
 
     public static Maybe<Stored<User>> authenticate(String username, String password) {
-        // TODO: Implement user authentication
         Maybe<Stored<User>> storedUser = storage.lookup(username);
-
         try {
-            String userName = storedUser.force().getValue().getName();
-            String userPassword = storedUser.force().getValue().getPasswordcpy();
-            if ((userName.equals(username)) && (userPassword.equals(password))) {
+            String storedUserPassword = storedUser.force().getValue().getPasswordcpy();
+            if (SCryptUtil.check(password, storedUserPassword)) {
                 return storedUser;
             }
 
@@ -50,8 +47,8 @@ public class Server {
     }
 
     public static Maybe<Stored<User>> register(String username, String password) {
-        // TODO: Implement user registration
-        User user = new User(username, new ImmutableLinkedList<>(), "key", password);
+        String hashedPassword = SCryptUtil.scrypt(password, 8,8,8);
+        User user = new User(username, new ImmutableLinkedList<>(), hashedPassword);
         try {
             return Maybe.just(storage.save(user));
         } catch (SQLException e) {
@@ -61,6 +58,7 @@ public class Server {
 
         return Maybe.nothing();
     }
+
 
     public static Maybe<Token> createToken(Stored<User> user) {
         // TODO: Implement token creation
@@ -73,7 +71,6 @@ public class Server {
     }
 
     public static Maybe<String> validateUsername(String username) {
-        // TODO: Validate username before returning
         int count = 0;
         for (int i = 1; i < username.length(); i++) {
             for (int j = 0; j < allowedUserChars.length; j++) {
@@ -92,7 +89,6 @@ public class Server {
     }
 
     public static Maybe<String> validatePassword(String pass) {
-        // TODO: Validate pass before returning
 
         int count = 0;
         for (int i = 1; i < pass.length(); i++) {
@@ -113,6 +109,19 @@ public class Server {
 
     public static boolean sendMessage(Stored<User> sender, Message message) {
         // TODO: Implement the message sending.
+        Maybe<Stored<User>> recipient = storage.lookup(message.recipient);
+        try {
+            System.out.println(message.sender);
+            System.out.println(message.recipient);
+            System.out.println(message.message);
+            User u = recipient.force().getValue().addMessage(message);
+            storage.update(recipient.force(), u);
+            return true;
+        } catch (Maybe.NothingException | SQLException | Storage.ObjectModifiedException | ObjectDeletedException e) {
+            System.out.println("An error occurred while sending");
+            e.printStackTrace();
+        }
+
         return false;
     }
 

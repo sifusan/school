@@ -11,10 +11,19 @@ public class Message {
 		this.message = message;
 	}
 
-	public static boolean valid(String message) {
-		// TODO: Implement message string validation.
-		return false;
-	}
+    public static boolean valid(String message) {
+        for (char c : message.toCharArray()) {
+            if (Character.isISOControl(c)) {
+                if (c != '\n') {
+                    return false;
+                }
+            }
+        }
+        if (message.contains("\n.\n")) {
+            return false;
+        }
+        return true;
+    }
 
 	public static class Invalid extends Exception {
 		private static final long serialVersionUID = -3451435075806445718L;

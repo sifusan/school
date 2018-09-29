@@ -9,39 +9,28 @@ public final class User {
 	
 	private final String name;
 	private final ImmutableLinkedList<Message> log;
-	private final String key;
-	private final String password;
+    private final String password;
 
 
 	public User(final String name) {
 		this.name=name;
 		this.log = new ImmutableLinkedList<Message>();
-		this.key = null;
-		this.password = null;
+        this.password = this.getPasswordcpy();
 	}
 
+    @Deprecated
 	private User(final String name, final ImmutableLinkedList<Message> log) {
-		this.name=name;
-		this.log = log;
-		this.key = null;
-		this.password = null;
-	}
-
-	private User(final String name, final ImmutableLinkedList<Message> log, final String key) {
 		this.name = name;
 		this. log = log;
-		this.key = key;
-		this.password = null;
+        this.password = this.getPasswordcpy();
 	}
 
 	public User(final String name,
                 final ImmutableLinkedList<Message> log,
-                final String key,
                 final String password) {
 	    this.name = name;
 	    this.log = log;
-	    this.key = null;
-	    this.password = password;
+        this.password = password;
     }
 	
 	/**
@@ -67,7 +56,7 @@ public final class User {
 	 * @return Updated user object.
 	 */
 	public User addMessage(Message m) {
-		return new User(name,new ImmutableLinkedList<Message>(m,log));
+	    return new User(name,new ImmutableLinkedList<Message>(m,log), password);
 	}
 
 	public String getPasswordcpy() {
@@ -80,7 +69,6 @@ public final class User {
             return copy;
         }
         return null;
-
     }
 
 }

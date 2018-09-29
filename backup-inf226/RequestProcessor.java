@@ -245,9 +245,23 @@ public final class RequestProcessor extends Thread {
          * @param in       Reader to read the message data from.
          * @return Message object.
          */
-        private static Maybe<Message> handleMessage(String username, BufferedReader in) {
-            // TODO: Handle message input
-            return Maybe.nothing();
+        private static Maybe<Message> handleMessage(String username, BufferedReader in) throws IOException {
+            final String lineOne = Util.getLine(in);
+            final String lineTwo = Util.getLine(in);
+
+            if (lineOne.startsWith("USER ") && (lineTwo.startsWith("MESSAGE "))) {
+                final String messageText = lineTwo.substring("MESSAGE ".length());
+                final String recipient = lineOne.substring("USER ".length());
+                try {
+                    Message message = new Message(username, recipient, messageText);
+                    return Maybe.just(message);
+                } catch(Message.Invalid e) {
+                    return Maybe.nothing();
+
+                }
+            } else {
+                return Maybe.nothing();
+            }
         }
 
         /**
@@ -262,7 +276,7 @@ public final class RequestProcessor extends Thread {
             final String lineTwo = Util.getLine(in);
 
             if (lineOne.startsWith("USER ") && lineTwo.startsWith("PASS ")) {
-                final Maybe<String> username = Server.validateUsername(lineOne.substring("USER".length(), lineOne.length()));
+                final Maybe<String> username = Server.validateUsername(lineOne.substring("USER ".length(), lineOne.length()));
                 //final Maybe<String> username = Maybe.just(lineOne.substring("USER ".length(), lineOne.length()));
                 final Maybe<String> password = Server.validatePassword(lineTwo.substring("PASS ".length(), lineTwo.length()));
 
