@@ -35,8 +35,6 @@ class queue {
   sem enq_sm = 1;
   sem deq_sm = 0;
   sem deq_run = 2;
-  sem inc_enq = 1;
-  sem inc_deq = 1;
   sem inc = 1;
 
 public:
