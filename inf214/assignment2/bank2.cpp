@@ -9,7 +9,6 @@ using namespace std;
 
 class Bank2 {
   int balance = 0, deposited = 0, withdrawn = 0; // (deposited >= withdrawn) && balance >= 0
-  bool transaction_in_progress = false;
   bool withdraw_in_progress = false;
   condition_variable cv;
   mutex bank_mutex;
@@ -19,36 +18,28 @@ public:
   Bank2 () {}
   int deposit(int amount) {
     unique_lock<mutex> lock(bank_mutex);
-    while (transaction_in_progress) {
-      // cout << "ATTEMPTING TO DEPOSIT " << amount << " TO " << balance << "\n";
-      cv.wait(lock);
-    }
+    // cout << "ATTEMPTING TO DEPOSIT " << amount << " TO " << balance << "\n";
 
-    transaction_in_progress = true;
     balance = balance + amount;
     deposited = deposited + amount;
-    // cout << "DEPOSITED " << amount <<". BALANCE IS " << balance << "\n";
+    cout << "DEPOSITED " << amount <<". BALANCE IS " << balance << "\n";
     cv.notify_one();
-    transaction_in_progress = false;
     return balance;
   }
 
   int withdraw(int amount) {
     unique_lock<mutex> lock(withdraw_mutex);
-    while (balance-amount < 0 || deposited < withdrawn || transaction_in_progress || withdraw_in_progress) {
-      // cout << "ATTEMPTING TO WITHDRAW " << amount << " FROM " << balance << "\n";
-      // cout << transaction_in_progress << "\n";
+    while (balance-amount < 0 || deposited < withdrawn || withdraw_in_progress) {
+      cout << "ATTEMPTING TO WITHDRAW " << amount << " FROM " << balance << "\n";
       cv.notify_one();
     }
     unique_lock<mutex> lock_2(bank_mutex);
-    transaction_in_progress = true;
     withdraw_in_progress = true;
     balance = balance - amount;
     withdrawn = withdrawn + amount;
-    // cout << "WITHDREW " << amount <<". BALANCE IS " << balance << "\n";
+    cout << "WITHDREW " << amount <<". BALANCE IS " << balance << "\n";
     cv.notify_one();
     withdraw_in_progress = false;
-    transaction_in_progress = false;
     return balance;
   }
 
@@ -127,17 +118,21 @@ int main() {
   threads = vector<thread>();
 
   cout << "TESTING NEGATIVE BALANCE: \n";
-  for (int i = 0; i < 100; i++) {
-    threads.push_back(thread(do_deposits, 10, 10, ref(bank2_3)));
-    threads.push_back(thread(do_withdrawals, 10, 10, ref(bank2_3)));
-  }
+  // for (int i = 0; i < 100; i++) {
+  //   threads.push_back(thread(do_deposits, 10, 10, ref(bank2_3)));
+  //   threads.push_back(thread(do_withdrawals, 10, 10, ref(bank2_3)));
+  // }
+  threads.push_back(thread(do_deposits, 1, 1, ref(bank2_3)));
+  threads.push_back(thread(do_withdrawals, 1, 2, ref(bank2_3)));
   threads.push_back(thread(do_withdrawals, 1, 1, ref(bank2_3)));
   threads.push_back(thread(do_deposits, 1, 1, ref(bank2_3)));
+  threads.push_back(thread(do_deposits, 1, 1, ref(bank2_3)));
 
-  //Wait before joining last thread so the program hangs waiting to withdraw
+  //Wait before joining last threads so the program hangs waiting to withdraw
   for (int i = 0; i < threads.size(); i++) {
-    if (i==(threads.size()-1)) {
-      cout << "WAITING FOR LAST WITHDRAW TO COMPLETE, NEEDS 1 MORE DEPOSIT\n";
+    if (i>=(threads.size()-3)) {
+      cout << threads[i].get_id() << "\n";
+      cout << "WAITING FOR WITHDRAW TO COMPLETE, NEEDS MORE DEPOSITS\n";
       this_thread::sleep_for(chrono::seconds(2));
 
     }
@@ -152,6 +147,6 @@ int main() {
     cout << "TEST NEGATIVE BALANCE FAILED!\n";
     return -1;
   }
-  cout << "ALL TESTS COMPELTED SUCCESSFULLY.\n";
+  cout << "ALL TESTS COMPLETED SUCCESSFULLY.\n";
   return 0;
 }

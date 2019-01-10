@@ -1,0 +1,69 @@
+STM example:
+
+atomic {
+  x = x + y
+  z = x + y
+}
+
+Memory versions
+x 7 10
+y 3 40
+z 1 0
+
+Global version (gv)
+7
+8
+9
+10
+11
+12
+
+rlog
+x
+y
+
+wlog
+<x, 50>
+<z, 90>
+
+1. Begin transaction
+-set read version to gv, rv=7
+
+2. Read x and x.v
+- if fail, rollback
+-compare x.v and r.v
+  -if .x.v > r.v, rollback
+-add address of x to rlog
+
+3. Read y and y.b atomically
+-add y to rlog
+
+4. write x
+-add <x,50> to wlog
+
+5. Read x
+-it is in wlog, cast that write
+
+6. read y and y.v atomically
+-same checks, rollback if fails
+
+7. Write to z
+-add <z,90> to wlog
+
+8. Try to commit
+-lock all written to vars: x,z
+-get the global version => wv
+-validate the readset
+  -check all versions
+    -x already lockecd, no to lock again
+
+9. Commit
+-write wlog to memory
+  -write x, unlock(x)
+  -write z, unlock(z)
+
+TL;DR:
+
+ATO
+  x = x + y;
+  z = x + y;

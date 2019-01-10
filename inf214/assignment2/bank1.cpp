@@ -4,12 +4,10 @@
 #include <vector>
 #include <condition_variable>
 
-
 using namespace std;
 
 class Bank1 {
   int balance = 0, deposited = 0, withdrawn = 0; // (deposited >= withdrawn) && balance >= 0
-  bool transactionInProgress = false;
   condition_variable cv;
   mutex bank_mutex;
 
@@ -17,27 +15,22 @@ public:
   Bank1 () {}
   int deposit(int amount) {
     unique_lock<mutex> lock(bank_mutex);
-    while (transactionInProgress) {
-      cv.wait(lock);
-    }
-    transactionInProgress = true;
+    // cout << "ATTEMPTING TO DEPOSIT " << amount << " TO " << balance << "\n";
     balance = balance + amount;
     deposited = deposited + amount;
     cv.notify_one();
-    transactionInProgress = false;
     return balance;
   }
 
   int withdraw(int amount) {
     unique_lock<mutex> lock(bank_mutex);
-    while (balance-amount < 0 || transactionInProgress) {
+    while (balance-amount < 0) {
+      // cout << "ATTEMPTING TO WITHDRAW " << amount << " FROM " << balance << "\n";
       cv.wait(lock);
     }
-    transactionInProgress = true;
     balance = balance - amount;
     withdrawn = withdrawn + amount;
     cv.notify_one();
-    transactionInProgress = false;
     return balance;
   }
 
@@ -129,7 +122,7 @@ int main() {
   for (int i = 0; i < threads.size(); i++) {
     if (i==(threads.size()-1)) {
       cout << "WAITING FOR LAST WITHDRAW TO COMPLETE, NEEDS 1 MORE DEPOSIT\n";
-      this_thread::sleep_for(chrono::seconds(2));
+      this_thread::sleep_for(chrono::seconds(5));
 
     }
     threads[i].join();
@@ -144,6 +137,6 @@ int main() {
     cout << "TEST NEGATIVE BALANCE FAILED!\n";
     return -1;
   }
-  cout << "ALL TESTS COMPELTED SUCCESSFULLY.\n";
+  cout << "ALL TESTS COMPLETED SUCCESSFULLY.\n";
   return 0;
 }
