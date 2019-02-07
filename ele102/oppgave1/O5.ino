@@ -5,39 +5,19 @@ int hour = 23;
 int minute = 58;
 int second = 57;
 
+String padZero(int n) {
+  if (n < 10) return "0" + (String)n;
+  else return (String)n;
+}
+
 void printTime() {
-  Serial.print(year);
-  
-  Serial.print("/");
-  if (month < 10) {
-    Serial.print(0);
-  }
-  Serial.print(month);
-  Serial.print("/");
-  
-  if (date < 10) {
-    Serial.print(0);
-  }
-  Serial.print(date);
-  Serial.print("\t");
-  
-  if (hour < 10) {
-    Serial.print(0);
-  }
-  Serial.print(hour);
-  Serial.print(":");
-  
-  if (minute < 10) {
-    Serial.print(0);
-  }
-  Serial.print(minute);
-  Serial.print(":");
-  
-  if (second < 10) {
-    Serial.print(0);
-  }
-  Serial.print(second);
-  Serial.println();
+  String year_string = String(year);
+  String month_string = padZero(month);
+  String date_string = padZero(date);
+  String hour_string = padZero(hour);
+  String minute_string = padZero(minute);
+  String second_string = padZero(second);
+  Serial.println(year_string + "/" + month_string + "/" + date_string + "\t" + hour_string + ":" + minute_string + ":" + second_string); 
 }
 
 int inc_and_wrap(int n, int limit) {
