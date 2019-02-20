@@ -25,10 +25,6 @@ void psudo_listen(int seconds) {
   }
 }
 
-void print_status(int phase[]) {
-  
-}
-
 void setup() {
   pinMode(2, INPUT_PULLUP);
   Serial.begin(9600);
