@@ -88,14 +88,15 @@ function create_2D_embedding(label_data, p_comp_1, p_comp_2, p_nr1, p_nr2, title
     title(title_name);
     xlabel("Principal component " + p_nr1);
     ylabel("Principal component " + p_nr2);
-    scatter(nr_0(1,:), nr_0(2,:), 1, 'red');
-    scatter(nr_1(1,:), nr_1(2,:), 1, [1 0.5 0.5]);
-    scatter(nr_2(1,:), nr_2(2,:), 1, 'yellow');
-    scatter(nr_3(1,:), nr_3(2,:), 1, 'green');
-    scatter(nr_4(1,:), nr_4(2,:), 1, [0 1 0.5]);
-    scatter(nr_5(1,:), nr_5(2,:), 1, 'cyan');
-    scatter(nr_6(1,:), nr_6(2,:), 1, 'blue');
-    scatter(nr_7(1,:), nr_7(2,:), 1, [0.1 0.4 0.8]);
-    scatter(nr_8(1,:), nr_8(2,:), 1, 'magenta');
-    scatter(nr_9(1,:), nr_9(2,:), 1, [1 0.2 0.7]);
+    s0 = scatter(nr_0(1,:), nr_0(2,:), 3, 'red', 'filled');
+    s1 = scatter(nr_1(1,:), nr_1(2,:), 3, [1 0.5 0.5], 'filled');
+    s2 = scatter(nr_2(1,:), nr_2(2,:), 3, 'yellow', 'filled');
+    s3 = scatter(nr_3(1,:), nr_3(2,:), 3, 'green', 'filled');
+    s4 = scatter(nr_4(1,:), nr_4(2,:), 3, [0 1 0.5], 'filled');
+    s5 = scatter(nr_5(1,:), nr_5(2,:), 3, 'cyan', 'filled');
+    s6 = scatter(nr_6(1,:), nr_6(2,:), 3, 'blue', 'filled');
+    s7 = scatter(nr_7(1,:), nr_7(2,:), 3, [0.1 0.4 0.8], 'filled');
+    s8 = scatter(nr_8(1,:), nr_8(2,:), 3, 'magenta', 'filled');
+    s9 = scatter(nr_9(1,:), nr_9(2,:), 3, [1 0.2 0.7], 'filled');
+    legend([s0, s1, s2, s3, s4, s5, s6, s7, s8, s9], '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
 end

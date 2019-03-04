@@ -46,7 +46,10 @@ xlim([0, 100]);
 xlabel("Eigenvalues at index=x");
 ylabel("Value");
 plot(latent_train_image);
+line([1, 1], [0, latent_train_image(1)]);
 hold off
+
+[energy, components] = compute_energy(latent_train_image, 90)
 
 % 7
 figure(6)

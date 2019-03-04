@@ -95,24 +95,20 @@ function create_3D_embedding(label_data, p_comp_1, p_comp_2, p_comp_3, p_nr1, p_
     end
     
     figure(fig_nr)
-    
-    size(nr_0(1,:))
-    size(nr_0(2,:))
-    size(nr_0(3,:))
-    size(nr_0)
-    scatter3(nr_0(1,:), nr_0(2,:), nr_0(3,:), 1, 'red');
+    s0 = scatter3(nr_0(1,:), nr_0(2,:), nr_0(3,:), 3, 'red', 'filled');
     hold on
     title(title_name);
     xlabel("Principal component " + p_nr1);
     ylabel("Principal component " + p_nr2);
     zlabel("Principal component " + p_nr3);
-    scatter3(nr_1(1,:), nr_1(2,:), nr_1(3,:), 1, [1 0.5 0.5]);
-    scatter3(nr_2(1,:), nr_2(2,:), nr_2(3,:), 1, 'yellow');
-    scatter3(nr_3(1,:), nr_3(2,:), nr_3(3,:), 1, 'green');
-    scatter3(nr_4(1,:), nr_4(2,:), nr_4(3,:), 1, [0 1 0.5]);
-    scatter3(nr_5(1,:), nr_5(2,:), nr_5(3,:), 1, 'cyan');
-    scatter3(nr_6(1,:), nr_6(2,:), nr_6(3,:), 1, 'blue');
-    scatter3(nr_7(1,:), nr_7(2,:), nr_7(3,:), 1, [0.1 0.4 0.8]);
-    scatter3(nr_8(1,:), nr_8(2,:), nr_8(3,:), 1, 'magenta');
-    scatter3(nr_9(1,:), nr_9(2,:), nr_9(3,:), 1, [1 0.2 0.7]);
+    s1 = scatter3(nr_1(1,:), nr_1(2,:), nr_1(3,:), 1, [1 0.5 0.5], 'filled');
+    s2 = scatter3(nr_2(1,:), nr_2(2,:), nr_2(3,:), 1, 'yellow', 'filled');
+    s3 = scatter3(nr_3(1,:), nr_3(2,:), nr_3(3,:), 1, 'green', 'filled');
+    s4 = scatter3(nr_4(1,:), nr_4(2,:), nr_4(3,:), 1, [0 1 0.5], 'filled');
+    s5 = scatter3(nr_5(1,:), nr_5(2,:), nr_5(3,:), 1, 'cyan', 'filled');
+    s6 = scatter3(nr_6(1,:), nr_6(2,:), nr_6(3,:), 1, 'blue', 'filled');
+    s7 = scatter3(nr_7(1,:), nr_7(2,:), nr_7(3,:), 1, [0.1 0.4 0.8], 'filled');
+    s8 = scatter3(nr_8(1,:), nr_8(2,:), nr_8(3,:), 1, 'magenta', 'filled');
+    s9 = scatter3(nr_9(1,:), nr_9(2,:), nr_9(3,:), 1, [1 0.2 0.7], 'filled');
+    legend([s0, s1, s2, s3, s4, s5, s6, s7, s8, s9], '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
 end
