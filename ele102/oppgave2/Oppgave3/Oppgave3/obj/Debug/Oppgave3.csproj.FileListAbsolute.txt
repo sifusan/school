@@ -1,0 +1,9 @@
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\bin\Debug\Oppgave3.exe.config
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\bin\Debug\Oppgave3.exe
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\bin\Debug\Oppgave3.pdb
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\obj\Debug\Oppgave3.csprojResolveAssemblyReference.cache
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\obj\Debug\Oppgave3.Form1.resources
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\obj\Debug\Oppgave3.Properties.Resources.resources
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\obj\Debug\Oppgave3.csproj.GenerateResource.Cache
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\obj\Debug\Oppgave3.exe
+C:\Users\sifusan\Documents\Visual Studio 2017\Projects\Oppgave3\Oppgave3\obj\Debug\Oppgave3.pdb
