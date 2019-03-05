@@ -102,14 +102,14 @@ getLocCol (Loc _ _ c ) = c
 item :: Lexer Char
 item = P(\inp -> case inp of
                  (l, (c:s)) -> (case c of
-                                     '\n' -> [(c, ((Loc file row col), s))]
-                                               where row = getLocRow(l) + 1
-                                                     file = getLocFile(l)
-                                                     col = 0
-                                     c    -> [(c, ((Loc file row col), s ))]
-                                               where row = getLocRow(l)
-                                                     file = getLocFile(l)
-                                                     col = getLocCol(l) + 1
+                               '\n' -> [(c, ((Loc file row col), s))]
+                                           where row = getLocRow(l) + 1
+                                                 file = getLocFile(l)
+                                                 col = 0
+                               c    -> [(c, ((Loc file row col), s ))]
+                                           where row = getLocRow(l)
+                                                 file = getLocFile(l)
+                                                 col = getLocCol(l) + 1
                                ) 
                                     
                  (l, _)    -> []
@@ -118,17 +118,25 @@ item = P(\inp -> case inp of
 startLoc fn = Loc fn 1 0
 
 getState :: Parser b b
---getState = P(\inp -> case inp of (l,s) -> [])
-getState = undefined
+getState = P(\inp ->  [(inp, inp)])
 
 setState :: b -> Parser b ()
-setState = undefined
+setState s = P(\inp -> [((), s)])
 
 getLoc :: Lexer Loc
-getLoc = undefined
+getLoc = P(\inp -> case inp of
+                   (l, s) -> [(l, ((Loc file row col), s))]
+                                where row = getLocRow(l)
+                                      file = getLocFile(l)
+                                      col = getLocCol(l)
+          )
+
 
 lookahead :: Parser b a -> Parser b a
-lookahead = undefined
+lookahead p = let cs = getState in
+                               do  P(\inp -> [])  
+                                   
+                                   --P(\inp -> []) 
 
 notFollowedBy :: Parser b a -> Parser b ()
 notFollowedBy = undefined
