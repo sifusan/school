@@ -1,0 +1,13 @@
+symbol jsonvalue: element
+symbol stringval: string -> value
+symbol intval: digit -> onenine x digit* ->
+symbol digit: '0' x onenine ->  
+symbol digits: digit -> digit x digits
+symbol object: ws x members
+symbol element: element* 
+symbol boolval: boolean -> value
+symbol number: sign x frac x exp -> value
+symbol sign: boolean
+symbol array: ele
+
+type value: 

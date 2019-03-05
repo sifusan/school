@@ -1,0 +1,12 @@
+
+symbol stringval : string -> value
+symbol boolval : boolean -> value
+symbol pair : string x value -> member
+symbol object : member* -> value
+symbol array : value* -> value
+symbol number : sign x int x frac x exp -> value
+
+type exp : sign x int
+type sign : boolean
+type frac : int
+symbol null : -> value

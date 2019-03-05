@@ -118,7 +118,8 @@ item = P(\inp -> case inp of
 startLoc fn = Loc fn 1 0
 
 getState :: Parser b b
-getState = P(\inp -> case inp of (l,s) -> [])
+--getState = P(\inp -> case inp of (l,s) -> [])
+getState = undefined
 
 setState :: b -> Parser b ()
 setState = undefined
