@@ -1,0 +1,39 @@
+[integer] integer : digits
+[single_digit] digits : digit
+[many_digits] digits : digits digit
+[digit] digit : '[0..9]'
+[boolean] boolean : boolval
+[true] boolval : 'true'
+[false] boolval : 'false'
+[keyword] keyword : keywords
+[if] keywords : 'if' expr stmt {'else' stmt}?
+[while] keywords : 'while' expr stmt
+[true] keywords : 'true'
+[false] keywords : 'false'
+[variable] variable : single_letter symbols
+[symbols] symbols : symbols symbol
+[single_letter] symbol : '[a..z]'
+[many_letters] symbols : symbols symbol
+[single_digit] symbols : '[0..9]'
+[many_digits] symbols : symbols symbol 
+[operator] operator : operators
+[less_or_eq] operators : '<='
+[greater_or_eq] operators : '>='
+[equal] operators : '=='
+[not_equal] operators : '!='
+[and] operators : '&&'
+[or] operators : '||'
+[assign] operators : '='
+[add] operators : '+'
+[subtract] operators : '-'
+[multiply] operators : '*'
+[less_than] operators : '<'
+[greater_than] operators : '>'
+[not] operators : '!'
+[punctuation] punctuation : punctuations
+[left_parantheses] punctuations : '('
+[right_parantheses] punctuations : ')'
+[left_bracket] punctuations : '{'
+[right_bracket] punctuations : '}'
+[dot] punctuations : '.'
+[semi_colon] punctuations : ';' 
