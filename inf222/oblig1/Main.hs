@@ -133,15 +133,23 @@ getLoc = P(\inp -> case inp of
 
 
 lookahead :: Parser b a -> Parser b a
-lookahead p = let cs = getState in
-                               do  P(\inp -> [])  
-                                   
-                                   --P(\inp -> []) 
+--lookahead p = let cs = parse getState p in
+  --               case cs of
+    --                    [(p1, p2)] -> P(\inp -> p1)
+                        -- setState(cs) 
+                        --P(\inp -> []) 
+lookahead p = do
+                let cs = getState
+                let result = parse getState p
+                --setState(cs)                         
+                --fst $ result !! 0
+                P(\inp -> [])
 
 notFollowedBy :: Parser b a -> Parser b ()
 notFollowedBy = undefined
 
 tokens :: Lexer [Token]
+                --let result = P(\inp -> [])
 tokens = ws >> many (token >>= \t -> ws >> return t)
 
 tokens' :: Lexer (Bool, Loc, [Token], String)
