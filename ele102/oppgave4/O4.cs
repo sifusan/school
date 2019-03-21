@@ -1,3 +1,7 @@
+/*
+* Forfattere: Simen Fuglestad, Endre Røberg Løseth
+* Kommentar: File paths, you know the drill :)
+*/
 using System;
 using System.IO;
 

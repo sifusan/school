@@ -1,3 +1,9 @@
+/*
+* Forfattere: Simen Fuglestad, Endre Røberg Løseth
+* Kommentarer til oppgaven:
+*       Har ikke brukt arrays, men kan allikevel lese inn uavhengig mengde verdier  
+*       Løsning er utarbeidet på linux, file paths må muligens endres for å bli kompatibel med Windows/visual studio
+*/
 using System;
 using System.IO;
 class O1 {

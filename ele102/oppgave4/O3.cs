@@ -1,3 +1,7 @@
+/*
+* Forfattere: Simen Fuglestad, Endre Røberg Løseth
+* Kommentar: Som i forrige oppgave så er file paths relative til mappen, må muligens endres ved bruk av VS
+*/
 using System;
 using System.IO;
 
