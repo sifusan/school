@@ -1,0 +1,10 @@
+C:\Users\sifusan\source\repos\O4\O4\bin\Debug\O4.exe.config
+C:\Users\sifusan\source\repos\O4\O4\bin\Debug\O4.exe
+C:\Users\sifusan\source\repos\O4\O4\bin\Debug\O4.pdb
+C:\Users\sifusan\source\repos\O4\O4\obj\Debug\O4.csprojAssemblyReference.cache
+C:\Users\sifusan\source\repos\O4\O4\obj\Debug\O4.Properties.Resources.resources
+C:\Users\sifusan\source\repos\O4\O4\obj\Debug\O4.csproj.GenerateResource.cache
+C:\Users\sifusan\source\repos\O4\O4\obj\Debug\O4.csproj.CoreCompileInputs.cache
+C:\Users\sifusan\source\repos\O4\O4\obj\Debug\O4.exe
+C:\Users\sifusan\source\repos\O4\O4\obj\Debug\O4.pdb
+C:\Users\sifusan\source\repos\O4\O4\obj\Debug\O4.Form1.resources
