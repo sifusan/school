@@ -1,0 +1,681 @@
+Analysis & Synthesis report for LCD_klokke_SF
+Mon Nov 04 07:42:42 2019
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |LCD_klokke_SF|LCD_Display:lcd|next_command
+  9. State Machine - |LCD_klokke_SF|LCD_Display:lcd|state
+ 10. Registers Removed During Synthesis
+ 11. Removed Registers Triggering Further Register Optimizations
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Parameter Settings for Inferred Entity Instance: L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|lpm_divide:Div0
+ 16. Parameter Settings for Inferred Entity Instance: L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1|lpm_divide:Div0
+ 17. Parameter Settings for Inferred Entity Instance: L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|lpm_divide:Div0
+ 18. Port Connectivity Checks: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2"
+ 19. Port Connectivity Checks: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1"
+ 20. Port Connectivity Checks: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0"
+ 21. Port Connectivity Checks: "L4_klokke_SF:digital_klokke"
+ 22. Port Connectivity Checks: "Enable_gen:enable_gen_1"
+ 23. Post-Synthesis Netlist Statistics for Top Partition
+ 24. Elapsed Time Per Partition
+ 25. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Mon Nov 04 07:42:42 2019       ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                      ; LCD_klokke_SF                               ;
+; Top-level Entity Name              ; LCD_klokke_SF                               ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 542                                         ;
+;     Total combinational functions  ; 535                                         ;
+;     Dedicated logic registers      ; 187                                         ;
+; Total registers                    ; 187                                         ;
+; Total pins                         ; 95                                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0                                           ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE115F29C7      ;                    ;
+; Top-level entity name                                            ; LCD_klokke_SF      ; LCD_klokke_SF      ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-4         ;   0.0%      ;
++----------------------------+-------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                   ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                               ; Library ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------+---------+
+; lcd_klokke_sf.vhd                ; yes             ; Auto-Found VHDL File         ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd                    ;         ;
+; enable_gen.vhd                   ; yes             ; Auto-Found VHDL File         ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/enable_gen.vhd                       ;         ;
+; l4_klokke_sf.vhd                 ; yes             ; Auto-Found VHDL File         ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/l4_klokke_sf.vhd                     ;         ;
+; bin2bcd.vhd                      ; yes             ; Auto-Found VHDL File         ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd                          ;         ;
+; rom_7_seg.vhd                    ; yes             ; Auto-Found VHDL File         ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/rom_7_seg.vhd                        ;         ;
+; reset_synchronizer.vhd           ; yes             ; Auto-Found VHDL File         ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/reset_synchronizer.vhd               ;         ;
+; lcd_display.vhd                  ; yes             ; Auto-Found VHDL File         ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_display.vhd                      ;         ;
+; lpm_divide.tdf                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_divide.tdf      ;         ;
+; abs_divider.inc                  ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/abs_divider.inc     ;         ;
+; sign_div_unsign.inc              ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sign_div_unsign.inc ;         ;
+; aglobal181.inc                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/aglobal181.inc      ;         ;
+; db/lpm_divide_ihm.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/lpm_divide_ihm.tdf                ;         ;
+; db/sign_div_unsign_akh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/sign_div_unsign_akh.tdf           ;         ;
+; db/alt_u_div_84f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/alt_u_div_84f.tdf                 ;         ;
+; db/add_sub_7pc.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/add_sub_7pc.tdf                   ;         ;
+; db/add_sub_8pc.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/add_sub_8pc.tdf                   ;         ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimated Total logic elements              ; 542            ;
+;                                             ;                ;
+; Total combinational functions               ; 535            ;
+; Logic element usage by number of LUT inputs ;                ;
+;     -- 4 input functions                    ; 206            ;
+;     -- 3 input functions                    ; 96             ;
+;     -- <=2 input functions                  ; 233            ;
+;                                             ;                ;
+; Logic elements by mode                      ;                ;
+;     -- normal mode                          ; 362            ;
+;     -- arithmetic mode                      ; 173            ;
+;                                             ;                ;
+; Total registers                             ; 187            ;
+;     -- Dedicated logic registers            ; 187            ;
+;     -- I/O registers                        ; 0              ;
+;                                             ;                ;
+; I/O pins                                    ; 95             ;
+;                                             ;                ;
+; Embedded Multiplier 9-bit elements          ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; clock_50~input ;
+; Maximum fan-out                             ; 187            ;
+; Total fan-out                               ; 2336           ;
+; Average fan-out                             ; 2.54           ;
++---------------------------------------------+----------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                          ;
++-----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node                    ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                          ; Entity Name         ; Library Name ;
++-----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; |LCD_klokke_SF                                ; 535 (0)             ; 187 (0)                   ; 0           ; 0            ; 0       ; 0         ; 95   ; 0            ; |LCD_klokke_SF                                                                                                                                               ; LCD_klokke_SF       ; work         ;
+;    |L4_klokke_SF:digital_klokke|              ; 383 (196)           ; 123 (96)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke                                                                                                                   ; L4_klokke_SF        ; work         ;
+;       |Enable_gen:enable_gen_1|               ; 56 (56)             ; 27 (27)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|Enable_gen:enable_gen_1                                                                                           ; Enable_gen          ; work         ;
+;       |ROM_7_seg:dekoder_0|                   ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|ROM_7_seg:dekoder_0                                                                                               ; ROM_7_seg           ; work         ;
+;       |ROM_7_seg:dekoder_1|                   ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|ROM_7_seg:dekoder_1                                                                                               ; ROM_7_seg           ; work         ;
+;       |ROM_7_seg:dekoder_2|                   ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|ROM_7_seg:dekoder_2                                                                                               ; ROM_7_seg           ; work         ;
+;       |ROM_7_seg:dekoder_3|                   ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|ROM_7_seg:dekoder_3                                                                                               ; ROM_7_seg           ; work         ;
+;       |ROM_7_seg:dekoder_4|                   ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|ROM_7_seg:dekoder_4                                                                                               ; ROM_7_seg           ; work         ;
+;       |ROM_7_seg:dekoder_5|                   ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|ROM_7_seg:dekoder_5                                                                                               ; ROM_7_seg           ; work         ;
+;       |bin2bcd:bin2bcd_0|                     ; 35 (5)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0                                                                                                 ; bin2bcd             ; work         ;
+;          |lpm_divide:Div0|                    ; 30 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_ihm:auto_generated|   ; 30 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|lpm_divide:Div0|lpm_divide_ihm:auto_generated                                                   ; lpm_divide_ihm      ; work         ;
+;                |sign_div_unsign_akh:divider|  ; 30 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|lpm_divide:Div0|lpm_divide_ihm:auto_generated|sign_div_unsign_akh:divider                       ; sign_div_unsign_akh ; work         ;
+;                   |alt_u_div_84f:divider|     ; 30 (30)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|lpm_divide:Div0|lpm_divide_ihm:auto_generated|sign_div_unsign_akh:divider|alt_u_div_84f:divider ; alt_u_div_84f       ; work         ;
+;       |bin2bcd:bin2bcd_1|                     ; 36 (6)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1                                                                                                 ; bin2bcd             ; work         ;
+;          |lpm_divide:Div0|                    ; 30 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_ihm:auto_generated|   ; 30 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1|lpm_divide:Div0|lpm_divide_ihm:auto_generated                                                   ; lpm_divide_ihm      ; work         ;
+;                |sign_div_unsign_akh:divider|  ; 30 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1|lpm_divide:Div0|lpm_divide_ihm:auto_generated|sign_div_unsign_akh:divider                       ; sign_div_unsign_akh ; work         ;
+;                   |alt_u_div_84f:divider|     ; 30 (30)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1|lpm_divide:Div0|lpm_divide_ihm:auto_generated|sign_div_unsign_akh:divider|alt_u_div_84f:divider ; alt_u_div_84f       ; work         ;
+;       |bin2bcd:bin2bcd_2|                     ; 22 (5)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2                                                                                                 ; bin2bcd             ; work         ;
+;          |lpm_divide:Div0|                    ; 17 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_ihm:auto_generated|   ; 17 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|lpm_divide:Div0|lpm_divide_ihm:auto_generated                                                   ; lpm_divide_ihm      ; work         ;
+;                |sign_div_unsign_akh:divider|  ; 17 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|lpm_divide:Div0|lpm_divide_ihm:auto_generated|sign_div_unsign_akh:divider                       ; sign_div_unsign_akh ; work         ;
+;                   |alt_u_div_84f:divider|     ; 17 (17)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|lpm_divide:Div0|lpm_divide_ihm:auto_generated|sign_div_unsign_akh:divider|alt_u_div_84f:divider ; alt_u_div_84f       ; work         ;
+;    |LCD_Display:lcd|                          ; 152 (152)           ; 60 (60)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|LCD_Display:lcd                                                                                                                               ; LCD_Display         ; work         ;
+;    |Reset_synchronizer:reset_synkroniseres_2| ; 0 (0)               ; 2 (2)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|Reset_synchronizer:reset_synkroniseres_2                                                                                                      ; Reset_synchronizer  ; work         ;
+;    |Reset_synchronizer:reset_synkroniseres_3| ; 0 (0)               ; 2 (2)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |LCD_klokke_SF|Reset_synchronizer:reset_synkroniseres_3                                                                                                      ; Reset_synchronizer  ; work         ;
++-----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |LCD_klokke_SF|LCD_Display:lcd|next_command                                                                                                                                                                                                                                                                                              ;
++----------------------------+----------------------------+--------------------------+---------------------+-------------------+---------------------+-------------------------+--------------------------+--------------------+---------------------------+-----------------------+-------------------------+-----------------------+---------------------+
+; Name                       ; next_command.DISPLAY_CLEAR ; next_command.DISPLAY_OFF ; next_command.RESET3 ; next_command.HOLD ; next_command.RESET1 ; next_command.DROP_LCD_E ; next_command.RETURN_HOME ; next_command.LINE2 ; next_command.Print_String ; next_command.MODE_SET ; next_command.DISPLAY_ON ; next_command.FUNC_SET ; next_command.RESET2 ;
++----------------------------+----------------------------+--------------------------+---------------------+-------------------+---------------------+-------------------------+--------------------------+--------------------+---------------------------+-----------------------+-------------------------+-----------------------+---------------------+
+; next_command.RESET2        ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 0                   ;
+; next_command.FUNC_SET      ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 1                     ; 1                   ;
+; next_command.DISPLAY_ON    ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 1                       ; 0                     ; 1                   ;
+; next_command.MODE_SET      ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 1                     ; 0                       ; 0                     ; 1                   ;
+; next_command.Print_String  ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 1                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.LINE2         ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 1                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.RETURN_HOME   ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 1                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.DROP_LCD_E    ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 1                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.RESET1        ; 0                          ; 0                        ; 0                   ; 0                 ; 1                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.HOLD          ; 0                          ; 0                        ; 0                   ; 1                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.RESET3        ; 0                          ; 0                        ; 1                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.DISPLAY_OFF   ; 0                          ; 1                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.DISPLAY_CLEAR ; 1                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
++----------------------------+----------------------------+--------------------------+---------------------+-------------------+---------------------+-------------------------+--------------------------+--------------------+---------------------------+-----------------------+-------------------------+-----------------------+---------------------+
+
+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |LCD_klokke_SF|LCD_Display:lcd|state                                                                                                                                                                                                   ;
++---------------------+---------------------+-------------------+--------------+--------------+------------+------------------+-------------------+-------------+--------------------+----------------+------------------+----------------+--------------+
+; Name                ; state.DISPLAY_CLEAR ; state.DISPLAY_OFF ; state.RESET3 ; state.RESET2 ; state.HOLD ; state.DROP_LCD_E ; state.RETURN_HOME ; state.LINE2 ; state.Print_String ; state.MODE_SET ; state.DISPLAY_ON ; state.FUNC_SET ; state.RESET1 ;
++---------------------+---------------------+-------------------+--------------+--------------+------------+------------------+-------------------+-------------+--------------------+----------------+------------------+----------------+--------------+
+; state.RESET1        ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 0            ;
+; state.FUNC_SET      ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 1              ; 1            ;
+; state.DISPLAY_ON    ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 1                ; 0              ; 1            ;
+; state.MODE_SET      ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 1              ; 0                ; 0              ; 1            ;
+; state.Print_String  ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 1                  ; 0              ; 0                ; 0              ; 1            ;
+; state.LINE2         ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 1           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.RETURN_HOME   ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 1                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.DROP_LCD_E    ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 1                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.HOLD          ; 0                   ; 0                 ; 0            ; 0            ; 1          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.RESET2        ; 0                   ; 0                 ; 0            ; 1            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.RESET3        ; 0                   ; 0                 ; 1            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.DISPLAY_OFF   ; 0                   ; 1                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.DISPLAY_CLEAR ; 1                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
++---------------------+---------------------+-------------------+--------------+--------------+------------+------------------+-------------------+-------------+--------------------+----------------+------------------+----------------+--------------+
+
+
++-------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                              ;
++-----------------------------------------+-------------------------------------------------------+
+; Register name                           ; Reason for Removal                                    ;
++-----------------------------------------+-------------------------------------------------------+
+; L4_klokke_SF:digital_klokke|\tid:m[4]   ; Merged with L4_klokke_SF:digital_klokke|minutt_std[4] ;
+; L4_klokke_SF:digital_klokke|\tid:m[3]   ; Merged with L4_klokke_SF:digital_klokke|minutt_std[3] ;
+; L4_klokke_SF:digital_klokke|\tid:m[2]   ; Merged with L4_klokke_SF:digital_klokke|minutt_std[2] ;
+; L4_klokke_SF:digital_klokke|\tid:m[1]   ; Merged with L4_klokke_SF:digital_klokke|minutt_std[1] ;
+; L4_klokke_SF:digital_klokke|\tid:m[0]   ; Merged with L4_klokke_SF:digital_klokke|minutt_std[0] ;
+; L4_klokke_SF:digital_klokke|\tid:t[4]   ; Merged with L4_klokke_SF:digital_klokke|timer_std[4]  ;
+; L4_klokke_SF:digital_klokke|\tid:t[3]   ; Merged with L4_klokke_SF:digital_klokke|timer_std[3]  ;
+; L4_klokke_SF:digital_klokke|\tid:t[2]   ; Merged with L4_klokke_SF:digital_klokke|timer_std[2]  ;
+; L4_klokke_SF:digital_klokke|\tid:t[1]   ; Merged with L4_klokke_SF:digital_klokke|timer_std[1]  ;
+; L4_klokke_SF:digital_klokke|\tid:t[0]   ; Merged with L4_klokke_SF:digital_klokke|timer_std[0]  ;
+; L4_klokke_SF:digital_klokke|\tid:m[5]   ; Merged with L4_klokke_SF:digital_klokke|minutt_std[5] ;
+; L4_klokke_SF:digital_klokke|\tid:s[0]   ; Merged with L4_klokke_SF:digital_klokke|sekund_std[0] ;
+; L4_klokke_SF:digital_klokke|\tid:s[1]   ; Merged with L4_klokke_SF:digital_klokke|sekund_std[1] ;
+; L4_klokke_SF:digital_klokke|\tid:s[2]   ; Merged with L4_klokke_SF:digital_klokke|sekund_std[2] ;
+; L4_klokke_SF:digital_klokke|\tid:s[3]   ; Merged with L4_klokke_SF:digital_klokke|sekund_std[3] ;
+; L4_klokke_SF:digital_klokke|\tid:s[4]   ; Merged with L4_klokke_SF:digital_klokke|sekund_std[4] ;
+; L4_klokke_SF:digital_klokke|\tid:s[5]   ; Merged with L4_klokke_SF:digital_klokke|sekund_std[5] ;
+; Enable_gen:enable_gen_1|enable          ; Stuck at GND due to stuck port clock_enable           ;
+; Enable_gen:enable_gen_1|teller[21..25]  ; Stuck at GND due to stuck port data_in                ;
+; hallo                                   ; Stuck at GND due to stuck port clock_enable           ;
+; Enable_gen:enable_gen_1|teller[0..20]   ; Stuck at GND due to stuck port data_in                ;
+; LCD_Display:lcd|next_command.HOLD       ; Merged with LCD_Display:lcd|next_command.DROP_LCD_E   ;
+; LCD_Display:lcd|next_command.RESET1     ; Merged with LCD_Display:lcd|next_command.DROP_LCD_E   ;
+; LCD_Display:lcd|next_command.DROP_LCD_E ; Stuck at GND due to stuck port data_in                ;
+; Total Number of Removed Registers = 48  ;                                                       ;
++-----------------------------------------+-------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                              ;
++--------------------------------+--------------------------------+----------------------------------------+
+; Register name                  ; Reason for Removal             ; Registers Removed due to This Register ;
++--------------------------------+--------------------------------+----------------------------------------+
+; Enable_gen:enable_gen_1|enable ; Stuck at GND                   ; hallo                                  ;
+;                                ; due to stuck port clock_enable ;                                        ;
++--------------------------------+--------------------------------+----------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 187   ;
+; Number of registers using Synchronous Clear  ; 78    ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 38    ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 134   ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; LCD_Display:lcd|LCD_E                  ; 2       ;
+; LCD_Display:lcd|LCD_RW_INT             ; 9       ;
+; LCD_Display:lcd|DATA_BUS_VALUE[3]      ; 2       ;
+; LCD_Display:lcd|DATA_BUS_VALUE[4]      ; 1       ;
+; LCD_Display:lcd|DATA_BUS_VALUE[5]      ; 1       ;
+; Total number of inverted registers = 5 ;         ;
++----------------------------------------+---------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------+
+; 3:1                ; 26 bits   ; 52 LEs        ; 26 LEs               ; 26 LEs                 ; Yes        ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|Enable_gen:enable_gen_1|teller[3] ;
+; 3:1                ; 20 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |LCD_klokke_SF|LCD_Display:lcd|CLK_COUNT_400HZ[7]                            ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|\tid:m[12]                        ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|\tid:t[19]                        ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |LCD_klokke_SF|L4_klokke_SF:digital_klokke|\tid:s[15]                        ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |LCD_klokke_SF|LCD_Display:lcd|DATA_BUS_VALUE[4]                             ;
+; 3:1                ; 11 bits   ; 22 LEs        ; 22 LEs               ; 0 LEs                  ; No         ; |LCD_klokke_SF|LCD_Display:lcd|state                                         ;
+; 32:1               ; 4 bits    ; 84 LEs        ; 72 LEs               ; 12 LEs                 ; No         ; |LCD_klokke_SF|LCD_Display:lcd|Mux4                                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|lpm_divide:Div0 ;
++------------------------+----------------+----------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                                 ;
++------------------------+----------------+----------------------------------------------------------------------+
+; LPM_WIDTHN             ; 7              ; Untyped                                                              ;
+; LPM_WIDTHD             ; 4              ; Untyped                                                              ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                              ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                              ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                              ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                              ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                              ;
+; CBXI_PARAMETER         ; lpm_divide_ihm ; Untyped                                                              ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                              ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                              ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                           ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                         ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                         ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                       ;
++------------------------+----------------+----------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1|lpm_divide:Div0 ;
++------------------------+----------------+----------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                                 ;
++------------------------+----------------+----------------------------------------------------------------------+
+; LPM_WIDTHN             ; 7              ; Untyped                                                              ;
+; LPM_WIDTHD             ; 4              ; Untyped                                                              ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                              ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                              ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                              ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                              ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                              ;
+; CBXI_PARAMETER         ; lpm_divide_ihm ; Untyped                                                              ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                              ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                              ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                           ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                         ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                         ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                       ;
++------------------------+----------------+----------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|lpm_divide:Div0 ;
++------------------------+----------------+----------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                                 ;
++------------------------+----------------+----------------------------------------------------------------------+
+; LPM_WIDTHN             ; 7              ; Untyped                                                              ;
+; LPM_WIDTHD             ; 4              ; Untyped                                                              ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                              ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                              ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                              ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                              ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                              ;
+; CBXI_PARAMETER         ; lpm_divide_ihm ; Untyped                                                              ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                              ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                              ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                           ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                         ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                         ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                       ;
++------------------------+----------------+----------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------+
+; Port Connectivity Checks: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2" ;
++--------------+-------+----------+-----------------------------------------+
+; Port         ; Type  ; Severity ; Details                                 ;
++--------------+-------+----------+-----------------------------------------+
+; bin_in[6..5] ; Input ; Info     ; Stuck at GND                            ;
++--------------+-------+----------+-----------------------------------------+
+
+
++---------------------------------------------------------------------------+
+; Port Connectivity Checks: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1" ;
++-----------+-------+----------+--------------------------------------------+
+; Port      ; Type  ; Severity ; Details                                    ;
++-----------+-------+----------+--------------------------------------------+
+; bin_in[6] ; Input ; Info     ; Stuck at GND                               ;
++-----------+-------+----------+--------------------------------------------+
+
+
++---------------------------------------------------------------------------+
+; Port Connectivity Checks: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0" ;
++-----------+-------+----------+--------------------------------------------+
+; Port      ; Type  ; Severity ; Details                                    ;
++-----------+-------+----------+--------------------------------------------+
+; bin_in[6] ; Input ; Info     ; Stuck at GND                               ;
++-----------+-------+----------+--------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "L4_klokke_SF:digital_klokke"                                                        ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; ledr ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Port Connectivity Checks: "Enable_gen:enable_gen_1" ;
++-------------+-------+----------+--------------------+
+; Port        ; Type  ; Severity ; Details            ;
++-------------+-------+----------+--------------------+
+; velg_enable ; Input ; Info     ; Stuck at GND       ;
++-------------+-------+----------+--------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 95                          ;
+; cycloneiii_ff         ; 187                         ;
+;     CLR               ; 5                           ;
+;     ENA               ; 69                          ;
+;     ENA CLR           ; 33                          ;
+;     ENA SCLR          ; 32                          ;
+;     SCLR              ; 46                          ;
+;     plain             ; 2                           ;
+; cycloneiii_io_obuf    ; 8                           ;
+; cycloneiii_lcell_comb ; 545                         ;
+;     arith             ; 173                         ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 150                         ;
+;         3 data inputs ; 20                          ;
+;     normal            ; 372                         ;
+;         0 data inputs ; 10                          ;
+;         1 data inputs ; 14                          ;
+;         2 data inputs ; 66                          ;
+;         3 data inputs ; 76                          ;
+;         4 data inputs ; 206                         ;
+;                       ;                             ;
+; Max LUT depth         ; 14.20                       ;
+; Average LUT depth     ; 6.61                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:01     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Mon Nov 04 07:42:24 2019
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off LCD_klokke_SF -c LCD_klokke_SF
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Warning (12125): Using design file lcd_klokke_sf.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
+    Info (12022): Found design unit 1: LCD_klokke_SF-rtl File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 24
+    Info (12023): Found entity 1: LCD_klokke_SF File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 5
+Info (12127): Elaborating entity "LCD_klokke_SF" for the top level hierarchy
+Warning (10541): VHDL Signal Declaration warning at lcd_klokke_sf.vhd(78): used implicit default value for signal "reset" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 78
+Warning (10873): Using initial value X (don't care) for net "LEDR[16..0]" at lcd_klokke_sf.vhd(20) File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+Warning (12125): Using design file enable_gen.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
+    Info (12022): Found design unit 1: Enable_gen-rtl File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/enable_gen.vhd Line: 13
+    Info (12023): Found entity 1: Enable_gen File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/enable_gen.vhd Line: 5
+Info (12128): Elaborating entity "Enable_gen" for hierarchy "Enable_gen:enable_gen_1" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 100
+Warning (12125): Using design file l4_klokke_sf.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
+    Info (12022): Found design unit 1: L4_klokke_SF-RTL File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/l4_klokke_sf.vhd Line: 24
+    Info (12023): Found entity 1: L4_klokke_SF File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/l4_klokke_sf.vhd Line: 5
+Info (12128): Elaborating entity "L4_klokke_SF" for hierarchy "L4_klokke_SF:digital_klokke" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 124
+Warning (10492): VHDL Process Statement warning at l4_klokke_sf.vhd(136): signal "sekund_std" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/l4_klokke_sf.vhd Line: 136
+Warning (10492): VHDL Process Statement warning at l4_klokke_sf.vhd(137): signal "minutt_std" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/l4_klokke_sf.vhd Line: 137
+Warning (10492): VHDL Process Statement warning at l4_klokke_sf.vhd(138): signal "timer_std" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/l4_klokke_sf.vhd Line: 138
+Warning (12125): Using design file bin2bcd.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
+    Info (12022): Found design unit 1: bin2bcd-rtl File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 12
+    Info (12023): Found entity 1: bin2bcd File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 5
+Info (12128): Elaborating entity "bin2bcd" for hierarchy "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/l4_klokke_sf.vhd Line: 82
+Warning (12125): Using design file rom_7_seg.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
+    Info (12022): Found design unit 1: ROM_7_seg-behavior File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/rom_7_seg.vhd Line: 10
+    Info (12023): Found entity 1: ROM_7_seg File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/rom_7_seg.vhd Line: 4
+Info (12128): Elaborating entity "ROM_7_seg" for hierarchy "L4_klokke_SF:digital_klokke|ROM_7_seg:dekoder_0" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/l4_klokke_sf.vhd Line: 100
+Warning (12125): Using design file reset_synchronizer.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
+    Info (12022): Found design unit 1: Reset_synchronizer-rtl File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/reset_synchronizer.vhd Line: 13
+    Info (12023): Found entity 1: Reset_synchronizer File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/reset_synchronizer.vhd Line: 5
+Info (12128): Elaborating entity "Reset_synchronizer" for hierarchy "Reset_synchronizer:reset_synkroniseres_2" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 140
+Warning (12125): Using design file lcd_display.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
+    Info (12022): Found design unit 1: LCD_Display-a File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_display.vhd Line: 50
+    Info (12023): Found entity 1: LCD_Display File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_display.vhd Line: 6
+Info (12128): Elaborating entity "LCD_Display" for hierarchy "LCD_Display:lcd" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 153
+Info (278001): Inferred 3 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|Div0" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 21
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_1|Div0" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 21
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|Div0" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 21
+Info (12130): Elaborated megafunction instantiation "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|lpm_divide:Div0" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 21
+Info (12133): Instantiated megafunction "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_0|lpm_divide:Div0" with the following parameter: File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 21
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_ihm.tdf
+    Info (12023): Found entity 1: lpm_divide_ihm File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/lpm_divide_ihm.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_akh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_akh File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/sign_div_unsign_akh.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_84f.tdf
+    Info (12023): Found entity 1: alt_u_div_84f File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/alt_u_div_84f.tdf Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_7pc.tdf
+    Info (12023): Found entity 1: add_sub_7pc File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/add_sub_7pc.tdf Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
+    Info (12023): Found entity 1: add_sub_8pc File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/db/add_sub_8pc.tdf Line: 22
+Info (12130): Elaborated megafunction instantiation "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|lpm_divide:Div0" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 21
+Info (12133): Instantiated megafunction "L4_klokke_SF:digital_klokke|bin2bcd:bin2bcd_2|lpm_divide:Div0" with the following parameter: File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/bin2bcd.vhd Line: 21
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (13000): Registers with preset signals will power-up high File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_display.vhd Line: 44
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LCD_ON" is stuck at VCC File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 12
+    Warning (13410): Pin "HEX5[1]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 19
+    Warning (13410): Pin "LEDR[0]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[1]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[2]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[6]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[7]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[10]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[11]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[12]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[13]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[14]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[15]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[16]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+    Warning (13410): Pin "LEDR[17]" is stuck at GND File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 20
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 17 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "SW[0]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[1]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[2]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[3]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[4]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[5]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[6]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[7]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[8]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[9]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[10]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[11]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[12]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[13]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "SW[14]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 8
+    Warning (15610): No output dependent on input pin "KEY[0]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 9
+    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Dev/ele111/Lab7_del2_LCD_klokke_SF/lcd_klokke_sf.vhd Line: 9
+Info (21057): Implemented 638 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 23 input pins
+    Info (21059): Implemented 64 output pins
+    Info (21060): Implemented 8 bidirectional pins
+    Info (21061): Implemented 543 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 52 warnings
+    Info: Peak virtual memory: 4813 megabytes
+    Info: Processing ended: Mon Nov 04 07:42:42 2019
+    Info: Elapsed time: 00:00:18
+    Info: Total CPU time (on all processors): 00:00:35
+
+

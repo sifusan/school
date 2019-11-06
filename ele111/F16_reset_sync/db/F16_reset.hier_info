@@ -1,0 +1,8 @@
+|F16_reset_sync
+clk => rst_clk_n~reg0.CLK
+clk => dff.CLK
+rst_n => rst_clk_n~reg0.ACLR
+rst_n => dff.ACLR
+rst_clk_n <= rst_clk_n~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

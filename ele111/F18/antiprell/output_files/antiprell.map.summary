@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Thu Oct 17 08:28:24 2019
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : antiprell
+Top-level Entity Name : antiprell
+Family : Cyclone IV E
+Total logic elements : 24
+    Total combinational functions : 23
+    Dedicated logic registers : 15
+Total registers : 15
+Total pins : 4
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

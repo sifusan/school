@@ -1,0 +1,22 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+ENTITY Dekoder_7Seg_nn IS
+PORT( c					:IN std_logic_vector(2 downto 0);
+		Syv_seg_kode	:OUT std_logic_vector(6 downto 0));
+END;
+
+ARCHITECTURE behavior OF Dekoder_7Seg_nn IS
+
+BEGIN
+	WITH c SELECT
+		Syv_seg_kode <= 	"0110111" WHEN "000",
+								"1110111" WHEN "001",
+								"0001110" WHEN "010",
+								"0001110" WHEN "011",
+								"0110111" WHEN "100",
+								--"1111111" WHEN "101",
+								--"1111111" WHEN "111",
+								"1111111" WHEN OTHERS;
+END;
+	

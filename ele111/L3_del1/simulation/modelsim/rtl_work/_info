@@ -1,0 +1,90 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Dev/ele111/L3_del1/simulation/modelsim
+Eram32x8_sf
+Z1 w1569396806
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z5 8C:/Dev/ele111/L3_del1/L3_del1.vhd
+Z6 FC:/Dev/ele111/L3_del1/L3_del1.vhd
+l0
+L5
+V=BDX43j8JUB;lU9anU@zj2
+!s100 hENh4Z7Z71TFie9YF;lU_0
+Z7 OV;C;10.5b;63
+31
+Z8 !s110 1569398673
+!i10b 1
+Z9 !s108 1569398673.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Dev/ele111/L3_del1/L3_del1.vhd|
+Z11 !s107 C:/Dev/ele111/L3_del1/L3_del1.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Artl
+R2
+R3
+R4
+DEx4 work 10 ram32x8_sf 0 22 =BDX43j8JUB;lU9anU@zj2
+l19
+L15
+V=a1;Y=?5nVzel7;gHA[7<2
+!s100 OX?ec3^1b6zXS>f`LTnla3
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Eram32x8_sf_vhd_tst
+Z14 w1569403134
+R3
+R4
+R0
+Z15 8C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+Z16 FC:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+l0
+L30
+VzYb=[:Mj@GBDlBdb5INVA2
+!s100 gBiomeRi4QKI0Xo9TWC^m0
+R7
+32
+Z17 !s110 1569403140
+!i10b 1
+Z18 !s108 1569403140.000000
+Z19 !s90 -reportprogress|300|-work|work|C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht|
+Z20 !s107 C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht|
+!i113 1
+Z21 o-work work
+R13
+Aram32x8_sf_arch
+R3
+R4
+Z22 DEx4 work 18 ram32x8_sf_vhd_tst 0 22 zYb=[:Mj@GBDlBdb5INVA2
+l52
+L32
+V9iF`8dIKL[@J`cfUc@85_3
+!s100 9W]loKWVXa@ahMkd3[Z5D2
+R7
+32
+R17
+!i10b 1
+R18
+R19
+R20
+!i113 1
+R21
+R13

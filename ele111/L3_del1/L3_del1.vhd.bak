@@ -1,0 +1,13 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity ram32x8_sf is
+port (
+		clk		: in std_logic;
+		WR			: in std_logic;
+		address	: in std_logic_vector(4 downto 0);
+		data_in	: in std_logic_vector(7 downto 0);
+		data_out : out std_logic_vector(7 downto 0)
+);
+end;

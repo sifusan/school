@@ -1,0 +1,90 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/simulation/modelsim
+Eantiprell
+Z1 w1571639155
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z5 8C:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/antiprell.vhd
+Z6 FC:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/antiprell.vhd
+l0
+L5
+VCo>m[KI8mK24QXfhSeQc03
+!s100 Sn^G2[dkZ6@6EGb9b5H3j1
+Z7 OV;C;10.5b;63
+31
+Z8 !s110 1571642421
+!i10b 1
+Z9 !s108 1571642421.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/antiprell.vhd|
+Z11 !s107 C:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/antiprell.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Artl
+R2
+R3
+R4
+DEx4 work 9 antiprell 0 22 Co>m[KI8mK24QXfhSeQc03
+l21
+L14
+Va=J`07bK_OP2zSUc5@0<c2
+!s100 jIW4mSm0HPZ]iZ?fm[2]03
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Eantiprell_vhd_tst
+Z14 w1571642665
+R3
+R4
+R0
+Z15 8C:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/simulation/modelsim/antiprell.vht
+Z16 FC:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/simulation/modelsim/antiprell.vht
+l0
+L30
+VAeXM1?;acYD9]FPjLiIEg0
+!s100 1P98KFD2@?PN8_1TdHQEM1
+R7
+32
+Z17 !s110 1571642676
+!i10b 1
+Z18 !s108 1571642676.000000
+Z19 !s90 -reportprogress|300|-work|work|C:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/simulation/modelsim/antiprell.vht|
+Z20 !s107 C:/Dev/ele111/Parkeringshuset_Simen_Fuglestad/simulation/modelsim/antiprell.vht|
+!i113 1
+Z21 o-work work
+R13
+Aantiprell_arch
+R3
+R4
+Z22 DEx4 work 17 antiprell_vhd_tst 0 22 AeXM1?;acYD9]FPjLiIEg0
+l48
+L32
+V:LTDo=6fizPSZR;NnfX^S0
+!s100 ?ocOiN6?J8GCGle[>H>5O2
+R7
+32
+R17
+!i10b 1
+R18
+R19
+R20
+!i113 1
+R21
+R13

@@ -1,0 +1,138 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do L3_del1_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Dev/ele111/L3_del1/L3_del1.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 10:04:33 on Sep 25,2019
+# vcom -reportprogress 300 -93 -work work C:/Dev/ele111/L3_del1/L3_del1.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity ram32x8_sf
+# -- Compiling architecture rtl of ram32x8_sf
+# End time: 10:04:33 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 10:05:04 on Sep 25,2019
+# vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ram32x8_sf_vhd_tst
+# -- Compiling architecture ram32x8_sf_arch of ram32x8_sf_vhd_tst
+# ** Error: C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht(98): near "<=": syntax error
+# ** Error: C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht(116): VHDL Compiler exiting
+# End time: 10:05:04 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 2, Warnings: 0
+vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 10:05:23 on Sep 25,2019
+# vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ram32x8_sf_vhd_tst
+# -- Compiling architecture ram32x8_sf_arch of ram32x8_sf_vhd_tst
+# End time: 10:05:23 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 10:14:35 on Sep 25,2019
+# vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ram32x8_sf_vhd_tst
+# -- Compiling architecture ram32x8_sf_arch of ram32x8_sf_vhd_tst
+# End time: 10:14:35 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -gui -l msim_transcript work.ram32x8_sf_vhd_tst
+# vsim -gui -l msim_transcript work.ram32x8_sf_vhd_tst 
+# Start time: 10:14:42 on Sep 25,2019
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.ram32x8_sf_vhd_tst(ram32x8_sf_arch)
+# Loading ieee.numeric_std(body)
+# Loading work.ram32x8_sf(rtl)
+add wave -position insertpoint  \
+sim:/ram32x8_sf_vhd_tst/address \
+sim:/ram32x8_sf_vhd_tst/clk \
+sim:/ram32x8_sf_vhd_tst/data_in \
+sim:/ram32x8_sf_vhd_tst/data_out \
+sim:/ram32x8_sf_vhd_tst/WR
+run 100 us
+vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 10:17:37 on Sep 25,2019
+# vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ram32x8_sf_vhd_tst
+# -- Compiling architecture ram32x8_sf_arch of ram32x8_sf_vhd_tst
+# End time: 10:17:37 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart -f
+# Loading work.ram32x8_sf_vhd_tst(ram32x8_sf_arch)
+run 100 us
+restart -f
+run 100 us
+restart -f
+vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 10:20:36 on Sep 25,2019
+# vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ram32x8_sf_vhd_tst
+# -- Compiling architecture ram32x8_sf_arch of ram32x8_sf_vhd_tst
+# End time: 10:20:36 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart -f
+# Loading work.ram32x8_sf_vhd_tst(ram32x8_sf_arch)
+run 1000 us
+add wave -position insertpoint  \
+sim:/ram32x8_sf_vhd_tst/sample_in_data
+vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 11:13:09 on Sep 25,2019
+# vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ram32x8_sf_vhd_tst
+# -- Compiling architecture ram32x8_sf_arch of ram32x8_sf_vhd_tst
+# End time: 11:13:10 on Sep 25,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+restart -f
+# Loading work.ram32x8_sf_vhd_tst(ram32x8_sf_arch)
+run 150 us
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Dev/ele111/L3_del1/simulation/modelsim/wave.do
+# Quit canceled
+vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 11:19:00 on Sep 25,2019
+# vcom -reportprogress 300 -work work C:/Dev/ele111/L3_del1/simulation/modelsim/ram32x8_sf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ram32x8_sf_vhd_tst
+# -- Compiling architecture ram32x8_sf_arch of ram32x8_sf_vhd_tst
+# End time: 11:19:00 on Sep 25,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 11:19:09 on Sep 25,2019, Elapsed time: 1:04:27
+# Errors: 1, Warnings: 0

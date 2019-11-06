@@ -1,0 +1,25 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "neg_flanke_puls",
+					"strict" : false
+				},
+				{
+					"name" : "flanke_puls",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "data_in",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,16 @@
+Fitter Status : Successful - Mon Oct 07 12:29:19 2019
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : L4_klokke_Simen_Fuglestad_3a
+Top-level Entity Name : L4_klokke_ERL_SF_3a
+Family : Cyclone IV E
+Device : EP4CE115F29C7
+Timing Models : Final
+Total logic elements : 769 / 114,480 ( < 1 % )
+    Total combinational functions : 564 / 114,480 ( < 1 % )
+    Dedicated logic registers : 557 / 114,480 ( < 1 % )
+Total registers : 557
+Total pins : 68 / 529 ( 13 % )
+Total virtual pins : 0
+Total memory bits : 24,576 / 3,981,312 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 532 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )

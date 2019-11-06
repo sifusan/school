@@ -1,0 +1,65 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do L4_oppg1b_Simen_Fuglestad_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Dev/ele111/Lab4/L4_oppg1b_Simen_Fuglestad/L4_oppg1b_Simen_Fuglestad.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 09:21:09 on Oct 07,2019
+# vcom -reportprogress 300 -93 -work work C:/Dev/ele111/Lab4/L4_oppg1b_Simen_Fuglestad/L4_oppg1b_Simen_Fuglestad.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity L4_oppg1b_Simen_Fuglestad
+# -- Compiling architecture rtl of L4_oppg1b_Simen_Fuglestad
+# End time: 09:21:09 on Oct 07,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vcom -reportprogress 300 -work work C:/Dev/ele111/Lab4/L4_oppg1b_Simen_Fuglestad/simulation/modelsim/L4_oppg1b_Simen_Fuglestad.vht
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 09:21:22 on Oct 07,2019
+# vcom -reportprogress 300 -work work C:/Dev/ele111/Lab4/L4_oppg1b_Simen_Fuglestad/simulation/modelsim/L4_oppg1b_Simen_Fuglestad.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity L4_oppg1b_Simen_Fuglestad_vhd_tst
+# -- Compiling architecture L4_oppg1b_Simen_Fuglestad_arch of L4_oppg1b_Simen_Fuglestad_vhd_tst
+# End time: 09:21:22 on Oct 07,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -gui -l msim_transcript work.l4_oppg1b_simen_fuglestad_vhd_tst
+# vsim -gui -l msim_transcript work.l4_oppg1b_simen_fuglestad_vhd_tst 
+# Start time: 09:21:35 on Oct 07,2019
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.l4_oppg1b_simen_fuglestad_vhd_tst(l4_oppg1b_simen_fuglestad_arch)
+# Loading ieee.numeric_std(body)
+# Loading work.l4_oppg1b_simen_fuglestad(rtl)
+add wave -position insertpoint  \
+sim:/l4_oppg1b_simen_fuglestad_vhd_tst/A \
+sim:/l4_oppg1b_simen_fuglestad_vhd_tst/B \
+sim:/l4_oppg1b_simen_fuglestad_vhd_tst/C \
+sim:/l4_oppg1b_simen_fuglestad_vhd_tst/clk \
+sim:/l4_oppg1b_simen_fuglestad_vhd_tst/Y
+run 100 us
+vsim -gui -l msim_transcript work.l4_oppg1b_simen_fuglestad_vhd_tst
+# End time: 09:22:10 on Oct 07,2019, Elapsed time: 0:00:35
+# Errors: 0, Warnings: 0
+# vsim -gui -l msim_transcript work.l4_oppg1b_simen_fuglestad_vhd_tst 
+# Start time: 09:22:10 on Oct 07,2019
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.l4_oppg1b_simen_fuglestad_vhd_tst(l4_oppg1b_simen_fuglestad_arch)
+# Loading ieee.numeric_std(body)
+# Loading work.l4_oppg1b_simen_fuglestad(rtl)
+# End time: 09:23:17 on Oct 07,2019, Elapsed time: 0:01:07
+# Errors: 0, Warnings: 0

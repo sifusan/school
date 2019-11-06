@@ -1,0 +1,13 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity lyskryss is
+	port (
+			CLOCK_50 : in std_logic;
+			KEY		: in std_logic_vector(3 downto 0);
+			SW			: in std_logic_vector(17 downto 0);
+			GPIO		: inout std_logic_vector(35 downto 0);
+			LEDR		: out std_logic_vector(17 downto 0)
+	);
+end entity lyskryss;

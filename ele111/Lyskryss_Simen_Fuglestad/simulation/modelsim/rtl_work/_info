@@ -1,0 +1,172 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Dev/ele111/Lyskryss_Simen_Fuglestad/simulation/modelsim
+Eenable_gen
+Z1 w1571899379
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z5 8C:/Dev/ele111/Lyskryss_Simen_Fuglestad/enable_gen.vhd
+Z6 FC:/Dev/ele111/Lyskryss_Simen_Fuglestad/enable_gen.vhd
+l0
+L5
+VLW6CSJDIKnC24YM3cY8663
+!s100 F^7ek:HEVY3AN2IX<@M6c0
+Z7 OV;C;10.5b;63
+31
+Z8 !s110 1571899963
+!i10b 1
+Z9 !s108 1571899963.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Dev/ele111/Lyskryss_Simen_Fuglestad/enable_gen.vhd|
+Z11 !s107 C:/Dev/ele111/Lyskryss_Simen_Fuglestad/enable_gen.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Artl
+R2
+R3
+R4
+DEx4 work 10 enable_gen 0 22 LW6CSJDIKnC24YM3cY8663
+l19
+L13
+VYYiSd3_X9JhkG;2a`V38K1
+!s100 i]9n1BDPh;GPWKd1VMG6g0
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Elyskryss
+Z14 w1571899865
+R2
+R3
+R4
+R0
+Z15 8C:/Dev/ele111/Lyskryss_Simen_Fuglestad/Lyskryss_Simen_Fuglestad.vhd
+Z16 FC:/Dev/ele111/Lyskryss_Simen_Fuglestad/Lyskryss_Simen_Fuglestad.vhd
+l0
+L5
+VSAW67n[1;2ljfoVWWz8Lj0
+!s100 kn5l5JI1bzh8SW@ib]VLK2
+R7
+31
+R8
+!i10b 1
+R9
+Z17 !s90 -reportprogress|300|-93|-work|work|C:/Dev/ele111/Lyskryss_Simen_Fuglestad/Lyskryss_Simen_Fuglestad.vhd|
+Z18 !s107 C:/Dev/ele111/Lyskryss_Simen_Fuglestad/Lyskryss_Simen_Fuglestad.vhd|
+!i113 1
+R12
+R13
+Artl
+R2
+R3
+R4
+DEx4 work 8 lyskryss 0 22 SAW67n[1;2ljfoVWWz8Lj0
+l44
+L15
+Vc:gk;ln@U6DNUS0kKDjF72
+!s100 z0J[m@LDn4oPojBo@bIif3
+R7
+31
+R8
+!i10b 1
+R9
+R17
+R18
+!i113 1
+R12
+R13
+Elyskryss_vhd_tst
+Z19 w1571897902
+R3
+R4
+R0
+Z20 8C:/Dev/ele111/Lyskryss_Simen_Fuglestad/simulation/modelsim/lyskryss.vht
+Z21 FC:/Dev/ele111/Lyskryss_Simen_Fuglestad/simulation/modelsim/lyskryss.vht
+l0
+L30
+V[VEc_i3FhY:I:am@eGRE80
+!s100 IXAgOmW]KkG`AOW35Chm91
+R7
+32
+Z22 !s110 1571899974
+!i10b 1
+Z23 !s108 1571899974.000000
+Z24 !s90 -reportprogress|300|-work|work|C:/Dev/ele111/Lyskryss_Simen_Fuglestad/simulation/modelsim/lyskryss.vht|
+Z25 !s107 C:/Dev/ele111/Lyskryss_Simen_Fuglestad/simulation/modelsim/lyskryss.vht|
+!i113 1
+Z26 o-work work
+R13
+Alyskryss_arch
+R3
+R4
+DEx4 work 16 lyskryss_vhd_tst 0 22 [VEc_i3FhY:I:am@eGRE80
+l50
+L32
+V2nEUhInlf=:I6AB1P6?3J0
+!s100 =_VXz>1A_[j7Ln]]K4TR;3
+R7
+32
+R22
+!i10b 1
+R23
+R24
+R25
+!i113 1
+R26
+R13
+Ereset_sync
+Z27 w1571396498
+R2
+R3
+R4
+R0
+Z28 8C:/Dev/ele111/Lyskryss_Simen_Fuglestad/reset_sync.vhd
+Z29 FC:/Dev/ele111/Lyskryss_Simen_Fuglestad/reset_sync.vhd
+l0
+L5
+V5bdJoSR?`7QA>S55Hn:=X1
+!s100 zk4g6T5PBA46@N<8ZN1HU0
+R7
+31
+Z30 !s110 1571899964
+!i10b 1
+R9
+Z31 !s90 -reportprogress|300|-93|-work|work|C:/Dev/ele111/Lyskryss_Simen_Fuglestad/reset_sync.vhd|
+Z32 !s107 C:/Dev/ele111/Lyskryss_Simen_Fuglestad/reset_sync.vhd|
+!i113 1
+R12
+R13
+Artl
+R2
+R3
+R4
+DEx4 work 10 reset_sync 0 22 5bdJoSR?`7QA>S55Hn:=X1
+l15
+L13
+V50bADH=9_MbM5iJbC5XEg3
+!s100 Z<BeB:obWM96iGkgnkniK1
+R7
+31
+R30
+!i10b 1
+R9
+R31
+R32
+!i113 1
+R12
+R13

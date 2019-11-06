@@ -1,0 +1,9 @@
+|L4_oppg1b_Simen_Fuglestad
+clk => Y~reg0.CLK
+clk => \p_oppg1c:internal_variable.CLK
+A => internal_variable.IN0
+B => internal_variable.IN1
+C => Y.IN1
+Y <= Y~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

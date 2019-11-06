@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Mon Oct 07 12:44:52 2019
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : L4_klokke_Simen_Fuglestad
+Top-level Entity Name : L4_klokke_Simen_Fuglestad
+Family : Cyclone IV E
+Total logic elements : 1,065
+    Total combinational functions : 874
+    Dedicated logic registers : 616
+Total registers : 616
+Total pins : 68
+Total virtual pins : 0
+Total memory bits : 12,288
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

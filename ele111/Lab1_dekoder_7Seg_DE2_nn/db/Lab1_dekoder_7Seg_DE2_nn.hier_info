@@ -1,0 +1,58 @@
+|Dekoder_7Seg_DE2_nn
+sw[0] => ~NO_FANOUT~
+sw[1] => ~NO_FANOUT~
+sw[2] => ~NO_FANOUT~
+sw[3] => ~NO_FANOUT~
+sw[4] => ~NO_FANOUT~
+sw[5] => ~NO_FANOUT~
+sw[6] => ~NO_FANOUT~
+sw[7] => ~NO_FANOUT~
+sw[8] => ~NO_FANOUT~
+sw[9] => ~NO_FANOUT~
+sw[10] => ~NO_FANOUT~
+sw[11] => ~NO_FANOUT~
+sw[12] => ~NO_FANOUT~
+sw[13] => ~NO_FANOUT~
+sw[14] => ~NO_FANOUT~
+sw[15] => Dekoder_7Seg_nn:dekoder_7seg.c[0]
+sw[16] => Dekoder_7Seg_nn:dekoder_7seg.c[1]
+sw[17] => Dekoder_7Seg_nn:dekoder_7seg.c[2]
+HEX0[0] << Dekoder_7Seg_nn:dekoder_7seg.Syv_seg_kode[0]
+HEX0[1] << Dekoder_7Seg_nn:dekoder_7seg.Syv_seg_kode[1]
+HEX0[2] << Dekoder_7Seg_nn:dekoder_7seg.Syv_seg_kode[2]
+HEX0[3] << Dekoder_7Seg_nn:dekoder_7seg.Syv_seg_kode[3]
+HEX0[4] << Dekoder_7Seg_nn:dekoder_7seg.Syv_seg_kode[4]
+HEX0[5] << Dekoder_7Seg_nn:dekoder_7seg.Syv_seg_kode[5]
+HEX0[6] << Dekoder_7Seg_nn:dekoder_7seg.Syv_seg_kode[6]
+
+
+|Dekoder_7Seg_DE2_nn|Dekoder_7Seg_nn:dekoder_7seg
+c[0] => Mux1.IN10
+c[0] => Mux2.IN10
+c[0] => Mux3.IN10
+c[0] => Mux4.IN10
+c[0] => Mux5.IN10
+c[0] => Mux6.IN10
+c[1] => Mux0.IN5
+c[1] => Mux1.IN9
+c[1] => Mux2.IN9
+c[1] => Mux3.IN9
+c[1] => Mux4.IN9
+c[1] => Mux5.IN9
+c[1] => Mux6.IN9
+c[2] => Mux0.IN4
+c[2] => Mux1.IN8
+c[2] => Mux2.IN8
+c[2] => Mux3.IN8
+c[2] => Mux4.IN8
+c[2] => Mux5.IN8
+c[2] => Mux6.IN8
+Syv_seg_kode[0] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+Syv_seg_kode[1] <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+Syv_seg_kode[2] <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+Syv_seg_kode[3] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+Syv_seg_kode[4] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+Syv_seg_kode[5] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+Syv_seg_kode[6] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
