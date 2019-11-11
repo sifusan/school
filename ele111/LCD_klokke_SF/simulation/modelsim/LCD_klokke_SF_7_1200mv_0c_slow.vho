@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus Prime"
 -- VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
 
--- DATE "11/05/2019 21:12:17"
+-- DATE "11/07/2019 08:00:28"
 
 -- 
 -- Device: Altera EP4CE115F29C7 Package FBGA780
@@ -81,18 +81,18 @@ ENTITY 	LCD_klokke_SF IS
 	clock_50 : IN std_logic;
 	SW : IN std_logic_vector(17 DOWNTO 0);
 	KEY : IN std_logic_vector(3 DOWNTO 0);
-	LCD_RS : OUT std_logic;
-	LCD_EN : OUT std_logic;
-	LCD_RW : OUT std_logic;
-	LCD_ON : OUT std_logic;
-	LCD_DATA : INOUT std_logic_vector(7 DOWNTO 0);
-	HEX0 : OUT std_logic_vector(6 DOWNTO 0);
-	HEX1 : OUT std_logic_vector(6 DOWNTO 0);
-	HEX2 : OUT std_logic_vector(6 DOWNTO 0);
-	HEX3 : OUT std_logic_vector(6 DOWNTO 0);
-	HEX4 : OUT std_logic_vector(6 DOWNTO 0);
-	HEX5 : OUT std_logic_vector(6 DOWNTO 0);
-	LEDR : OUT std_logic_vector(17 DOWNTO 0)
+	LCD_RS : BUFFER std_logic;
+	LCD_EN : BUFFER std_logic;
+	LCD_RW : BUFFER std_logic;
+	LCD_ON : BUFFER std_logic;
+	LCD_DATA : BUFFER std_logic_vector(7 DOWNTO 0);
+	HEX0 : BUFFER std_logic_vector(6 DOWNTO 0);
+	HEX1 : BUFFER std_logic_vector(6 DOWNTO 0);
+	HEX2 : BUFFER std_logic_vector(6 DOWNTO 0);
+	HEX3 : BUFFER std_logic_vector(6 DOWNTO 0);
+	HEX4 : BUFFER std_logic_vector(6 DOWNTO 0);
+	HEX5 : BUFFER std_logic_vector(6 DOWNTO 0);
+	LEDR : BUFFER std_logic_vector(17 DOWNTO 0)
 	);
 END LCD_klokke_SF;
 
@@ -211,6 +211,7 @@ SIGNAL ww_LCD_RS : std_logic;
 SIGNAL ww_LCD_EN : std_logic;
 SIGNAL ww_LCD_RW : std_logic;
 SIGNAL ww_LCD_ON : std_logic;
+SIGNAL ww_LCD_DATA : std_logic_vector(7 DOWNTO 0);
 SIGNAL ww_HEX0 : std_logic_vector(6 DOWNTO 0);
 SIGNAL ww_HEX1 : std_logic_vector(6 DOWNTO 0);
 SIGNAL ww_HEX2 : std_logic_vector(6 DOWNTO 0);
@@ -1287,16 +1288,16 @@ SIGNAL \lcd|DATA_BUS_VALUE\ : std_logic_vector(7 DOWNTO 0);
 SIGNAL \digital_klokke|timer_std\ : std_logic_vector(4 DOWNTO 0);
 SIGNAL \enable_gen_1|teller\ : std_logic_vector(25 DOWNTO 0);
 SIGNAL antall_runder : std_logic_vector(4 DOWNTO 0);
-SIGNAL \digital_klokke|dekoder_1|ALT_INV_Mux0~0_combout\ : std_logic;
-SIGNAL \digital_klokke|dekoder_0|ALT_INV_Mux0~0_combout\ : std_logic;
-SIGNAL \lcd|ALT_INV_LCD_RW_INT~q\ : std_logic;
-SIGNAL \lcd|ALT_INV_LCD_E~q\ : std_logic;
 SIGNAL \digital_klokke|bin2bcd_2|Div0|auto_generated|divider|divider|ALT_INV_add_sub_6_result_int[5]~8_combout\ : std_logic;
+SIGNAL \lcd|ALT_INV_DATA_BUS_VALUE\ : std_logic_vector(5 DOWNTO 3);
 SIGNAL \lcd|ALT_INV_state.Print_String~q\ : std_logic;
 SIGNAL \digital_klokke|dekoder_4|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \digital_klokke|dekoder_3|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \digital_klokke|dekoder_2|ALT_INV_Mux0~0_combout\ : std_logic;
-SIGNAL \lcd|ALT_INV_DATA_BUS_VALUE\ : std_logic_vector(5 DOWNTO 3);
+SIGNAL \digital_klokke|dekoder_1|ALT_INV_Mux0~0_combout\ : std_logic;
+SIGNAL \digital_klokke|dekoder_0|ALT_INV_Mux0~0_combout\ : std_logic;
+SIGNAL \lcd|ALT_INV_LCD_RW_INT~q\ : std_logic;
+SIGNAL \lcd|ALT_INV_LCD_E~q\ : std_logic;
 
 COMPONENT hard_block
     PORT (
@@ -1314,6 +1315,7 @@ LCD_RS <= ww_LCD_RS;
 LCD_EN <= ww_LCD_EN;
 LCD_RW <= ww_LCD_RW;
 LCD_ON <= ww_LCD_ON;
+LCD_DATA <= ww_LCD_DATA;
 HEX0 <= ww_HEX0;
 HEX1 <= ww_HEX1;
 HEX2 <= ww_HEX2;
@@ -1344,18 +1346,18 @@ ww_devpor <= devpor;
 \memory_rtl_0|auto_generated|ram_block1a7\ <= \memory_rtl_0|auto_generated|ram_block1a0_PORTBDATAOUT_bus\(7);
 
 \clock_50~inputclkctrl_INCLK_bus\ <= (vcc & vcc & vcc & \clock_50~input_o\);
-\digital_klokke|dekoder_1|ALT_INV_Mux0~0_combout\ <= NOT \digital_klokke|dekoder_1|Mux0~0_combout\;
-\digital_klokke|dekoder_0|ALT_INV_Mux0~0_combout\ <= NOT \digital_klokke|dekoder_0|Mux0~0_combout\;
-\lcd|ALT_INV_LCD_RW_INT~q\ <= NOT \lcd|LCD_RW_INT~q\;
-\lcd|ALT_INV_LCD_E~q\ <= NOT \lcd|LCD_E~q\;
 \digital_klokke|bin2bcd_2|Div0|auto_generated|divider|divider|ALT_INV_add_sub_6_result_int[5]~8_combout\ <= NOT \digital_klokke|bin2bcd_2|Div0|auto_generated|divider|divider|add_sub_6_result_int[5]~8_combout\;
+\lcd|ALT_INV_DATA_BUS_VALUE\(5) <= NOT \lcd|DATA_BUS_VALUE\(5);
+\lcd|ALT_INV_DATA_BUS_VALUE\(4) <= NOT \lcd|DATA_BUS_VALUE\(4);
+\lcd|ALT_INV_DATA_BUS_VALUE\(3) <= NOT \lcd|DATA_BUS_VALUE\(3);
 \lcd|ALT_INV_state.Print_String~q\ <= NOT \lcd|state.Print_String~q\;
 \digital_klokke|dekoder_4|ALT_INV_Mux0~0_combout\ <= NOT \digital_klokke|dekoder_4|Mux0~0_combout\;
 \digital_klokke|dekoder_3|ALT_INV_Mux0~0_combout\ <= NOT \digital_klokke|dekoder_3|Mux0~0_combout\;
 \digital_klokke|dekoder_2|ALT_INV_Mux0~0_combout\ <= NOT \digital_klokke|dekoder_2|Mux0~0_combout\;
-\lcd|ALT_INV_DATA_BUS_VALUE\(5) <= NOT \lcd|DATA_BUS_VALUE\(5);
-\lcd|ALT_INV_DATA_BUS_VALUE\(4) <= NOT \lcd|DATA_BUS_VALUE\(4);
-\lcd|ALT_INV_DATA_BUS_VALUE\(3) <= NOT \lcd|DATA_BUS_VALUE\(3);
+\digital_klokke|dekoder_1|ALT_INV_Mux0~0_combout\ <= NOT \digital_klokke|dekoder_1|Mux0~0_combout\;
+\digital_klokke|dekoder_0|ALT_INV_Mux0~0_combout\ <= NOT \digital_klokke|dekoder_0|Mux0~0_combout\;
+\lcd|ALT_INV_LCD_RW_INT~q\ <= NOT \lcd|LCD_RW_INT~q\;
+\lcd|ALT_INV_LCD_E~q\ <= NOT \lcd|LCD_E~q\;
 auto_generated_inst : hard_block
 PORT MAP (
 	devoe => ww_devoe,
