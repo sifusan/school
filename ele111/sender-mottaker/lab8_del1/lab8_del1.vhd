@@ -14,16 +14,6 @@ entity lab8_del1 is
 end entity lab8_del1;
 
 architecture rtl of lab8_del1 is
-  component baudarate_gen is
-  port(
-        CLOCK_50      : in std_logic;
-        resetn        : in std_logic;
-        velg_baudrate : in std_logic_vector(2 downto 0);
-        start_teller  : in std_logic
-        baud_enable_m : out std_logic;
-        baud_enable_s : out std_logic
-  );
-end component baudarate_gen;
   component Enable_gen is
     port (
           clock_50    : in std_logic;
@@ -46,7 +36,6 @@ end component baudarate_gen;
   signal hallo          : std_logic;
   signal sender         : std_logic;
   signal mottatt_blink  : std_logic;
-  signal start_teller   : std_logic;
   signal vippe_a, vippe_b : std_logic;
 begin
   Enable_gen_inst : Enable_gen
@@ -60,10 +49,9 @@ begin
   reset_sync_inst : reset_sync
     port map (
               clk         => CLOCK_50,
-              rst_n  => KEY(3),
+              rst_n       => KEY(3),
               rst_clk_n   => resetn
     );
-
 
   p_hallo : process (CLOCK_50)  is
   begin
@@ -77,7 +65,7 @@ begin
   end process;
 
   LEDR(17) <= hallo;
-  sender <= SW(17); --nice
+  sender <= SW(17);
   LEDG(0) <= sender;
 
   p_send_motta_hallo : process (CLOCK_50) is

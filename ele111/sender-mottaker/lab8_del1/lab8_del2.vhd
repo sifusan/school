@@ -50,7 +50,7 @@ architecture rtl of lab8_del1 is
   signal start_teller   : std_logic;
   signal vippe_a, vippe_b : std_logic;
   signal start_teller , baud_enable_m, baud_enable_s : std_logic;
-  signal data_inn_q, data_inn_qq, data_inn_qqq : std_logic;
+  signal data_inn, data_ut, data_inn_q, data_inn_qq, data_inn_qqq : std_logic;
 begin
 
   baudarate_gen : baudarate_gen_1
@@ -113,7 +113,7 @@ begin
   end process;
 
   LEDR(17) <= hallo;
-  sender <= SW(17); --nice
+  sender <= SW(17);
   LEDG(0) <= sender;
 
   p_send_motta_hallo : process (CLOCK_50) is
