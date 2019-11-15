@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Fri Nov 15 14:00:37 2019
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : del2_v2
+Top-level Entity Name : del2_v2
+Family : Cyclone IV E
+Total logic elements : 607
+    Total combinational functions : 600
+    Dedicated logic registers : 110
+Total registers : 110
+Total pins : 85
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

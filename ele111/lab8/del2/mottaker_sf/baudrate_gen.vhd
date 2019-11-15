@@ -32,7 +32,7 @@ begin
                 baud_enable_s <= '0';
             else
                 teller <= teller +1;
-                  baud_enable_m <= '0';
+                baud_enable_m <= '0';
                 baud_enable_s <= '0';
                 if teller = baud_tall /2 then
                     baud_enable_m <= '1';
@@ -43,4 +43,4 @@ begin
             end if; -- resetn
         end if; -- risng_edge_clock
     end process p_baud_teller;
-e
+end architecture;

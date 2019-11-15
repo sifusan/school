@@ -1,0 +1,16 @@
+
+State Machine - |del2_v2|rec_state
+Name rec_state.s_error rec_state.s_offload rec_state.s_shift_in rec_state.s_wait_for_sender rec_state.s_idle 
+rec_state.s_idle 0 0 0 0 0 
+rec_state.s_wait_for_sender 0 0 0 1 1 
+rec_state.s_shift_in 0 0 1 0 1 
+rec_state.s_offload 0 1 0 0 1 
+rec_state.s_error 1 0 0 0 1 
+
+State Machine - |del2_v2|sender_state
+Name sender_state.s_finish sender_state.s_wait sender_state.s_shift_out sender_state.s_transmit sender_state.s_idle 
+sender_state.s_idle 0 0 0 0 0 
+sender_state.s_transmit 0 0 0 1 1 
+sender_state.s_shift_out 0 0 1 0 1 
+sender_state.s_wait 0 1 0 0 1 
+sender_state.s_finish 1 0 0 0 1 
