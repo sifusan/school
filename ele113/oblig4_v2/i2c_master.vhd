@@ -68,6 +68,7 @@ begin
     if rising_edge(CLK) then
       if RST = '1' then
         STATE <= s_IDLE;
+        NO_ACK <= '0';
       else
         case STATE is
           when s_IDLE =>
@@ -76,6 +77,7 @@ begin
             SDA_OE <= '1';
             DONE <= '1';
             IDLE <= '1';
+            NO_ACK <= '0';
             if EN = '1' then
               IDLE <= '0';
               STATE <= s_START;
@@ -100,6 +102,7 @@ begin
           when s_WRITE_BIT =>
             if DELAY_FIN = '1' then
               if WR_N = '0' then
+                NO_ACK <= '0';
                 DONE <= '0'; --setter done til lav etter første write
                 SDA_OUT <= WR_BYTE(BYTE_SZ - WR_INDEX);
                 WR_INDEX <= WR_INDEX + 1;
@@ -109,6 +112,7 @@ begin
                 end if;
                 STATE <= s_CLK;
               elsif WR_N = '1' then
+                NO_ACK <= SDA_IN;
                 SDA_OE <= '1';
                 WAIT_RDY <= '1';
                 SDA_OUT <= STOP;
@@ -156,11 +160,13 @@ begin
                 WAIT_RDY <= '1';
                 STATE <= s_CLK;
               elsif WR_N = '1' then
+                NO_ACK <= '0';
                 RD_BYTE(BYTE_SZ - RD_INDEX) <= SDA_IN;
                 RD_INDEX <= RD_INDEX + 1;
                 if RD_INDEX = BYTE_SZ then
                   RD_INDEX <= 0;
                   READ_DONE <= '1';
+
                 end if;
                 STATE <= s_CLK;
               end if;
@@ -181,6 +187,7 @@ begin
               end if;
 
           when s_STOP =>
+            NO_ACK <= '0';
             if DELAY_FIN = '1' then
               SDA_OE <= '1';
               SCL_S <= '1';
