@@ -187,8 +187,8 @@ begin
               end if;
 
           when s_STOP =>
-            NO_ACK <= '0';
             if DELAY_FIN = '1' then
+              NO_ACK <= '0';
               SDA_OE <= '1';
               SCL_S <= '1';
               SDA_OUT <= SCL_S;
