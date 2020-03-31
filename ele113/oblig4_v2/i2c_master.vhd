@@ -31,9 +31,9 @@ architecture RTL of i2c_master is
   signal WR_INDEX         : integer range 0 to BYTE_SZ+1 := 0;
   signal RD_INDEX         : integer range 0 to BYTE_SZ+1 := 0;
 
-  signal WAIT_RDY         : std_logic := '0';
-  signal WRITE_DONE       : std_logic := '0';
-  signal READ_DONE        : std_logic := '0';
+  signal WAIT_RDY         : std_logic;
+  signal WRITE_DONE       : std_logic;
+  signal READ_DONE        : std_logic;
 
   signal DELAY_CNT        : std_logic_vector(7 downto 0) := (others => '0');
   signal DELAY_FIN        : std_logic;
@@ -68,7 +68,7 @@ begin
     if rising_edge(CLK) then
       if RST = '1' then
         STATE <= s_IDLE;
-        NO_ACK <= '0';
+        -- NO_ACK <= '0';
       else
         case STATE is
           when s_IDLE =>
@@ -78,6 +78,9 @@ begin
             DONE <= '1';
             IDLE <= '1';
             NO_ACK <= '0';
+            WAIT_RDY <= '0';
+            READ_DONE <= '0';
+            WRITE_DONE <= '0';
             if EN = '1' then
               IDLE <= '0';
               STATE <= s_START;
@@ -112,7 +115,7 @@ begin
                 end if;
                 STATE <= s_CLK;
               elsif WR_N = '1' then
-                NO_ACK <= SDA_IN;
+                NO_ACK <= STOP;
                 SDA_OE <= '1';
                 WAIT_RDY <= '1';
                 SDA_OUT <= STOP;
