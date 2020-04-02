@@ -38,7 +38,7 @@ architecture RTL of i2c_master is
   signal DELAY_CNT        : std_logic_vector(7 downto 0) := (others => '0');
   signal DELAY_FIN        : std_logic;
 
-  type t_STATE is (s_IDLE, s_START, s_CLK, s_WRITE_BIT, s_READ_BIT, s_WAIT, s_STOP);
+  type t_STATE is (s_IDLE, s_START, s_TRANSFER, s_WRITE_BIT, s_READ_BIT, s_WAIT, s_STOP);
   signal STATE  : t_STATE := s_IDLE;
 
 begin
@@ -113,19 +113,18 @@ begin
                   WRITE_DONE <= '1';
                   WR_INDEX <= 0;
                 end if;
-                STATE <= s_CLK;
+                STATE <= s_TRANSFER;
               elsif WR_N = '1' then
                 NO_ACK <= STOP;
                 SDA_OE <= '1';
                 WAIT_RDY <= '1';
                 SDA_OUT <= STOP;
-                STATE <= s_CLK;
+                STATE <= s_TRANSFER;
               end if;
             end if;
 
-          --clock values with SCL and select next appropriate state
-          --accounts for TSU, not TS
-          WHEN s_CLK =>
+          --transfer values with SCL and select next appropriate operation
+          WHEN s_TRANSFER =>
             if DELAY_FIN = '1' and SCL_S = '0' then
               SCL_S <= '1';
             elsif DELAY_FIN = '1' and SCL_S = '1' then
@@ -161,7 +160,7 @@ begin
                 SDA_OUT <= '0';
                 SCL_S <= '0';
                 WAIT_RDY <= '1';
-                STATE <= s_CLK;
+                STATE <= s_TRANSFER;
               elsif WR_N = '1' then
                 NO_ACK <= '0';
                 RD_BYTE(BYTE_SZ - RD_INDEX) <= SDA_IN;
@@ -169,9 +168,8 @@ begin
                 if RD_INDEX = BYTE_SZ then
                   RD_INDEX <= 0;
                   READ_DONE <= '1';
-
                 end if;
-                STATE <= s_CLK;
+                STATE <= s_TRANSFER;
               end if;
             end if;
 
