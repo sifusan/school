@@ -1,4 +1,0 @@
-library ieee;
-use iee.std_logic_1164.all;
-
-entity Dekoder_7Seg_DE2_nn is

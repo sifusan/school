@@ -1,8 +1,0 @@
-
-State Machine - |mottaker_sf|state
-Name state.s_error state.s_offload state.s_shift_in state.s_wait_for_sender state.s_idle 
-state.s_idle 0 0 0 0 0 
-state.s_wait_for_sender 0 0 0 1 1 
-state.s_shift_in 0 0 1 0 1 
-state.s_offload 0 1 0 0 1 
-state.s_error 1 0 0 0 1 

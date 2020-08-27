@@ -1,9 +1,0 @@
-
-State Machine - |sender_sf|state
-Name state.s_wait state.s_finish state.s_shift_out state.s_transmit state.tmp_baud_s state.s_idle 
-state.s_idle 0 0 0 0 0 0 
-state.tmp_baud_s 0 0 0 0 1 1 
-state.s_transmit 0 0 0 1 0 1 
-state.s_shift_out 0 0 1 0 0 1 
-state.s_finish 0 1 0 0 0 1 
-state.s_wait 1 0 0 0 0 1 
